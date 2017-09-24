@@ -7,7 +7,7 @@ public class DPDiceGame {
 	
 	public int countDiceProb(int n){
 		if(n<0)
-		{
+		{//exception
 			throw new IllegalArgumentException();
 		}
 		
