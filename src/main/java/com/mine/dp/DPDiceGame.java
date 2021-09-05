@@ -1,4 +1,4 @@
-package com.mine.algo;
+package com.mine.dp;
 
 import java.util.HashMap;
 import java.util.Map;
