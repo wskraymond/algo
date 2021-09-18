@@ -1,4 +1,4 @@
-package com.mine.dp;
+package com.mine.dp.palindrome.longestsubstr;
 
 /**
  * dp(i,i)=true for [a], and default return :""

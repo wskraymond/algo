@@ -1,4 +1,4 @@
-package com.mine.dp;
+package com.mine.gametheory;
 
 /**
  * use 2d array to store every result of dp(i,j) from bottom up

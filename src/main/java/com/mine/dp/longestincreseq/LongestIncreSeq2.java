@@ -1,6 +1,8 @@
-package com.mine.dp;
+package com.mine.dp.longestincreseq;
 
-public class LongestIncreSeq {
+import java.util.Arrays;
+
+public class LongestIncreSeq2 {
     /**
      * case 0
      * arr: 1 2
@@ -35,19 +37,36 @@ public class LongestIncreSeq {
      * @return
      */
     public int lengthOfLIS(int[] nums) {
-        return lengthOfLIS(nums,Integer.MIN_VALUE, 0);
+        int n = nums.length;
+        int[][] dp = new int[n+1][n];
+        for(int[] a:dp){
+            Arrays.fill(a,-1);
+        }
+        return lengthOfLIS(nums,-1, 0, dp);
     }
 
-    public int lengthOfLIS(int[] nums, int prev, int i) {
+    public int lengthOfLIS(int[] nums, int prevIndex, int i, int[][] dp) {
         if(i==nums.length)
             return 0;
 
+        if(dp[prevIndex+1][i]>=0)
+        {//as it is top-down approach , we have to check this
+            return dp[prevIndex+1][i];
+        }
+
         int val1 = 0;
-        if(nums[i]>prev)
-            val1 = lengthOfLIS(nums, nums[i], i+1) + 1;
 
-        int val2 = lengthOfLIS(nums, prev, i+1);
+        //num[prevIndex]'s value will affect the condition
+        //so , it means different preIndex will generate different result
+        //The func(preIndex, i) needs to be memoized 2d array
+        // instead of only current index (1d array)
+        if(prevIndex<0 || nums[i] > nums[prevIndex])  //if -1, then any value >= Integer.MIN_VALUE
+            val1 = lengthOfLIS(nums, i, i+1, dp) + 1;
 
-        return Math.max(val1, val2);
+        int val2 = lengthOfLIS(nums, prevIndex, i+1, dp);
+
+        dp[prevIndex+1][i] =  Math.max(val1, val2);
+
+        return dp[prevIndex+1][i]; //O(n^2)
     }
 }

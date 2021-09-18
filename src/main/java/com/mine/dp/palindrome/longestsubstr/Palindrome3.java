@@ -1,4 +1,4 @@
-package com.mine.dp;
+package com.mine.dp.palindrome.longestsubstr;
 
 /**
  * expanding around center (the number of center for string with size=N = 2N-1)

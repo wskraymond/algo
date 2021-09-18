@@ -1,4 +1,4 @@
-package com.mine.dp;
+package com.mine.dp.palindrome.longestsubstr;
 
 /**
  * rule 1: dp(i,i)=true for [a], and default return :""
@@ -26,7 +26,7 @@ package com.mine.dp;
 public class Palindrome2 {
     public String longestPalindrome(String s) {
         int max = 0;
-        String result = "";
+        int start = 0;
         boolean[][] dp = new boolean[s.length()][s.length()];
         for(int size=1;size<=s.length();size++)
         {
@@ -47,12 +47,12 @@ public class Palindrome2 {
 
                 if(dp[i][j] && size>max){
                     max = size; //**********don't get to set
-                    result = s.substring(i,j+1);
+                    start = i;
                 }
             }
         }
 
-        return result;
+        return s.substring(start, start+max);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.mine.dp;
+package com.mine.gametheory;
 
 public class StoneGame {
     public static void main(String[] args){

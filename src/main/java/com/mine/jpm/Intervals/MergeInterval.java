@@ -1,5 +1,7 @@
 package com.mine.jpm.Intervals;
 
+import java.util.*;
+
 public class MergeInterval {
     /**
      * Given an array of intervals where intervals[i] = [starti, endi],
@@ -19,10 +21,43 @@ public class MergeInterval {
      * Output: [[1,5]]
      * Explanation: Intervals [1,4] and [4,5] are considered overlapping.
      *
+     * Constraints:
+     *
+     *     1 <= intervals.length <= 104
+     *     intervals[i].length == 2
+     *     0 <= starti <= endi <= 104
+     *
      * @param intervals
      * @return
      */
     public int[][] merge(int[][] intervals) {
-        return null;
+//        List<int[]> result = new ArrayList<>(intervals.length);
+        //instead of using Array or ArrayList
+        //frequent add() and getLast() without element shift
+        LinkedList<int[]> result = new LinkedList<>();
+
+        Arrays.sort(intervals, Comparator.comparingInt(i->i[0]));
+
+        for(int i=0; i<intervals.length; i++){
+            int[] top = result.isEmpty() ? null : result.getLast();
+            if(top==null
+                || intervals[i][0] > top[1]){
+                result.add(Arrays.copyOf(intervals[i], 2));
+            } else if(intervals[i][1] > top[1]){
+                top[1] = intervals[i][1]; //reset
+            } //else the top is the longest one
+        }
+
+        /**
+         *
+         Space complexity : O(logN) (or O(n))
+
+         If we can sort intervals in place,
+         we do not need more than constant additional space,
+         although the sorting itself takes O(log⁡n)O(\log n)O(logn) space.
+         Otherwise, we must allocate linear space to store a copy of intervals and sort that.
+
+         */
+        return result.toArray(new int[result.size()][2]);
     }
 }

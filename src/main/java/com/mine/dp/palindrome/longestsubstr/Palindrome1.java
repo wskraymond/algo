@@ -1,4 +1,4 @@
-package com.mine.dp;
+package com.mine.dp.palindrome.longestsubstr;
 
 /**
  * brute force , 3 loop

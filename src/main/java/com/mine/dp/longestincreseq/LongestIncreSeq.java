@@ -1,9 +1,46 @@
-package com.mine.dp;
+package com.mine.dp.longestincreseq;
 
-import java.util.Arrays;
-
-public class LongestIncreSeq2 {
+public class LongestIncreSeq {
     /**
+     *
+     * Given an integer array nums,
+     * return the length of the longest strictly increasing subsequence.
+     *
+     * A subsequence is a sequence that can be derived from an array
+     * by deleting some or no elements
+     * without changing the order of the remaining elements.
+     * For example, [3,6,2,7] is a subsequence of the array [0,3,1,6,2,2,7].
+     *
+     *
+     *
+     * Example 1:
+     *
+     * Input: nums = [10,9,2,5,3,7,101,18]
+     * Output: 4
+     * Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
+     *
+     * Example 2:
+     *
+     * Input: nums = [0,1,0,3,2,3]
+     * Output: 4
+     *
+     * Example 3:
+     *
+     * Input: nums = [7,7,7,7,7,7,7]
+     * Output: 1
+     *
+     *
+     *
+     * Constraints:
+     *
+     *     1 <= nums.length <= 2500
+     *     -104 <= nums[i] <= 104
+     *
+     *
+     *
+     * Follow up: Can you come up with an algorithm that runs in O(n log(n)) time complexity?
+     *
+     * Case Study:
      * case 0
      * arr: 1 2
      * Max(2,1): T(-oo, 0) = Max(T(arr[0],1) + 1, T(-oo, 1))    // 1>-oo , include index 0 for [-oo->1] or skip index 0 for [-oo-> empty]
@@ -37,31 +74,19 @@ public class LongestIncreSeq2 {
      * @return
      */
     public int lengthOfLIS(int[] nums) {
-        int n = nums.length;
-        int[][] dp = new int[n+1][n];
-        for(int[] a:dp){
-            Arrays.fill(a,-1);
-        }
-        return lengthOfLIS(nums,-1, 0, dp);
+        return lengthOfLIS(nums,Integer.MIN_VALUE, 0);
     }
 
-    public int lengthOfLIS(int[] nums, int prevIndex, int i, int[][] dp) {
+    public int lengthOfLIS(int[] nums, int prev, int i) {
         if(i==nums.length)
             return 0;
 
-        if(dp[prevIndex+1][i]>=0)
-        {//as it is top-down approach , we have to check this
-            return dp[prevIndex+1][i];
-        }
-
         int val1 = 0;
-        if(prevIndex<0 || nums[i] > nums[prevIndex])  //if -1, then any value >= Integer.MIN_VALUE
-            val1 = lengthOfLIS(nums, i, i+1, dp) + 1;
+        if(nums[i]>prev)
+            val1 = lengthOfLIS(nums, nums[i], i+1) + 1;
 
-        int val2 = lengthOfLIS(nums, prevIndex, i+1, dp);
+        int val2 = lengthOfLIS(nums, prev, i+1);
 
-        dp[prevIndex+1][i] =  Math.max(val1, val2);
-
-        return dp[prevIndex+1][i];
+        return Math.max(val1, val2);
     }
 }

@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.mine.dp.Palindrome3;
+import com.mine.dp.palindrome.longestsubstr.Palindrome3;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
