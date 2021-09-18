@@ -1,4 +1,4 @@
-package com.mine.gametheory;
+package com.mine.gametheory.minmax;
 
 /**
  * use 2d array to store every result of dp(i,j) from bottom up

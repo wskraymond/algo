@@ -1,4 +1,4 @@
-package com.mine.gametheory;
+package com.mine.gametheory.minmax;
 
 public class StoneGame {
     public static void main(String[] args){

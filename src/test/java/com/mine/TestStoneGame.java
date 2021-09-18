@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.mine.gametheory.StoneGame3;
+import com.mine.gametheory.minmax.StoneGame3;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

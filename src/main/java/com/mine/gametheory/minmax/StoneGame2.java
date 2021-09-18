@@ -1,4 +1,4 @@
-package com.mine.gametheory;
+package com.mine.gametheory.minmax;
 
 /**
  * divide and conquer with recursion
