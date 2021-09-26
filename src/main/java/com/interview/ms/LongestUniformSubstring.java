@@ -1,4 +1,4 @@
-package com.mine.ms;
+package com.interview.ms;
 
 public class LongestUniformSubstring {
     /**

@@ -1,4 +1,4 @@
-package com.mine.ms;
+package com.interview.ms;
 
 import java.util.HashMap;
 import java.util.Map;

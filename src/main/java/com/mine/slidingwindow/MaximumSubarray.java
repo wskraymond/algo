@@ -1,4 +1,4 @@
-package com.mine.ms;
+package com.mine.slidingwindow;
 
 
 /**
@@ -6,7 +6,7 @@ package com.mine.ms;
  * Output: 6
  * Explanation: [4,-1,2,1] has the largest sum = 6.
  */
-public class ContiguousSubArrayWithMaxSum {
+public class MaximumSubarray {
 
     public int play(int[] arr){
         int tmp = 0;

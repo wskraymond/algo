@@ -1,4 +1,4 @@
-package com.mine;
+package com.mine.slidingwindow;
 
 import java.util.HashMap;
 import java.util.Map;

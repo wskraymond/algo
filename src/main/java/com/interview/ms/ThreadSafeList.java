@@ -1,4 +1,4 @@
-package com.ms;
+package com.interview.ms;
 
 import java.util.ArrayList;
 import java.util.List;

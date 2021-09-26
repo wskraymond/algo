@@ -1,4 +1,4 @@
-package com.mine.gs;
+package com.mine.math;
 
 import java.util.HashMap;
 import java.util.Map;
