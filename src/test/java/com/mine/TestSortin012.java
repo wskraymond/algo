@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.mine.slidingwindow.Sorting012;
+import com.mine.linear.Sorting012;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;

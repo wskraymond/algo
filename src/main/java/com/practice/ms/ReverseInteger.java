@@ -1,4 +1,4 @@
-package com.interview.ms;
+package com.practice.ms;
 
 public class ReverseInteger {
     /**

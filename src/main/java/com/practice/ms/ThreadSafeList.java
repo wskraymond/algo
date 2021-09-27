@@ -1,4 +1,4 @@
-package com.interview.ms;
+package com.practice.ms;
 
 import java.util.ArrayList;
 import java.util.List;

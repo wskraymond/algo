@@ -1,4 +1,4 @@
-package com.mine.slidingwindow;
+package com.mine.linear;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ public class NonRepeatChar {
          * index for bucket:    index= 1010 hashValue & 00000000000000000000000000001111  (AND Gate)
          * put operation:  put 95 into Bucket with index: 10 (=1010)
          */
-        Map<Character,Integer> nc = new HashMap<Character,Integer>(256);
+        Map<Character,Integer> nc = new HashMap<Character,Integer>(256); //8 bit = 0 to 256 -1
 
         for(int i=0;i<s.length();i++){ //O(N)
             Character c = s.charAt(i);

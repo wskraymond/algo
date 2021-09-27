@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.mine.slidingwindow.NonRepeatChar;
+import com.mine.linear.NonRepeatChar;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

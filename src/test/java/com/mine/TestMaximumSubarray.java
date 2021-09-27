@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.mine.slidingwindow.MaximumSubarray;
+import com.mine.linear.maxsubarray.MaximumSubarray;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

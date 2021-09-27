@@ -1,4 +1,4 @@
-package com.interview.ms;
+package com.practice.ms;
 
 import java.util.HashMap;
 import java.util.Map;

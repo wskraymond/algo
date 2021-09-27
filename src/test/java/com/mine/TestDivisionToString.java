@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.interview.ms.DivisionToString;
+import com.practice.ms.DivisionToString;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

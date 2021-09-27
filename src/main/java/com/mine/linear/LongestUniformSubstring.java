@@ -1,4 +1,4 @@
-package com.mine.slidingwindow;
+package com.mine.linear;
 
 public class LongestUniformSubstring {
     /**
