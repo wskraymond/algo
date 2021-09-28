@@ -3,7 +3,7 @@ package com.mine.slidingwindow;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LongestSubstrWithoutRepeatingChar02 {
+public class LongestSubstrWithoutRepeatingChar_slidingwindow_chararr {
     /**
      * Given a string s, find the length of the longest substring without repeating characters.
      *
@@ -38,6 +38,18 @@ public class LongestSubstrWithoutRepeatingChar02 {
      * @return
      */
     public int lengthOfLongestSubstring(String s) {
-        return 0;
+        int[] chars = new int[128]; //letters, digits, symbols and spaces
+        int max=0;
+        for(int i=0,j=0; i<s.length();i++){
+            while(chars[s.charAt(i)]>0){
+                chars[s.charAt(j)]--;
+                j++;
+            }
+
+            chars[s.charAt(i)]++;
+            max = Math.max(max, i-j+1);
+        }
+
+        return max;
     }
 }
