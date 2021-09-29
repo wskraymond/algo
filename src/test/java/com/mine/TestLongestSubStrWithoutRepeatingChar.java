@@ -1,7 +1,6 @@
 package com.mine;
 
-import com.mine.greedy.BoatsToSavePpl;
-import com.mine.slidingwindow.LongestSubstrWithoutRepeatingChar_slidingwindow_chararr;
+import com.mine.slidingwindow.longestsubstr.LongestSubstrWithoutRepeatingChar_slidingwindow_chararr;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

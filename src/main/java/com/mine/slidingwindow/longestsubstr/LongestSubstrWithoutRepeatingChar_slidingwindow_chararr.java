@@ -1,4 +1,4 @@
-package com.mine.slidingwindow;
+package com.mine.slidingwindow.longestsubstr;
 
 import java.util.HashMap;
 import java.util.Map;

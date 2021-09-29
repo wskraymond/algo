@@ -8,8 +8,7 @@ public class ThreeSum {
      * Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
      * 1) such that i != j, i != k, and j != k, //position i, j, k
      * 2) and nums[i] + nums[j] + nums[k] == 0.
-     *
-     * Notice that the solution set must not contain duplicate triplets.
+     * 3) Notice that the solution set must not contain duplicate triplets.
      *
      * Example 1:
      *
@@ -37,27 +36,48 @@ public class ThreeSum {
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
 
-        Set<List<Integer>> result = new HashSet<>();
-        for(int i=0; i<nums.length;i++){
+        List<List<Integer>> result = new ArrayList<>();
+        int i =0 ;
+        while(i < nums.length){
+            if(nums[i]> 0){ //impossibly sum to zero
+                break;
+            } //[0, 0, 0] is one of solutions.
 
-        }
+            twoSum(nums, i++, result);
 
-
-    }
-
-    public int[] twoSum(int[] numbers,int i, int j, int target) {
-        target=-target;
-        while(i<j){
-            if(numbers[i] + numbers[j] > target){
-                j--;
-            } else if(numbers[i] + numbers[j] < target) {
+            while(i < nums.length
+                    && nums[i-1] == nums[i]){
                 i++;
-            } else {
-                target=-target;
-                return  new int[]{numbers[i], numbers[j], target};
             }
         }
 
-        return null;
+        return result;
     }
+
+    public void twoSum(int[] nums, int firstIndex, List<List<Integer>> result) {
+        int first = nums[firstIndex];
+        int i = firstIndex + 1;
+        int j = nums.length - 1;
+
+        while(i<j){
+            if(first + nums[i] + nums[j] > 0){
+                j--;
+            } else if(first + nums[i] + nums[j] < 0){
+                i++;
+            } else {
+                //add to result and then move inward for both i , j.
+                result.add(Arrays.asList(first, nums[i++] , nums[j--]));
+                while(i < j
+                        && nums[i-1] == nums[i]){ //skip duplicate i
+                    i++;
+                }
+
+                while(i < j
+                        && nums[j+1] == nums[j]){ //skip duplicate j
+                    j--;
+                }
+            }
+        }
+    }
+
 }
