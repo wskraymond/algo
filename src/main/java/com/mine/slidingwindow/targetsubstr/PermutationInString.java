@@ -39,13 +39,15 @@ public class PermutationInString {
             chars[s1.charAt(i) - 'a']++;
         }
 
-        for(int i=0, j=0; i<s2.length() && count>0 ; i++){
+        for(int i=0, j=1; i<s2.length() && count>0 ; i++){
             char r = s2.charAt(i);
             if(chars[r - 'a']>0){
                 chars[r-'a']--;
                 count--;
             } else {
-                //j==i , no elements matches
+                if(j==i){
+                    j++;
+                }
                 while(j<i){
                     char l = s2.charAt(j);
                     chars[l - 'a']++;
@@ -54,5 +56,7 @@ public class PermutationInString {
                 }
             }
         }
+
+        return count==0;
     }
 }

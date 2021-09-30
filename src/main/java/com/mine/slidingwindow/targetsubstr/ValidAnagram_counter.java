@@ -2,7 +2,7 @@ package com.mine.slidingwindow.targetsubstr;
 
 import java.util.Arrays;
 
-public class ValidAnagram {
+public class ValidAnagram_counter {
     /**
      *
      * https://leetcode.com/problems/valid-anagram/
@@ -39,12 +39,18 @@ public class ValidAnagram {
             return false;
         }
 
-        char[] sc = s.toCharArray();
-        char[] tc = t.toCharArray();
+        int[] chars = new int[26]; //lowercase letters
+        for(int i=0;i<s.length();i++){
+            chars[s.charAt(i) - 'a']++;
+            chars[t.charAt(i) - 'a']--;
+        }
 
-        Arrays.sort(tc);
-        Arrays.sort(tc);
+        for(int count: chars){
+            if(count>0){
+                return false;
+            }
+        }
 
-        return Arrays.equals(sc, tc);
+        return true;
     }
 }
