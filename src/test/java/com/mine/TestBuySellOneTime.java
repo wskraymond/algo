@@ -1,12 +1,12 @@
 package com.mine;
 
-import com.mine.jpm.buysellstock.BuySellOneTime_slidewindow;
+import com.mine.jpm.buysellstock.BuySellOneTime;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestBuySellOneTime {
-    private static BuySellOneTime_slidewindow sol = new BuySellOneTime_slidewindow();
+    private static BuySellOneTime sol = new BuySellOneTime();
     @Test
     public void testCase1(){
         assertEquals(5, sol.maxProfit(new int[]{7,1,5,3,6,4}));

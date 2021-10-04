@@ -2,6 +2,9 @@ package com.mine.math;
 
 
 /**
+ * https://leetcode.com/problems/optimal-division/solution/
+ *
+ *
  * Input: [1000,100,10,2]
  * Output: "1000/(100/10/2)"
  * Explanation:
@@ -17,7 +20,12 @@ package com.mine.math;
 
 /**
  *
- *  Using some simple math we can find the easy solution of this problem. Consider the input in the form of [a,b,c,d], now we have to set priority of operations to maximize a/b/c/d. We know that to maximize fraction p/qp/q, qq(denominator) should be minimized. So, to maximize a/b/c/da/b/c/d we have to first minimize b/c/d. Now our objective turns to minimize the expression b/c/d.
+ *  Using some simple math we can find the easy solution of this problem.
+ *  Consider the input in the form of [a,b,c,d],
+ *  now we have to set priority of operations to maximize a/b/c/d.
+ *  We know that to maximize fraction p/qp/q, qq(denominator) should be minimized.
+ *  So, to maximize a/b/c/da/b/c/d we have to first minimize b/c/d.
+ *  Now our objective turns to minimize the expression b/c/d.
  *
  * There are two possible combinations of this expression, b/(c/d) and (b/c)/d.
  *
@@ -26,7 +34,9 @@ package com.mine.math;
  * d/c            1/(d*c)
  * Obviously, d/c > 1/(d*c)d/c>1/(d∗c) for d>1d>1.
  *
- * You can see that second combination will always be less than first one for numbers greater than 11. So, the answer will be a/(b/c/d). Similarly for expression like a/b/c/d/e/f... answer will be a/(b/c/d/e/f...).
+ * You can see that second combination will always be less than first one for numbers greater than 11.
+ * So, the answer will be a/(b/c/d).
+ * Similarly for expression like a/b/c/d/e/f... answer will be a/(b/c/d/e/f...).
  *
  *
  *

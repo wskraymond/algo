@@ -1,7 +1,6 @@
 package com.mine;
 
-import com.mine.math.MyPow;
-import com.mine.math.Sqrt;
+import com.mine.binarysearch.Sqrt;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

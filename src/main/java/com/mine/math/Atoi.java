@@ -4,7 +4,7 @@ public class Atoi {
     /**
      * case 1
      * input: "42"
-     * outpu: 42
+     * output: 42
      *
      * case 2
      * input: "     -42"

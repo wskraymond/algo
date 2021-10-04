@@ -1,7 +1,6 @@
 package com.mine;
 
 import com.mine.dp.Knapsack01;
-import com.mine.math.MyPow;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;

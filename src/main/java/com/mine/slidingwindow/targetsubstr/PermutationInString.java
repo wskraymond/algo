@@ -1,7 +1,11 @@
 package com.mine.slidingwindow.targetsubstr;
 
+import java.util.Arrays;
+
 public class PermutationInString {
     /**
+     * https://leetcode.com/problems/permutation-in-string/submissions/
+     *
      * Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
      *
      * In other words, return true if one of s1's permutations is the substring of s2.
@@ -31,32 +35,28 @@ public class PermutationInString {
      * @return
      */
     public boolean checkInclusion(String s1, String s2) {
-        int[] chars = new int[26]; //lowercase English letters
-        int count = s1.length();
+        //similar with anagram
+        if(s1.length()>s2.length()){
+            return false;
+        }
+        int[] sArr = new int[26];
+        int[] pArr = new int[26];
 
-        //init
-        for(int i=0; i<s1.length(); i++){
-            chars[s1.charAt(i) - 'a']++;
+        for(int i=0;i<s1.length();i++){
+            pArr[s1.charAt(i) - 'a']++;
         }
 
-        for(int i=0, j=1; i<s2.length() && count>0 ; i++){
-            char r = s2.charAt(i);
-            if(chars[r - 'a']>0){
-                chars[r-'a']--;
-                count--;
-            } else {
-                if(j==i){
-                    j++;
+        for(int i=0,j=0;i<s2.length();i++){
+            sArr[s2.charAt(i)-'a']++;
+            if(i-j==s1.length()-1){
+                if(Arrays.equals(sArr,pArr)){
+                    return true;
                 }
-                while(j<i){
-                    char l = s2.charAt(j);
-                    chars[l - 'a']++;
-                    j++;
-                    count++;
-                }
+                sArr[s2.charAt(j)-'a']--;
+                j++;
             }
         }
 
-        return count==0;
+        return false;
     }
 }

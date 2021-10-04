@@ -1,4 +1,4 @@
-package com.mine.math;
+package com.mine.binarysearch;
 
 public class Sqrt {
     /**

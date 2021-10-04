@@ -1,5 +1,8 @@
 package com.mine.slidingwindow.targetsubstr;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class FindAnagrams {
@@ -37,6 +40,39 @@ public class FindAnagrams {
      * @return
      */
     public List<Integer> findAnagrams(String s, String p) {
+        if(p.length()>s.length()){
+            return Collections.EMPTY_LIST;
+        }
+        List<Integer> result = new ArrayList<>();
+        int[] sArr = new int[26];
+        int[] pArr = new int[26];
 
+        for(int i=0;i<p.length();i++){
+            pArr[p.charAt(i) - 'a']++;
+        }
+
+        /*for(int i=0,j=0;i<s.length();i++){
+            sArr[s.charAt(i)-'a']++;
+            if(i-j==p.length()-1){
+                if(Arrays.equals(sArr,pArr)){
+                    result.add(j);
+                }
+                sArr[s.charAt(j)-'a']--;
+                j++;
+            }
+        }*/
+
+        for(int i=0;i<s.length();i++){
+            sArr[s.charAt(i)-'a']++;
+            if(i>=p.length()-1){
+                int start = i-(p.length()-1);
+                if(Arrays.equals(sArr,pArr)){
+                    result.add(start);
+                }
+                sArr[s.charAt(start)-'a']--;
+            }
+        }
+
+        return result;
     }
 }

@@ -1,6 +1,6 @@
 package com.mine.jpm.buysellstock;
 
-public class BuySellOneTime_slidewindow {
+public class BuySellOneTime {
 
     /**
      * You are given an array prices
@@ -38,8 +38,6 @@ public class BuySellOneTime_slidewindow {
      * @return
      */
     public int maxProfit(int[] prices) {
-        //sliding window
-        //https://www.geeksforgeeks.org/window-sliding-technique/
 
         int max = 0;
         int lowest = prices[0];
