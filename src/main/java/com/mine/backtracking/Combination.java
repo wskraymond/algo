@@ -1,6 +1,6 @@
 package com.mine.backtracking;
 
-import java.util.List;
+import java.util.*;
 
 public class Combination {
     /**
@@ -42,6 +42,31 @@ public class Combination {
      * @return
      */
     public List<List<Integer>> combine(int n, int k) {
+        /**
+         * deque is short for "double ended queue"
+         *  - Deques can also be used as LIFO (Last-In-First-Out) stacks.
+         *  - When a deque is used as a queue, FIFO (First-In-First-Out) behavior results.
+         *
+         */
+        List<List<Integer>> result = new LinkedList<>();
+        backtrack(n,k,0,0,  new LinkedList<>(), result);
 
+        /**
+         * Time Complexity = O(k * nCr)
+         */
+        return result;
+    }
+
+    public void backtrack(int n, int k, int r, int first, Deque<Integer> c, List<List<Integer>> result){
+        if(r==k){ // or c.size() == k  // then we don't need param - r
+            result.add(new LinkedList<>(c)); //O(k)
+        }
+
+        for(int i=first; i<n; i++){
+            c.add(i+1);
+            backtrack(n,k, r+1, i+1, c, result); //O(nCr)
+//            c.remove(c.size()-1);
+            c.removeLast();
+        }
     }
 }

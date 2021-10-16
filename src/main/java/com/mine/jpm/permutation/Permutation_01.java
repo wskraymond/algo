@@ -39,7 +39,7 @@ public class Permutation_01 {
         List<List<Integer>> result = new LinkedList<>();
         /**
          * using LinkedHashSet
-         *    - support the ordering of permutation
+         *    - support the ordering of permutation - O(1)
          *    - support O(1) searching
          */
         backtrack(0, nums, new LinkedHashSet<>(), result);
@@ -48,7 +48,7 @@ public class Permutation_01 {
     }
 
     public void backtrack(int r,int[] nums, Set<Integer> visit, List<List<Integer>> result){
-        if(r==nums.length){
+        if(r==nums.length){ //required number of candidates in the solution is nums.length
             result.add(visit.stream().collect(Collectors.toList()));
         }
 
