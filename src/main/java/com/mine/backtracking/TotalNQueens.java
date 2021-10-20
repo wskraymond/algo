@@ -38,11 +38,11 @@ public class TotalNQueens {
                          Set<Integer> cols, Set<Integer> diagonals,
                          Set<Integer> antiDiagonals){
         //base case
-        if(row==size){
+        if(row==size){ //the required number of candidates in a solution
             return 1;
         }
 
-
+        //n x n = #no of candidates in total
         int result = 0;
         for(int i=0;i<size;i++){
             //state - attacking direction

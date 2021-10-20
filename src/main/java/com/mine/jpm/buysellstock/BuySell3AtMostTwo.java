@@ -46,6 +46,6 @@ public class BuySell3AtMostTwo {
      * @return
      */
     public int maxProfit(int[] prices) {
-
+        return 0;
     }
 }

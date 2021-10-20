@@ -39,6 +39,6 @@ public class MinCostToMoveChips {
      * @return
      */
     public int minCostToMoveChips(int[] position) {
-
+        return 0;
     }
 }
