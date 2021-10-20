@@ -7,7 +7,7 @@ public class LongestIncreSeq3 {
      * https://leetcode.com/problems/longest-increasing-subsequence/
      * or
      *
-     * variance: https://www.geeksforgeeks.org/maximum-sum-increasing-subsequence-dp-14/
+     * variance of problem: https://www.geeksforgeeks.org/maximum-sum-increasing-subsequence-dp-14/
      *
      * Given an integer array nums, return the length of the longest strictly increasing subsequence.
      *

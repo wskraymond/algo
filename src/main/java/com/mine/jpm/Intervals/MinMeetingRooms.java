@@ -2,6 +2,8 @@ package com.mine.jpm.Intervals;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class MinMeetingRooms {
     /**
@@ -36,20 +38,20 @@ public class MinMeetingRooms {
 
         Arrays.sort(intervals, Comparator.comparingInt(i->i[0]));
 
-        int max=1;
-        int minEnd=intervals[0][1];
-        int tmp=1;
+        Queue<Integer> minEndQ = new PriorityQueue<>();
+        minEndQ.add(intervals[0][1]);
         for(int i=1;i<intervals.length;i++){
-            if(intervals[i-1][1]>intervals[i][0]){
-                tmp++;
+            int minEnd = minEndQ.peek();
+            int start = intervals[i][0];
+            int end = intervals[i][1];
+            if(start<minEnd){
+                minEndQ.add(end);
             } else {
-                max = Math.max(max, tmp);
-                tmp = 1;
+                minEndQ.poll();
+                minEndQ.add(end);
             }
         }
 
-        max = Math.max(max, tmp);
-
-        return max;
+        return minEndQ.size();
     }
 }
