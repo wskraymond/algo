@@ -1,6 +1,6 @@
 package com.mine.jpm.buysellstock;
 
-public class BuySellOneTime {
+public class BuySell1OneTime {
 
     /**
      * You are given an array prices

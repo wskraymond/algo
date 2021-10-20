@@ -1,10 +1,11 @@
 package com.mine.slidingwindow.longestsubstr;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class LongestSubstrWithAtMostKDistinct_linkedhashmap {
+public class LongestSubstrWithAtMostKDistinct_hashmap {
     /**
      * Given a string s and an integer k, return the length of the longest substring of s that contains at most k distinct characters.
      *
@@ -32,35 +33,22 @@ public class LongestSubstrWithAtMostKDistinct_linkedhashmap {
      * @return
      */
     public int lengthOfLongestSubstringKDistinct(String s, int k) {
-        if(s.length() <= k){
-            return s.length();
-        }
-
         /**
-         * - avoid collision/linear search
-         * 			- loadFactor
-         * 				- default: 0.75
-         * 				- tradeoff between space and time complexity
-         * 			- power of 2
-         * 	- avoid rehash & resize
+         * avoid rehash & resize
          * 			- initial capacity
          * 				- default = 2^4 (two to the fourth power)= 16
          * 			- max <= capacity * loadFactor (threshold)
          * 				- or capacity = max / loadFactor
          */
-        Map<Character, Integer> chars = new LinkedHashMap<>( (k+1) * 4/3 + 1);
+        Map<Character, Integer> chars = new HashMap<>(k+1);
         int max = 0;
 
         for(int i=0, j=0;i<s.length();i++){
-            Character c = s.charAt(i);
-            if(chars.containsKey(c)){
-                chars.remove(c);
-            }
+            char c = s.charAt(i);
             chars.put(c, i);
 
             if(chars.size() > k){
-//                int leftMost = Collections.min(chars.values());
-                int leftMost = chars.values().iterator().next();
+                int leftMost = Collections.min(chars.values());
                 j = leftMost + 1;
                 chars.remove(s.charAt(leftMost));
             }

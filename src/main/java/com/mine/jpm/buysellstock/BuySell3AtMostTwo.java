@@ -1,6 +1,6 @@
 package com.mine.jpm.buysellstock;
 
-public class BuySell3 {
+public class BuySell3AtMostTwo {
     /**
      * You are given an array prices where prices[i] is the price of a given stock on the ith day.
      *
