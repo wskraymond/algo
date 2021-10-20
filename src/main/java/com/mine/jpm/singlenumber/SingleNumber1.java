@@ -34,6 +34,6 @@ public class SingleNumber1 {
      * @return
      */
     public int singleNumber(int[] nums) {
-
+        return 0;
     }
 }

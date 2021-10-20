@@ -1,5 +1,8 @@
 package com.mine.jpm.Intervals;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class CanAttendMeetings {
     /**
      * Given an array of meeting time intervals
@@ -30,6 +33,14 @@ public class CanAttendMeetings {
      * @return
      */
     public boolean canAttendMeetings(int[][] intervals) {
-        return false;
+        Arrays.sort(intervals, Comparator.comparingInt(i->i[0]));
+
+        for(int i=1;i<intervals.length;i++){
+            if(intervals[i-1][1]>intervals[i][0]){
+                return false;
+            }
+        }
+
+        return true;
     }
 }

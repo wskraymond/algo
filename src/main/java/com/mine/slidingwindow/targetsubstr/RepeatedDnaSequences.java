@@ -34,6 +34,6 @@ public class RepeatedDnaSequences {
      * @return
      */
     public List<String> findRepeatedDnaSequences(String s) {
-
+        return null;
     }
 }
