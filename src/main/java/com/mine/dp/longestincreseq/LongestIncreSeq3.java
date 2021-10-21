@@ -86,8 +86,8 @@ public class LongestIncreSeq3 {
 
         //version 1
         //from vertex i
-        //to different vertex j
-        for(int i=0;i<nums.length;i++){
+        //to different vertex j(i+1.......n)
+        /*for(int i=0;i<nums.length;i++){
             for(int j=i+1;j<nums.length;j++){
                 if(nums[i]<nums[j]){ //increasing = isEdge
                     if(dp[i]+1 > dp[j]) { //put optimal choice
@@ -95,6 +95,23 @@ public class LongestIncreSeq3 {
 
                         if(parent!=null) {
                             parent[j] = i;
+                        }
+                    }
+                }
+            }
+        }*/
+
+        //version 2
+        //from different vertex j (0.....i-1)
+        //to the vertex i
+        for(int i=1;i<nums.length;i++){
+            for(int j=0;j<i;j++){
+                if(nums[j]<nums[i]){ //increasing = isEdge
+                    if(dp[j]+1 > dp[i]) { //put optimal choice
+                        dp[i] = dp[j] + 1;
+
+                        if(parent!=null) {
+                            parent[i] = j;
                         }
                     }
                 }

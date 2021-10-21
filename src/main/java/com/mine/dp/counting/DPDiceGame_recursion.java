@@ -1,10 +1,18 @@
-package com.mine.dp;
+package com.mine.dp.counting;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class DPDiceGame {
-	
+public class DPDiceGame_recursion {
+	/**
+	 * Imagine you are playing a board game.
+	 * You roll a 6-faced dice and move forward the same number of spaces that you rolled.
+	 * If the finishing point is “n” spaces away from the starting point,
+	 * please implement a program that calculates how many possible ways there are to arrive exactly at the finishing point.
+	 *
+	 * @param n
+	 * @return
+	 */
 	public int countDiceProb(int n){
 		if(n<0)
 		{//exception
