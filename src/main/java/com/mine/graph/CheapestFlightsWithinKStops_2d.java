@@ -53,6 +53,7 @@ public class CheapestFlightsWithinKStops_2d {
                         = At most [k + 2 (src&dst) - 1] Edges
                         = At most k + 1 edges
                         = At most X edges
+                        = O(k)
          1. Recursion Relations:
             f(v,x) = min{f(v, x-1), f(u, x-1) + w(u,v) | for all u to v}
          2. Base case:
@@ -66,12 +67,12 @@ public class CheapestFlightsWithinKStops_2d {
             Arrays.fill(arr, Integer.MAX_VALUE);
         }
         dp[src][0] = 0;
-        for(int i=1;i<k+2;i++){
-            for(int j=0;j<n;j++){
+        for(int i=1;i<k+2;i++){     //O(k) or in worse case (V)
+            for(int j=0;j<n;j++){   //O(V)
                 dp[j][i] = dp[j][i-1];
             }
 
-            for(int[] flight:flights){
+            for(int[] flight:flights){  //O(E)
                 final int prev = flight[0];
                 final int next = flight[1];
                 final int price = flight[2];
@@ -82,6 +83,9 @@ public class CheapestFlightsWithinKStops_2d {
             }
         }
 
+
+        //O(K)*[O(V) + O(E)]
+        //for max input k = O(V), O(V^2) + O(V*E)
         return dp[dst][k+1]!=Integer.MAX_VALUE ? dp[dst][k+1] : -1;
     }
 }

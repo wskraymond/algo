@@ -48,21 +48,23 @@ public class NetworkDelayTime {
         /**
          * src = k
          * vertexIndex: i (1...n)
-         * distance from s to i: dist(i)
+         * path distance(not yet confirmed that it is shortest) from s to i: dist(i)
          * Graph:
-         *  - Map{s,[u, w]}  or vertex[i] = [u, w];
+         *  - from j to all connected i with cost wji
+         *  - Map{j,List<[i, wji]> or vertex[j] = List<[i, wji]>
          * Min Heap:
-         *  - connected non-visited vertices
+         *  - connected vertices{path distance}
          *  - for greedy choice
          * Recursion Relations:
-         *  - dist[i] = min{heap} + w(j,i) | given w(j,i) from j to i is the locally optimal choice
+         *  - dist[i] = min{heap} + w(j,i) | given vertex(j) of min{heap} is the locally optimal choice
          *  - And given that w(j,i) >= 0
-         * Visited:
+         * Visited And/Or Shortest Distance(sd):
          *  - boolean[] visited
-         *  - visited[i] = true
-         *
+         *      - visited[i] = true
+         *  - sd[i] = min{heap} | given vertex(i) of min{heap} is the global optimal value
+         *      - if(sd[i]!=Integer.MAX_VALUE)
          * Our goal:
-         *  Max{ShortestDist}
+         *   Max{sd}
          */
 
     }
