@@ -1,5 +1,7 @@
 package com.mine.graph;
 
+import java.util.*;
+
 public class NetworkDelayTime {
     /**
      * You are given a network of n nodes,
@@ -53,7 +55,7 @@ public class NetworkDelayTime {
          *  - from j to all connected i with cost wji
          *  - Map{j,List<[i, wji]> or vertex[j] = List<[i, wji]>
          * Min Heap:
-         *  - connected vertices{path distance}
+         *  - connected vertices{i, dist(i)}
          *  - for greedy choice
          * Recursion Relations:
          *  - dist[i] = min{heap} + w(j,i) | given vertex(j) of min{heap} is the locally optimal choice
@@ -67,5 +69,52 @@ public class NetworkDelayTime {
          *   Max{sd}
          */
 
+        Map<Integer, List<int[]>> vertices = new HashMap<>((int)(n/0.75) + 1);
+        for(int[] time : times){    //O(E)
+            int from=time[0];
+            int to=time[1];
+            int cost=time[2];
+            if(!vertices.containsKey(from)){
+                vertices.put(from, new ArrayList<>());
+            }
+
+            List<int[]> edges = vertices.get(from);
+            edges.add(new int[]{to, cost});
+        }
+
+        int[] sd = new int[n+1];
+        Arrays.fill(sd, Integer.MAX_VALUE);     //O(V)
+
+        Queue<int[]> pathDistQ = new PriorityQueue<>(Comparator.comparingInt(d -> d[1]));
+        pathDistQ.add(new int[]{k, 0});
+        while(!pathDistQ.isEmpty()){
+            int[] pathDist = pathDistQ.poll();
+            int vertex = pathDist[0];
+            int dist = pathDist[1];
+
+            if(sd[vertex]!=Integer.MAX_VALUE){ //if visited     //O(V)
+                continue;
+            }
+            sd[vertex] = dist;
+
+            if(vertices.containsKey(vertex)) {
+                List<int[]> edges = vertices.get(vertex);
+                for(int[] edge: edges){     //O(E)
+                    int to = edge[0];
+                    int cost = edge[1];
+                    if(sd[to]!=Integer.MAX_VALUE) { //if visited
+                        continue;
+                    }
+
+                    pathDistQ.add(new int[]{to, sd[vertex] + cost});    //O(logE)
+                }
+            }
+        }
+
+        int max=0;
+        for(int i=1;i<=n;i++){
+            max = Math.max(max, sd[i]);
+        }
+        return max!=Integer.MAX_VALUE ? max : -1;
     }
 }
