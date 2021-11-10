@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestDivisionToString {
+public class TestFractiontoRecurringDecimal {
     private static DivisionToString sol = new DivisionToString();
     /**
      * 1) dividend=5 , divisor = 2  => 2.5 => Str: 2.5
