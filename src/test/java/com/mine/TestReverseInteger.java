@@ -10,11 +10,11 @@ public class TestReverseInteger {
 
     @Test
     public void testCase1(){
-        assertEquals(321, sol.play(123));
-        assertEquals(-321, sol.play(-123));
-        assertEquals(-1, sol.play(-100));
-        assertEquals(1, sol.play(100));
-        assertEquals(2, sol.play(2));
-        assertEquals(0, sol.play(0));
+        assertEquals(321, sol.reverse(123));
+        assertEquals(-321, sol.reverse(-123));
+        assertEquals(-1, sol.reverse(-100));
+        assertEquals(1, sol.reverse(100));
+        assertEquals(2, sol.reverse(2));
+        assertEquals(0, sol.reverse(0));
     }
 }
