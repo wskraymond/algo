@@ -1,11 +1,8 @@
 package com.mine.kwaymerge;
 
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
-public class MergeSortedArray {
+public class MergeSortedArray_backward {
     /**
      *
      * https://leetcode.com/problems/merge-sorted-array/
@@ -65,33 +62,17 @@ public class MergeSortedArray {
      * @param n
      */
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        if(n==0){
-            return;
-        }
-
-        if(m==0){
-            System.arraycopy(nums2,0, nums1, 0, nums2.length);
-            return;
-        }
-
-        int[] result = new int[m+n];
-        int i =0;
-        int[][] nums = new int[][]{nums1, nums2};
-        int[][] indices = new int[][]{{0,m},{0,n}};
-        Queue<int[]> minHeap = new PriorityQueue<>(2, Comparator.comparingInt(num->num[0]));
-        minHeap.add(new int[]{nums1[indices[0][0]++], 0});
-        minHeap.add(new int[]{nums2[indices[1][0]++], 1});
-
-        while(!minHeap.isEmpty()){
-            int[] e = minHeap.poll();
-            int num = e[0];
-            int numIndex = e[1];
-            result[i++] = num;
-            if(indices[numIndex][0] < indices[numIndex][1]) {
-                minHeap.add(new int[]{nums[numIndex][indices[numIndex][0]++], numIndex});
+        int i =m-1;
+        int j =n-1;
+        for(int k=m+n-1;k>=0;k--){
+            if(j<0){
+                break;
+            }
+            if(/*j>0 &&*/ i>=0 && nums1[i]>nums2[j]){
+                nums1[k]=nums1[i--];
+            } else {
+                nums1[k]=nums2[j--];
             }
         }
-
-        System.arraycopy(result,0, nums1, 0, result.length);
     }
 }

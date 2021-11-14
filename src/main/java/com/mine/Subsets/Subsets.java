@@ -1,6 +1,6 @@
 package com.mine.Subsets;
 
-import java.util.List;
+import java.util.*;
 
 public class Subsets {
     /**
@@ -34,6 +34,21 @@ public class Subsets {
      * @return
      */
     public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        result.add(Collections.EMPTY_LIST);
 
+        for(int num:nums){
+            List<List<Integer>> copy = new ArrayList<>();
+            for(List<Integer> l:result){
+                copy.add(new ArrayList<>(l));
+            }
+
+            for(List<Integer> set: result){
+                set.add(num);
+            }
+            result.addAll(copy);
+        }
+
+        return result;
     }
 }

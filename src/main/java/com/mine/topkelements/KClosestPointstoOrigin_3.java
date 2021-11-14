@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class KClosestPointstoOrigin {
+public class KClosestPointstoOrigin_3 {
     /**
      * Given an array of points where points[i] = [xi, yi]
      * represents a point on the X-Y plane and an integer k,
@@ -40,27 +40,25 @@ public class KClosestPointstoOrigin {
      * @return
      */
     public int[][] kClosest(int[][] points, int k) {
-        final int[] origin = new int[]{0,0};
         //negate the distance for descending order
-        Queue<double[]> maxHeap = new PriorityQueue<>(Comparator.comparingDouble(p->-p[2]));
-        for(int i=0;i<points.length;i++){
+        //heap array with initial size
+        Queue<int[]> maxHeap = new PriorityQueue<>(k+1, Comparator.comparingInt(p-> -p[2]));
+        for(int i=0;i<points.length;i++){ //O(n)
             int[] p = points[i];
-            double dis = distance(p, origin);
-            if(maxHeap.size()==k){
-                double max = maxHeap.peek()[2];
-                if(Double.compare(dis, max)<0){
-                    maxHeap.poll();
-                    maxHeap.add(new double[]{p[0], p[1], dis});
-                }
-            } else {
-                maxHeap.add(new double[]{p[0], p[1], dis});
+            //avoid recompute the sqDist when adding a new node to heap tree
+            int sqDist = sqDistFromOrigin(p);
+            maxHeap.add(new int[]{p[0], p[1], sqDist}); //O(log(k))
+
+            if(maxHeap.size() > k){
+                maxHeap.poll(); //O(log(k))
             }
         }
 
-        return maxHeap.stream().map(p->new int[]{(int) p[0], (int) p[1]}).toArray(int[][]::new);
+        return maxHeap.stream().map(p->new int[]{p[0], p[1]}).toArray(int[][]::new); //O(k*log(k))
+        //total time complexity: O(2*nlogk + k*logk) = O(nlogk)
     }
 
-    public double distance(int[] p1, int[] p2){
-        return Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
+    public int sqDistFromOrigin(int[] p){
+        return p[0]*p[0] + p[1]*p[1];
     }
 }
