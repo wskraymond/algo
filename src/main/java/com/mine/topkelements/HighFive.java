@@ -1,8 +1,11 @@
-package com.mine.math;
+package com.mine.topkelements;
+
+import java.util.*;
 
 public class HighFive {
     /**
-     * Given a list of the scores of different students, items, where items[i] = [IDi, scorei] represents one score from a student with IDi, calculate each student's top five average.
+     * Given a list of the scores of different students,
+     *      - items, where items[i] = [IDi, scorei] represents one score from a student with IDi, calculate each student's top five average.
      *
      * Return the answer as an array of pairs result, where result[j] = [IDj, topFiveAveragej] represents the student with IDj and their top five average. Sort result by IDj in increasing order.
      *
@@ -35,6 +38,27 @@ public class HighFive {
      * @return
      */
     public int[][] highFive(int[][] items) {
+        Map<Integer, Queue<Integer>> avgMap = new TreeMap<>();
+        for(int[] item: items){     //O(n)
+            final int id = item[0];
+            final int score = item[1];
+            if(!avgMap.containsKey(id)){                //worst case: O(logn) for n unique ids
+                avgMap.put(id, new PriorityQueue<>());  //worst case: O(logn) for n unique ids
+            }
 
+            Queue<Integer> minHeap = avgMap.get(id);
+            minHeap.offer(score);   //O(log(1)) for size<=5 heap
+            if(minHeap.size() > 5){
+                minHeap.poll();     //O(log(1)) for size<=5 heap
+            }
+        }
+
+        //Iteration: O(n)
+        //top 5 avg: O(5*log5) = O(1)
+        return avgMap.entrySet().stream()
+                .map(e->new int[]{e.getKey(), (int) e.getValue().stream().mapToInt(Integer::intValue).average().getAsDouble()})
+                .toArray(int[][]::new);
+
+        //Total: O(nlogn)
     }
 }

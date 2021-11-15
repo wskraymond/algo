@@ -35,16 +35,24 @@ public class Subsets {
      */
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
-        result.add(Collections.EMPTY_LIST);
+        /**
+         * https://www.baeldung.com/java-list-unsupported-operation-exception
+         *
+         * Collections.EMPTY_LIST
+         * Or Arrays.asList() are immutable
+         * (doesn't implement the add() operation)
+         *
+         * UnsupportedOperationException is thrown from AbstractList
+         */
+//        result.add(Collections.EMPTY_LIST);
+        result.add(new ArrayList<>());
 
         for(int num:nums){
             List<List<Integer>> copy = new ArrayList<>();
             for(List<Integer> l:result){
+                //shallow copy of list
                 copy.add(new ArrayList<>(l));
-            }
-
-            for(List<Integer> set: result){
-                set.add(num);
+                l.add(num);
             }
             result.addAll(copy);
         }
