@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.mine.jpm.parenthesis.ValidParentheses;
+import com.mine.stack.ValidParentheses;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

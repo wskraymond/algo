@@ -1,5 +1,10 @@
 package com.mine.stack;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.Set;
+
 public class MinRemoveToMakeValid {
     /**
      * https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
@@ -49,6 +54,45 @@ public class MinRemoveToMakeValid {
      * @return
      */
     public String minRemoveToMakeValid(String s) {
-        return null;
+        /**
+         * only '(' and ')'
+         * case 1:
+         *      (() or ()( or (
+         * case 2:
+         *      ()) or )() or )
+         * case 3:
+         *      )()( or )(() or ())( or )(
+         */
+        Deque<Integer> stack = new ArrayDeque<>(s.length());
+        for(int i=0;i<s.length();i++){ //O(n)
+            if(s.charAt(i)=='('){
+                stack.push(i);  //O(1)
+            } else if(s.charAt(i)==')'){
+                if(!stack.isEmpty()) {
+                    int top = stack.peek(); //O(1)
+                    if (s.charAt(top) == '(') {
+                        stack.pop();    //O(1)
+                    } else {
+                        stack.push(i);
+                    }
+                } else {
+                    stack.push(i);
+                }
+            } // letters
+        }
+
+        Set<Integer> removes = new HashSet<>();
+        while(!stack.isEmpty()){ //O(n)
+            removes.add(stack.pop());   //O(1)
+        }
+
+        StringBuilder result = new StringBuilder();
+        for(int i=0;i<s.length();i++){  //O(n)
+            if(!removes.contains(i)) {  //O(1)
+                result.append(s.charAt(i)); //O(1)
+            }
+        }
+
+        return result.toString();   //O(3n)
     }
 }
