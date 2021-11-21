@@ -1,4 +1,4 @@
-package com.mine.dp;
+package com.mine.dp.counting;
 
 public class CoinChange_topsort {
     /**
