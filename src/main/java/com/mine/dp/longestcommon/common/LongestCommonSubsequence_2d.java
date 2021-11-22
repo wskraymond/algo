@@ -1,6 +1,6 @@
-package com.mine.dp.longestcommon;
+package com.mine.dp.longestcommon.common;
 
-public class LongestCommonSubsequence_1d {
+public class LongestCommonSubsequence_2d {
     /**
      * Given two strings text1 and text2,
      * return the length of their longest common subsequence.
@@ -59,24 +59,21 @@ public class LongestCommonSubsequence_1d {
          *
          */
 
-        int[] current = new int[text2.length()+1];
-        int[] prev = current.clone();
-        for(int i=text1.length()-1;i>=0;i--){     //row
-            for(int j=text2.length()-1;j>=0;j--){ //column
-                //f(i,j) = Max{f(i+1,j), f(i,j+1)}
-                current[j] = Math.max(current[j], current[j+1]);
+        int[][] dp = new int[text1.length()+1][text2.length()+1];
+        for(int i=text1.length()-1;i>=0;i--){
+            for(int j=text2.length()-1;j>=0;j--){
+                dp[i][j] = Math.max(dp[i][j], dp[i+1][j]);
+                dp[i][j] = Math.max(dp[i][j], dp[i][j+1]);
                 /**
                  //wrong code
                  dp[i][j] = Math.max(dp[i][j], dp[i+1][j+1] + text1.charAt(i)==text2.charAt(j) ? 1 : 0);
                  beware of taking the parenthesis of the conditional operator
                  * */
 
-                //f(i,j) = Max{f(i,j) , f(i+1,j+1)}
-                current[j] = Math.max(current[j], prev[j+1] + (text1.charAt(i)==text2.charAt(j) ? 1 : 0));
-                prev = current.clone();
+                dp[i][j] = Math.max(dp[i][j], dp[i+1][j+1] + (text1.charAt(i)==text2.charAt(j) ? 1 : 0));
             }
         }
 
-        return current[0];
+        return dp[0][0];
     }
 }
