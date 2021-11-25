@@ -2,7 +2,10 @@ package com.mine.amazon;
 
 public class RobotBoundedInCircle {
     /**
-     * On an infinite plane, a robot initially stands at (0, 0) and faces north. The robot can receive one of three instructions:
+     * https://www.youtube.com/watch?v=nKv2LnC_g6E
+     *
+     * On an infinite plane,
+     * a robot initially stands at (0, 0) and faces north. The robot can receive one of three instructions:
      *
      * "G": go straight 1 unit;
      * "L": turn 90 degrees to the left;
