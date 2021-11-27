@@ -4,7 +4,10 @@ public class SumSubarrayMins {
     /**
      * https://leetcode.com/problems/sum-of-subarray-minimums/
      *
-     * Given an array of integers arr, find the sum of min(b), where b ranges over every (contiguous) subarray of arr. Since the answer may be large, return the answer modulo 109 + 7.
+     * Given an array of integers arr,
+     * find the sum of min(b),
+     * where b ranges over every (contiguous) subarray of arr.
+     * Since the answer may be large, return the answer modulo 109 + 7.
      *
      * Example 1:
      *
@@ -29,6 +32,17 @@ public class SumSubarrayMins {
      * @return
      */
     public int sumSubarrayMins(int[] arr) {
+        /**
+         * recurrence relation:
+         *      f(i,j) = min{f(i,j-1), arr[j]}
+         *
+         * base case:
+         *      f(i,i) = arr[i]
+         *
+         * Goal:
+         *      sum{f(i,j)}
+         */
+
 
     }
 }

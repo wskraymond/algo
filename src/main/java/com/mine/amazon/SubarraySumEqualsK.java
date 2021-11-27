@@ -5,7 +5,8 @@ public class SubarraySumEqualsK {
      *
      * https://leetcode.com/problems/subarray-sum-equals-k/
      *
-     * Given an array of integers nums and an integer k, return the total number of continuous subarrays whose sum equals to k.
+     * Given an array of integers nums and an integer k,
+     * return the total number of continuous subarrays whose sum equals to k.
      *
      * Example 1:
      *
