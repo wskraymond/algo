@@ -1,6 +1,6 @@
 package com.mine.amazon;
 
-public class SumSubarrayMins {
+public class SumSubarrayMins_TLE {
     /**
      * https://leetcode.com/problems/sum-of-subarray-minimums/
      *
@@ -34,7 +34,7 @@ public class SumSubarrayMins {
     public int sumSubarrayMins(int[] arr) {
         /**
          * recurrence relation:
-         *      f(i,j) = min{f(i,j-1), arr[j]}
+         *      f(i,j) = min{f(i,j-1), arr[i]}
          *
          * base case:
          *      f(i,i) = arr[i]
@@ -43,6 +43,25 @@ public class SumSubarrayMins {
          *      sum{f(i,j)}
          */
 
+        //https://www.geeksforgeeks.org/modulo-1097-1000000007/
+        //to avoid overflow
+        final int M = (int)1e9 + 7;
 
+        int result = 0;
+        int[][] dp = new int[arr.length][arr.length];
+        for(int size=1;size<=arr.length;size++){
+            for(int i=0, j=i+size-1;j<arr.length;j=++i+size-1){
+                if(i==j){
+                    dp[i][j]=arr[i]%M;
+                } else {
+                    dp[i][j]= Math.min(dp[i][j-1], arr[j]) %M;
+                }
+
+                result+=dp[i][j];
+                result%=M;
+            }
+        }
+
+        return result;
     }
 }
