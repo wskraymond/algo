@@ -1,4 +1,4 @@
-package com.mine.fastslowpointers.reverselinkedlist;
+package com.mine.inplacereversal.reverselinkedlist;
 
 public class ReverseLinkedList_recursive {
     /**

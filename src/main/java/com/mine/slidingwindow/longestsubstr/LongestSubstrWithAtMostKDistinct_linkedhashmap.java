@@ -6,9 +6,9 @@ import java.util.Map;
 
 public class LongestSubstrWithAtMostKDistinct_linkedhashmap {
     /**
-     * Given a string s and an integer k, return the length of the longest substring of s that contains at most k distinct characters.
-     *
-     *
+     * Given a string s and an integer k,
+     * return the length of the longest substring
+     * of s that contains at most k distinct characters.
      *
      * Example 1:
      *

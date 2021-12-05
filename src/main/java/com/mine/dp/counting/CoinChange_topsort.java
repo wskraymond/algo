@@ -1,5 +1,7 @@
 package com.mine.dp.counting;
 
+import java.util.Arrays;
+
 public class CoinChange_topsort {
     /**
      *https://www.geeksforgeeks.org/coin-change-dp-7/?ref=leftbar-rightbar
@@ -54,9 +56,24 @@ public class CoinChange_topsort {
          *
          * Base case:
          *      f(0) = 0; //valid combination
-         *      f(s<0) = -1; //valid combination
+         *      f(s<0) = -1; //invalid combination
          *
          */
-        return 0;
+
+        int[] dp = new int[amount+1]; //includes zero
+        //min integer amoutn for a coin = 1
+        //Max no of coin combination = amount
+        final int AMT_MAX = amount + 1;
+        Arrays.fill(dp, AMT_MAX); //to deal with overflow problem , so that we cannot use Integer.MAX_VALUE
+        dp[0]=0;
+        for(int i=1;i<=amount;i++){
+            for(int coin:coins){
+                if(i-coin>=0){
+                    dp[i] = Math.min(dp[i], dp[i-coin]+1);  //Integer.MAX_VALUE + 1 overflows
+                }
+            }
+        }
+
+        return dp[amount]==AMT_MAX ? -1 : dp[amount];
     }
 }

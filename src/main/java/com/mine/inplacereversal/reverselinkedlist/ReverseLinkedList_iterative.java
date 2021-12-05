@@ -1,7 +1,6 @@
-package com.mine.fastslowpointers.reverselinkedlist;
+package com.mine.inplacereversal.reverselinkedlist;
 
-
-public class ReverseLinkedList_my_version {
+public class ReverseLinkedList_iterative {
     /**
      * Given the head of a singly linked list, reverse the list, and return the reversed list.
      *
@@ -29,23 +28,15 @@ public class ReverseLinkedList_my_version {
      * -5000 <= Node.val <= 5000
      */
     public ListNode reverseList(ListNode head) {
-        ListNode p1=null;
-        ListNode p2=head;
-        while(p2.next!=null){
-            ListNode temp = p2.next.next;
-            p2.next = p1;
-            p1 = p2;
-            p2 = temp;
+        ListNode prev = null;
+        ListNode curr = head;
+        while(curr!=null){
+            ListNode tempNext = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = tempNext;
         }
 
-        return p2;
+        return prev;
     }
-}
-
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode() {}
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 }

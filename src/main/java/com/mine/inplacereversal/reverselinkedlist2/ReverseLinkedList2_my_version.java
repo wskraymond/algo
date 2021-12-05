@@ -1,4 +1,4 @@
-package com.mine.fastslowpointers.reverselinkedlist2;
+package com.mine.inplacereversal.reverselinkedlist2;
 
 public class ReverseLinkedList2_my_version {
     /**
