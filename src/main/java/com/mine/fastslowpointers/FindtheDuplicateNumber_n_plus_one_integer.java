@@ -45,6 +45,6 @@ public class FindtheDuplicateNumber_n_plus_one_integer {
      * @return
      */
     public int findDuplicate(int[] nums) {
-
+        return 0;
     }
 }

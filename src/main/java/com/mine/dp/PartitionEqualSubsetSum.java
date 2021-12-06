@@ -27,6 +27,6 @@ public class PartitionEqualSubsetSum {
      * @return
      */
     public boolean canPartition(int[] nums) {
-
+        return false;
     }
 }

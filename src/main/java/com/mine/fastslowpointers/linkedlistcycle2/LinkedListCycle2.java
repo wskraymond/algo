@@ -44,7 +44,43 @@ public class LinkedListCycle2 {
      * @return
      */
     public ListNode detectCycle(ListNode head) {
+        /**
+         * edge case:
+         *  1. null
+         *  2. 0 -> null
+         *  3. 0 -> 1 -> 0  //pos = 0
+         *
+         *  non-trivial cases: ( different combinations )
+         *  1. -3 -> -2 -> -1 -> 0 -> 1 -> 2 -> 3 -> 4 -> 0 //pos = 0, cycle length = 5, F = 3 , h = 3%5 = 3, a = 5 - h = 2
+         *  2. -4 -> -3 -> -2 -> -1 -> 0 -> 1 -> 2 -> 0     //pos = 0, cycle length = 3, F = 4 , h = 4%3 = 1, a = 3 - h = 2
+         *  3. -2 -> -1 -> 0 -> 1 -> 0 //pos = 0, cycle length = 2, F = 2, h = 2%2 = 0 , a = 2 - h = move 2 step from 0 (finally at node 0)
+         *  4. -2 -> -1 -> 0 -> 0 //pos = 0, cycle length = 1, F=2 , h=2%1 = 0, a = 1 - 0 = move 1 step from node 0 (finally at node 0)
+         */
+        if(head==null){
+            return null;
+        }
 
+        //detect a cycle
+        ListNode s = head, f = head;
+        ListNode p1 = head, p2 = null;
+        while(f.next!=null
+                && f.next.next!=null){
+           s = s.next;
+           f = f.next.next;
+           if(s==f){
+               p2 = f;
+               break;
+           }
+        }
+
+        if(p2!=null){ //if there is a cycle and both s & f intersects at a
+            while (p1!=p2){
+                p1 = p1.next;
+                p2 = p2.next;
+            }
+        }
+
+        return p2;
     }
 }
 

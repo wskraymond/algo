@@ -8,6 +8,6 @@ public class MaximumProductSubarray {
      * @return
      */
     public int maxProduct(int[] nums) {
-
+        return 0;
     }
 }

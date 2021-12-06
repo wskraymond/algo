@@ -46,6 +46,6 @@ public class OneEditDistance {
      * @return
      */
     public boolean isOneEditDistance(String s, String t) {
-
+        return false;
     }
 }

@@ -36,7 +36,6 @@ public class HouseRobber {
      * @return
      */
     public int rob(int[] nums) {
-
+        return 0;
     }
-}
 }

@@ -37,6 +37,6 @@ public class RobotBoundedInCircle {
      * @return
      */
     public boolean isRobotBounded(String instructions) {
-
+        return false;
     }
 }

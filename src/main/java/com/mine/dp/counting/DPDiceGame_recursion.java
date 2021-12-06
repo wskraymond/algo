@@ -7,7 +7,7 @@ public class DPDiceGame_recursion {
 	/**
 	 * Imagine you are playing a board game.
 	 * You roll a 6-faced dice and move forward the same number of spaces that you rolled.
-	 * If the finishing point is “n” spaces away from the starting point,
+	 * If the finishing point is "n" spaces away from the starting point,
 	 * please implement a program that calculates how many possible ways there are to arrive exactly at the finishing point.
 	 *
 	 * @param n

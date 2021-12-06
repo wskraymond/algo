@@ -38,6 +38,6 @@ public class MaxNumberOfKSumPairs {
      * @return
      */
     public int maxOperations(int[] nums, int k) {
-
+        return 0;
     }
 }

@@ -8,6 +8,6 @@ public class MaximumProductofTwoInArr {
      * @return
      */
     public int maxProduct(int[] nums) {
-
+        return 0;
     }
 }

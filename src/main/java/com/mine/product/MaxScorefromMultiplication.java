@@ -9,6 +9,6 @@ public class MaxScorefromMultiplication {
      * @return
      */
     public int maximumScore(int[] nums, int[] multipliers) {
-
+        return 0;
     }
 }

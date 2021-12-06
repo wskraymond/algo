@@ -9,6 +9,6 @@ public class PartitionToKEqualSumSubsets {
      * @return
      */
     public boolean canPartitionKSubsets(int[] nums, int k) {
-
+        return false;
     }
 }

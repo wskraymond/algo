@@ -13,7 +13,7 @@ public class MKAverage {
     }
 
     public int calculateMKAverage() {
-
+        return 0;
     }
 }
 /**

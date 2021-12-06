@@ -30,6 +30,6 @@ public class RangeAddition {
      * @return
      */
     public int[] getModifiedArray(int length, int[][] updates) {
-
+        return null;
     }
 }

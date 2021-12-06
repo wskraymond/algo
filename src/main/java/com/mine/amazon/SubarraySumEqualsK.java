@@ -29,6 +29,6 @@ public class SubarraySumEqualsK {
      * @return
      */
     public int subarraySum(int[] nums, int k) {
-
+        return 0;
     }
 }

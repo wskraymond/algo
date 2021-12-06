@@ -56,6 +56,6 @@ public class MinAbsoluteSumDiff {
      * @return
      */
     public int minAbsoluteSumDiff(int[] nums1, int[] nums2) {
-
+        return 0;
     }
 }

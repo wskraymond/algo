@@ -1,6 +1,6 @@
 package com.mine.inplacereversal.reverselinkedlist2;
 
-public class ReverseLinkedList2_my_version {
+public class ReverseLinkedList2_iterative {
     /**
      * Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.
      *
@@ -30,6 +30,6 @@ public class ReverseLinkedList2_my_version {
      * @return
      */
     public ListNode reverseBetween(ListNode head, int left, int right) {
-
+        return null;
     }
 }

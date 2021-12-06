@@ -24,12 +24,12 @@ public class LRUCache_access_mode<K,V> extends LinkedHashMap<K,V> {
     }
 
     @Override
-    public V get(K key) {
-
+    public V get(Object key) {
+        return null;
     }
 
     @Override
-    public void put(K key, V value) {
-
+    public V put(K key, V value) {
+        return null;
     }
 }

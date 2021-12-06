@@ -41,6 +41,6 @@ public class SumSubseqWidths {
      * @return
      */
     public int sumSubseqWidths(int[] nums) {
-
+        return 0;
     }
 }
