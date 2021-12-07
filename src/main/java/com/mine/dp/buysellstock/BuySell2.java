@@ -1,4 +1,4 @@
-package com.mine.jpm.buysellstock;
+package com.mine.dp.buysellstock;
 
 public class BuySell2 {
     /**

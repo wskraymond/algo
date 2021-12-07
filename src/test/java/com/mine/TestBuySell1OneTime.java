@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.mine.jpm.buysellstock.BuySell1OneTime;
+import com.mine.dp.buysellstock.BuySell1OneTime;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
