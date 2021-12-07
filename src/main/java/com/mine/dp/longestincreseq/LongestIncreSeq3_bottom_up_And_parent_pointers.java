@@ -2,7 +2,7 @@ package com.mine.dp.longestincreseq;
 
 import java.util.*;
 
-public class LongestIncreSeq3 {
+public class LongestIncreSeq3_bottom_up_And_parent_pointers {
     /**
      * https://leetcode.com/problems/longest-increasing-subsequence/
      * or
