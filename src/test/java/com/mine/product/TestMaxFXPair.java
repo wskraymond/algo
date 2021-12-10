@@ -2,6 +2,7 @@ package com.mine.product;
 
 import org.junit.Test;
 
+import java.lang.annotation.Documented;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,7 +54,10 @@ public class TestMaxFXPair {
         assertEquals(0.5d, sol2.maxProduct(fxFairs, "B", "A"), 0.00001);
     }
 
-
+    /**
+     * to test an unsupported graph with a negative cycle
+     *      expected behaviour: Algo should only go through n-1 edges
+     */
     @Test
     public void testFXPairsWIthOnlyPositiveCycleAndDifferentLength(){
         Map<String, Double> fxFairs = new HashMap<>();
@@ -70,8 +74,12 @@ public class TestMaxFXPair {
         assertEquals(1/6d, sol2.maxProduct(fxFairs, "C", "A"), 0.00001);
     }
 
+    /**
+     * to test an unsupported graph with a negative cycle
+     *      expected behaviour: Algo should only go through n-1 edges
+     */
     @Test
-    public void testFXPairsWIthOnlyPositiveCycleAndDifferentLength2(){
+    public void testFXPairsWIthANegativeCycleAndDifferentLength(){
         Map<String, Double> fxFairs = new HashMap<>();
         fxFairs.put("A=B", 2d);
         fxFairs.put("B=C", 3d);
@@ -83,9 +91,13 @@ public class TestMaxFXPair {
 
 
         assertEquals(1/8d*4*10, sol1.maxProduct(fxFairs, "Y", "X"), 0.00001);
+        //Y->A->C->B->A->D->X = 6.666666
+        //A->C->B->A : 8*1/3*1/2 = 1.333 (negative cycle)
+        assertNotEquals(1/8d*8*1/3*1/2*4*10, sol1.maxProduct(fxFairs, "Y", "X"), 0.00001);
         assertEquals(0.1*4*1/3*1/2*8, sol1.maxProduct(fxFairs, "X", "Y"), 0.00001);
 
         assertEquals(1/8d*4*10, sol2.maxProduct(fxFairs, "Y", "X"), 0.00001);
+        assertNotEquals(1/8d*8*1/3*1/2*4*10, sol2.maxProduct(fxFairs, "Y", "X"), 0.00001);
         assertEquals(0.1*4*1/3*1/2*8, sol2.maxProduct(fxFairs, "X", "Y"), 0.00001);
     }
 
