@@ -69,7 +69,10 @@ public class MaxFXPair_backtracking {
                     max = Math.max(max, rate);
                 } else {
                     visit.add(fxPair);
-                    max = Math.max(max, rate*backtrack(fxPairs, visit, ccy2, toCcy));
+                    double nextRate = backtrack(fxPairs, visit, ccy2, toCcy);
+                    if(nextRate>0) {
+                        max = Math.max(max, rate*nextRate);
+                    }
                     visit.remove(fxPair);
                 }
             } else if(ccy2.equals(fromCcy)){
@@ -78,7 +81,10 @@ public class MaxFXPair_backtracking {
                     max = Math.max(max, rate);
                 } else {
                     visit.add(fxPair);
-                    max = Math.max(max, rate*backtrack(fxPairs, visit, ccy1, toCcy));
+                    double nextRate = backtrack(fxPairs, visit, ccy1, toCcy);
+                    if(nextRate>0) {
+                        max = Math.max(max, rate*nextRate);
+                    }
                     visit.remove(fxPair);
                 }
             }

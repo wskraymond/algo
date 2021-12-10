@@ -30,9 +30,9 @@ public class Palindrome2 {
         boolean[][] dp = new boolean[s.length()][s.length()];
         for(int size=1;size<=s.length();size++)
         {
-            for(int i=0;i+size<=s.length();i++)
+            for(int i=0, j = i+size-1 ;j<s.length();j=++i+size-1)
             {
-                int j = i+size-1;
+//                int j = i+size-1;
                 if(i==j)
                 {
                     dp[i][j]=true;

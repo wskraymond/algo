@@ -32,12 +32,7 @@ public class LongestIncreSeq3_bottom_up_And_parent_pointers {
 
         dp(nums, dp, null);
 
-        int max=0;
-        for(int i=0;i<dp.length;i++){
-            max = Math.max(max, dp[i]);
-        }
-
-        return max;
+        return Arrays.stream(dp).max().getAsInt();
     }
 
     public int[] optimalSol(int[] nums) {
