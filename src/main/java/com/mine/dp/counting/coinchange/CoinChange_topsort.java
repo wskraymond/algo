@@ -1,4 +1,4 @@
-package com.mine.dp.counting;
+package com.mine.dp.counting.coinchange;
 
 import java.util.Arrays;
 
