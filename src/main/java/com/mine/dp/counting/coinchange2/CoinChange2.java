@@ -1,4 +1,4 @@
-package com.mine.dp.counting.coinchange;
+package com.mine.dp.counting.coinchange2;
 
 public class CoinChange2 {
     /**
@@ -6,9 +6,13 @@ public class CoinChange2 {
      *
      * https://leetcode.com/problems/coin-change-2/
      *
-     * You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+     * You are given an integer array coins
+     *      representing coins of different denominations
+     *      and an integer amount representing a total amount of money.
      *
-     * Return the number of combinations that make up that amount. If that amount of money cannot be made up by any combination of the coins, return 0.
+     * Return the number of combinations that make up that amount.
+     *      If that amount of money cannot be made up by any combination of the coins,
+     *      return 0.
      *
      * You may assume that you have an infinite number of each kind of coin.
      *
@@ -51,6 +55,36 @@ public class CoinChange2 {
      * @return
      */
     public int change(int amount, int[] coins) {
-        return 0;
+        /**
+         * To avoid duplicate counting
+         *  - it is not permutation
+         *      5=2+1+1+1 , 5=1+2+1+1 ,...5=1+1+1+2 are counted once.
+         *  - But combination, thus we can
+         */
+        /**
+         * Recurrence Relations:
+         *      f(s) = sum{f(s-c) | for any coin c}
+         * base case:
+         *      f(0) = 1
+         *      f(<0) = 0
+         */
+        return backtrack(amount, coins, 0);
+    }
+
+    public int backtrack(int amount, int[] coins, int first){
+        if(amount==0){
+            return 1;
+        }
+
+        if(amount<0){
+            return 0;
+        }
+
+        int sum = 0;
+        for(int i=first;i<coins.length;i++){
+            sum+=backtrack(amount-coins[i], coins, first);
+        }
+
+        return sum;
     }
 }

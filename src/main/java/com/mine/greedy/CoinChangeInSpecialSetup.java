@@ -1,5 +1,7 @@
 package com.mine.greedy;
 
+import java.util.Arrays;
+
 public class CoinChangeInSpecialSetup {
     private int[] deno = { 1, 2, 5, 10, 20,
             50, 100, 500, 1000 };
@@ -29,6 +31,17 @@ public class CoinChangeInSpecialSetup {
      * @return
      */
     public int coinChange(int amount) {
-        return 0;
+        Arrays.sort(deno);
+
+        int count = 0;
+        for(int tmp=amount, i=deno.length-1;tmp>0;tmp-=deno[i]){
+            while(deno[i]>tmp){
+                i--;
+            }
+
+            count++;
+        }
+
+        return count;
     }
 }

@@ -1,4 +1,4 @@
-package com.mine.graph;
+package com.mine.graph.bf;
 
 import java.util.Arrays;
 
