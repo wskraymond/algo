@@ -27,8 +27,16 @@ public class Knapsack01 {
     }
 
     public int[][] dp(int capacity, int[] w, int[] v){
+        /**
+         * Recurrence Relation:
+         *      f(i,c) = max{f(i-1,c), f(i-1, c-wi) + vi}
+         *
+         * Base Case:
+         *      f(i,0) = 0
+         *      f(0,c) = 0
+         */
         if(capacity < 0 || w==null || v==null || w.length!=v.length){
-            throw new IllegalArgumentException("invalid Inpuyt");
+            throw new IllegalArgumentException("invalid Input");
         }
 
         int n = w.length; //n items

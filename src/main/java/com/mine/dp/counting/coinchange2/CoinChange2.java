@@ -72,6 +72,23 @@ public class CoinChange2 {
     }
 
     public int backtrack(int amount, int[] coins, int first){
+        /**
+         * Idea:
+         *  - dfs/backtrack for a combination nCr
+         *      - not quit so ....becos 1 + 1 + 1 + 2 = 5 , 1 is duplicate number
+         *  - duplicate number/coin is allowed in a combination
+         *      - use it repeatedly until going to another coin
+         *          - traverse by suffix[i:] (or prefix[:i]) to make sure previous coins won't be reused
+         *              - e.g coins[1, 2, 5]
+         *                  - 1+.....+1+ 2+....+2+ 5+....+5 in a particular sequence
+         *                  - X Ones , Y twos , Z fives   for 0<=(X, Y, Z)
+         * subproblem:
+         *      suffix[i:] with sum = amount
+         *
+         * Recurrence Relations:
+         *
+         * Base Case:
+         */
         if(amount==0){
             return 1;
         }
