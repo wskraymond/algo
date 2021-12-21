@@ -98,11 +98,16 @@ public class BuySellAtMostK {
             }
         }
 
-        int max = Integer.MIN_VALUE;
+        /**
+         * leetcode has redundant or misleading part below
+         *
+         * At most k has already concludes the optimal/the best path of all possible transactions from 0 to k.
+         */
+        /*int max = Integer.MIN_VALUE;
         for(int j=0;j<=k;j++){
             max = Math.max(max, dp[n+DAYOFFSET-1][j][0]);
-        }
+        }*/
 
-        return max;
+        return dp[n+DAYOFFSET-1][k][0];
     }
 }

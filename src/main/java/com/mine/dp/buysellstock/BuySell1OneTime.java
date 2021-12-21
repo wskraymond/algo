@@ -38,7 +38,6 @@ public class BuySell1OneTime {
      * @return
      */
     public int maxProfit(int[] prices) {
-
         int max = 0;
         int lowest = prices[0];
         for(int i=1;i<prices.length;i++){
