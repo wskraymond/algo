@@ -1,6 +1,8 @@
 package com.mine.dp.counting.coinchange2;
 
-public class CoinChange2 {
+import java.util.Arrays;
+
+public class CoinChange2_1d {
     /**
      * https://leetcode.com/problems/coin-change-2/discuss/99239/C-DFS-with-memorization-of-course-DP-is-better
      *
@@ -56,23 +58,6 @@ public class CoinChange2 {
      */
     public int change(int amount, int[] coins) {
         /**
-         * To avoid duplicate counting
-         *  - it is not permutation
-         *      5=2+1+1+1 , 5=1+2+1+1 ,...5=1+1+1+2 are counted once.
-         *  - But combination, thus we can
-         */
-        /**
-         * Recurrence Relations:
-         *      f(s) = sum{f(s-c) | for any coin c}
-         * base case:
-         *      f(0) = 1
-         *      f(<0) = 0
-         */
-        return backtrack(amount, coins, 0);
-    }
-
-    public int backtrack(int amount, int[] coins, int first){
-        /**
          * Idea:
          *  - dfs/backtrack for a combination nCr
          *      - not quit so ....becos 1 + 1 + 1 + 2 = 5 , 1 is duplicate number
@@ -86,22 +71,32 @@ public class CoinChange2 {
          *      suffix[i:] with sum = amount
          *
          * Recurrence Relations:
+         *  f(i, k) = f(i, k - coins[i]) + f(i+1, k) //suffix way: i+1 , prefix way: i-1
          *
          * Base Case:
+         *  f(i,0) = 1
+         *
+         * Goal:
+         *  f(0,S) //suffix[0:]
          */
-        if(amount==0){
-            return 1;
+
+        final int n = coins.length, s=amount;
+        int[][] dp = new int[n][s+1];
+        Arrays.stream(dp).forEach(arr->arr[0]=1);
+
+        for(int i=n-1;i>=0;i--){
+            // can't start from j=coins[i], becos in 2D array way, you still need to clone from suffix[i+1:]
+            for(int j=1;j<=s;j++){
+                if(coins[i]<=j){
+                    dp[i][j] +=dp[i][j-coins[i]];
+                }
+
+                if(i+1<n){
+                    dp[i][j] +=dp[i+1][j];
+                }
+            }
         }
 
-        if(amount<0){
-            return 0;
-        }
-
-        int sum = 0;
-        for(int i=first;i<coins.length;i++){
-            sum+=backtrack(amount-coins[i], coins, first);
-        }
-
-        return sum;
+        return dp[0][s];
     }
 }
