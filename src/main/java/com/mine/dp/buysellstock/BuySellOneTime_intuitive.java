@@ -1,6 +1,6 @@
 package com.mine.dp.buysellstock;
 
-public class BuySell1OneTime {
+public class BuySellOneTime_intuitive {
 
     /**
      * You are given an array prices

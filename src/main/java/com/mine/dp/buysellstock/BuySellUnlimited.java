@@ -1,6 +1,6 @@
 package com.mine.dp.buysellstock;
 
-public class BuySell2 {
+public class BuySellUnlimited {
     /**
      * You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
      *

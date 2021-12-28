@@ -72,7 +72,10 @@ public class BuySellAtMostK {
 
         final int n = prices.length;
         final int DAYOFFSET = 1;
-        final int NEG_INF = (int) -1e9; //0 <= prices[i] <= 1000 , Or we can set to -1001
+        //0 <= prices[i] <= 1000 And 0 <= k <= 100
+        //Alternatively, we can set to -1001
+        //Or , becos only addition ,  dp[i+DAYOFFSET-1][j][1] + prices[i], we can use Integer.MIN_VALUE
+        final int NEG_INF = (int) -1e9;
         int[][][] dp = new int[n+1][k+1][2]; //n+1 includes -1,0, 1....n-1
         for(int j=0;j<=k;j++){
             dp[-1+DAYOFFSET][j][0] = 0;
@@ -86,11 +89,11 @@ public class BuySellAtMostK {
 
         for(int i=0;i<n;i++){
             for(int j=0;j<=k;j++){
-                //Pos = 0: f(i,j,0) = max{f(i-1, j, 0), f(i-1, j , 1) - prices[i] }
+                //Pos = 0: f(i,j,0) = max{ f(i-1, j, 0), f(i-1, j , 1) - prices[i] }
                 //positive: cash inflow(sold)
                 dp[i+DAYOFFSET][j][0] = Math.max(dp[i+DAYOFFSET-1][j][0], dp[i+DAYOFFSET-1][j][1] + prices[i]);
 
-                //Pos = 1: f(i,j,1) = max{f(i-1, j, 1), f(i-1,j-1,0) + prices[i]}
+                //Pos = 1: f(i,j,1) = max{ f(i-1, j, 1), f(i-1,j-1,0) + prices[i]}
                 if(j>0){
                     // f(i,0,1) = -Inf
                     dp[i+DAYOFFSET][j][1] = Math.max(dp[i+DAYOFFSET-1][j][1], dp[i+DAYOFFSET-1][j-1][0] - prices[i]);

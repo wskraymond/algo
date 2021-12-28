@@ -1,6 +1,6 @@
 package com.mine.dp.buysellstock;
 
-public class BuySell3AtMostTwo {
+public class BuySellAtMostTwo {
     /**
      * You are given an array prices where prices[i] is the price of a given stock on the ith day.
      *
@@ -46,6 +46,45 @@ public class BuySell3AtMostTwo {
      * @return
      */
     public int maxProfit(int[] prices) {
-        return 0;
+        /**
+         * f(i,2,0) = Max{f(i-1,2,0), f(i-1,2,1) + prices[i]}
+         *
+         * f(i,2,1) = Max{f(i-1,2,1), f(i-1,1,0) - prices[i]}
+         *
+         * f(i,1,0) = Max{f(i-1,1,0), f(i-1,1,1) + prices[i]}
+         *
+         * f(i,1,1) = Max{f(i-1,1,1), f(i-1,0,0) - prices[i]}
+         *
+         * Base cases:
+         *  f(-1,2,0) = 0
+         *  f(-1,2,1) = -Inf
+         *  f(-1,1,0) = 0
+         *  f(-1,1,1) = -Inf
+         *  f(i, 0, 0) = 0
+         *
+         *  TopOrder:
+         *      for i=0.....n-1
+         *          for k=2...0
+         *              for pos=0..1
+         */
+
+        //0 <= prices[i] <= 105
+        //Alternatively,
+        //1. we can set to -106
+        //2. Or, becos only addition is involved , dp_k2_pos1 + prices[i] And dp_k1_pos1 + prices[i]
+        //      , Integer.MIN_VALUE can be used without overflow due to computation
+        //final int NEG_INF = (int) -1e9;
+        final int NEG_INF = Integer.MIN_VALUE;
+        int dp_k2_pos0 = 0 , dp_k2_pos1 = NEG_INF;
+        int dp_k1_pos0 = 0, dp_k1_pos1 = NEG_INF;
+        for(int i=0; i<prices.length;i++){
+            dp_k2_pos0 = Math.max(dp_k2_pos0, dp_k2_pos1 + prices[i]);
+            dp_k2_pos1 = Math.max(dp_k2_pos1, dp_k1_pos0 - prices[i]);
+
+            dp_k1_pos0 = Math.max(dp_k1_pos0, dp_k1_pos1 + prices[i]);
+            dp_k1_pos1 = Math.max(dp_k1_pos1, -prices[i]);
+        }
+
+        return dp_k2_pos0;
     }
 }
