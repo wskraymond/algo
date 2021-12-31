@@ -33,6 +33,26 @@ public class InorderTraversal_stack {
      */
     public List<Integer> inorderTraversal(TreeNode root) {
         /**
+         * ArrayList: list
+         * LinkedList: list, queue, deque
+         * ArrayDeque: Deque
+         *     - They are not thread-safe;
+         *     - in the absence of external synchronization,
+         *          they do not support concurrent access by multiple threads.
+         *     - Null elements are prohibited.
+         *     - This class is likely to be
+         *          - faster than Stack when used as a stack,
+         *          - and faster than LinkedList when used as a queue.
+         *              - circularity: circular Array !!!
+         *
+         * Notes:
+         * While Deque implementations are not strictly required to prohibit the insertion of null elements,
+         * they are strongly encouraged to do so.
+         * Users of any Deque implementations that do allow null elements are strongly encouraged not to take
+         * advantage of the ability to insert nulls.
+         * This is so because null is used as a special return value by various methods
+         * to indicated that the deque is empty.
+         *
          * stack(LIFO): push() & pop() & peek()
          * queue(FIFO): offer() & poll() & peek()
          * (throw exception) : add() & remove() & element()
