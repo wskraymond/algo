@@ -2,9 +2,12 @@ package com.mine.binarytree.dfs.inorder;
 
 import com.mine.binarytree.TreeNode;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
 
-public class InorderTraversal_stack {
+public class InorderTraversal_stack_generic {
     /**
      * Given the root of a binary tree, return the inorder traversal of its nodes' values.
      *
@@ -65,14 +68,15 @@ public class InorderTraversal_stack {
         List<Integer> result = new LinkedList<>();
         Deque<TreeNode> stack = new ArrayDeque<>();
         TreeNode param = root;
-        while (param!=null || !stack.isEmpty()){ //if param==null or end of return....
-            while(param!=null){     //return function: if param==null , then return
-                stack.push(param);  //enter function: save param
-                param = param.left; //input param: dfs(param.left)
+        while(param!=null || !stack.isEmpty()){
+            if(param!=null){
+                stack.push(param);
+                param=param.left;
+            } else {
+                param = stack.pop();
+                result.add(param.val);
+                param = param.right;
             }
-            param = stack.pop();    //return function: restore param
-            result.add(param.val);  //visit(param)
-            param = param.right;    //input param: dfs(param.right)
         }
         return result;
     }

@@ -1,77 +1,77 @@
-package com.mine.binarytree.dfs.preorder;
+package com.mine.binarytree.dfs.postorder;
 
 import com.mine.binarytree.BTConstructor;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
 
-public class TestPreorderTraversal {
-    private PreorderTraversal sol = new PreorderTraversal();
-    private PreorderTraversal_stack sol2 = new PreorderTraversal_stack();
+public class TestPostorderTraversal {
+    private PostorderTraversal sol = new PostorderTraversal();
+    private PostorderTraversal_stack_missing_state sol2 = new PostorderTraversal_stack_missing_state();
     private BTConstructor constructor = new BTConstructor();
 
     @Test
     public void testIncompleteAndNonFullBT(){
-        assertArrayEquals(new int[]{1,2,3}, sol.preorderTraversal(constructor.constructTree(
+        assertArrayEquals(new int[]{3,2,1}, sol.postorderTraversal(constructor.constructTree(
                 new Integer[]{1,null,2,3}
         )).stream().mapToInt(Integer::intValue).toArray());
 
-        assertArrayEquals(new int[]{1,2,3}, sol2.preorderTraversal(constructor.constructTree(
+        assertArrayEquals(new int[]{3,2,1}, sol2.postorderTraversal(constructor.constructTree(
                 new Integer[]{1,null,2,3}
         )).stream().mapToInt(Integer::intValue).toArray());
     }
 
     @Test
     public void testCompleteBT(){
-        assertArrayEquals(new int[]{1,2,4,8,5,3,6,7}, sol.preorderTraversal(constructor.constructTree(
+        assertArrayEquals(new int[]{8,4,5,2,6,7,3,1}, sol.postorderTraversal(constructor.constructTree(
                 new Integer[]{1,2,3,4,5,6,7,8}
         )).stream().mapToInt(Integer::intValue).toArray());
 
-        assertArrayEquals(new int[]{1,2,4,8,5,3,6,7}, sol2.preorderTraversal(constructor.constructTree(
+        assertArrayEquals(new int[]{8,4,5,2,6,7,3,1}, sol2.postorderTraversal(constructor.constructTree(
                 new Integer[]{1,2,3,4,5,6,7,8}
         )).stream().mapToInt(Integer::intValue).toArray());
     }
 
     @Test
     public void testIncompleteBT(){
-        assertArrayEquals(new int[]{1,2,3,4}, sol.preorderTraversal(constructor.constructTree(
+        assertArrayEquals(new int[]{2,4,3,1}, sol.postorderTraversal(constructor.constructTree(
                 new Integer[]{1,2,3,null, null, null,4}
         )).stream().mapToInt(Integer::intValue).toArray());
 
-        assertArrayEquals(new int[]{1,2,3,4}, sol2.preorderTraversal(constructor.constructTree(
+        assertArrayEquals(new int[]{2,4,3,1}, sol2.postorderTraversal(constructor.constructTree(
                 new Integer[]{1,2,3,null, null, null,4}
         )).stream().mapToInt(Integer::intValue).toArray());
     }
 
     @Test
     public void testIncompleteBT2(){
-        assertArrayEquals(new int[]{1,2,4,3,5}, sol.preorderTraversal(constructor.constructTree(
+        assertArrayEquals(new int[]{4,2,5,3,1}, sol.postorderTraversal(constructor.constructTree(
                 new Integer[]{1,2,3,4, null, null,5}
         )).stream().mapToInt(Integer::intValue).toArray());
 
-        assertArrayEquals(new int[]{1,2,4,3,5}, sol2.preorderTraversal(constructor.constructTree(
+        assertArrayEquals(new int[]{4,2,5,3,1}, sol2.postorderTraversal(constructor.constructTree(
                 new Integer[]{1,2,3,4, null, null,5}
         )).stream().mapToInt(Integer::intValue).toArray());
     }
 
     @Test
     public void testIncompleteButFullBT(){
-        assertArrayEquals(new int[]{1,2,3,4,5}, sol.preorderTraversal(constructor.constructTree(
+        assertArrayEquals(new int[]{2,4,5,3,1}, sol.postorderTraversal(constructor.constructTree(
                 new Integer[]{1,2,3,null, null, 4,5}
         )).stream().mapToInt(Integer::intValue).toArray());
 
-        assertArrayEquals(new int[]{1,2,3,4,5}, sol2.preorderTraversal(constructor.constructTree(
+        assertArrayEquals(new int[]{2,4,5,3,1}, sol2.postorderTraversal(constructor.constructTree(
                 new Integer[]{1,2,3,null, null, 4,5}
         )).stream().mapToInt(Integer::intValue).toArray());
     }
 
     @Test
     public void testPerfectBT(){
-        assertArrayEquals(new int[]{1,2,4,5,3,6,7}, sol.preorderTraversal(constructor.constructTree(
+        assertArrayEquals(new int[]{4,5,2,6,7,3,1}, sol.postorderTraversal(constructor.constructTree(
                 new Integer[]{1,2,3,4,5,6,7}
         )).stream().mapToInt(Integer::intValue).toArray());
 
-        assertArrayEquals(new int[]{1,2,4,5,3,6,7}, sol2.preorderTraversal(constructor.constructTree(
+        assertArrayEquals(new int[]{4,5,2,6,7,3,1}, sol2.postorderTraversal(constructor.constructTree(
                 new Integer[]{1,2,3,4,5,6,7}
         )).stream().mapToInt(Integer::intValue).toArray());
     }
