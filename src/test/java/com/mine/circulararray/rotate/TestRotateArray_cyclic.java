@@ -1,4 +1,4 @@
-package com.mine.circulararray;
+package com.mine.circulararray.rotate;
 
 import com.mine.circulararray.rotate.RotateArray_cyclic;
 import org.junit.Test;

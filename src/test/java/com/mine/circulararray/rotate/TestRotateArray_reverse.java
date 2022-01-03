@@ -1,12 +1,12 @@
-package com.mine.circulararray;
+package com.mine.circulararray.rotate;
 
-import com.mine.circulararray.rotate.RotateArray_temp_array;
+import com.mine.circulararray.rotate.RotateArray_reverse;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
 
-public class TestRotateArray_temp_array {
-    private static RotateArray_temp_array sol = new RotateArray_temp_array();
+public class TestRotateArray_reverse {
+    private static RotateArray_reverse sol = new RotateArray_reverse();
 
     @Test
     public void testSingleElement(){
