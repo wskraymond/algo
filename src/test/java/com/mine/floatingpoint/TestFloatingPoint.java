@@ -48,17 +48,6 @@ public class TestFloatingPoint {
     }
 
     @Test
-    public void testArithmetic(){
-        System.out.println(0.05+0.01);
-
-        System.out.println(1.0-0.42);
-
-        System.out.println(4.015*100);
-
-        System.out.println(123.3/100);
-    }
-
-    @Test
     public void testRoundUp(){
         System.out.println(4.015d);
         System.out.println(4.015d*100.0);               //401.49999999999994
@@ -71,7 +60,7 @@ public class TestFloatingPoint {
     }
 
     @Test
-    public void testFormater(){
+    public void testFormatter(){
         String actual = roundUp.roundToStr(4.015);
         String expected = "4.02";
         System.out.println(actual);
@@ -93,6 +82,60 @@ public class TestFloatingPoint {
         assertTrue(Double.isNaN(0d/0d));
         assertFalse(1f!=1f);
         assertTrue(Double.NaN!=Double.NaN);
+        assertTrue(Double.NaN!=0.1d);
+        assertFalse(Double.NaN==0.1d);
+    }
+
+    @Test
+    public void testCompare(){
+        assertFalse(0.0d>-0.0d);
+        assertTrue(0.0d<=-0.0d);
+        assertFalse(1d<=Double.NaN);
+        assertFalse(1d>=Double.NaN);
+        assertFalse(Double.NaN<=Double.NaN);
+        assertFalse(Double.NaN>=Double.NaN);
+
+        long a = Double.doubleToLongBits(0.1d);
+        long b = Double.doubleToLongBits(0.1d);
+        assertTrue(a==b);
+        assertFalse(a!=b);
+
+        a = Double.doubleToLongBits(0.00015f + 0.00015f);
+        b = Double.doubleToLongBits(0.0001f + 0.0002f);
+        assertFalse(a==b);  //failed to show the truth
+        assertTrue(a!=b);
+
+        a = Double.doubleToLongBits(-0d);
+        b = Double.doubleToLongBits(0d);
+        assertTrue(a < b);
+        assertFalse(a > b);
+
+        a = Double.doubleToLongBits(0.1d);
+        b = Double.doubleToLongBits(Double.NaN);
+        assertTrue(a < b);
+        assertFalse(a > b);
+    }
+
+    @Test
+    public void testArithmeticOperation(){
+        System.out.println(0.05+0.01);
+
+        System.out.println(1.0-0.42);
+
+        System.out.println(4.015*100);
+
+        System.out.println(123.3/100);
+
+        float a = 0.00015f + 0.00015f;
+        float b = 0.0001f + 0.0002f;
+        //0.0003000000142492354000000000000000000000000000000000000
+        System.out.println(format.format(a));
+        //0.0002999999851454049300000000000000000000000000000000000
+        System.out.println(format.format(b));
+        assertFalse(Double.compare(a,b)==0);
+        assertFalse(a==b);
+        assertTrue(a>=b);
+        assertFalse(a<=b);
     }
 
 
