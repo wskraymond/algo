@@ -8,6 +8,18 @@ import java.text.DecimalFormat;
 import static org.junit.Assert.*;
 
 public class TestFloatingPoint {
+    /**
+     * Native Concept:
+     *      1. Literal(i.e 4.015d) is what we typed in the editor (.java file)
+     *      2. But it does not mean what we stored in the memory as double is precise (exactly 4.015)
+     *          when byte code is executed by JVM
+     *      3. Instead, decimal representation in the editor (.java file) will be converted in binary format(double precision)
+     *         , then precision will be lost due to finite binary sequence(double),
+     *         it is called round off
+     *      4. imprecise representation of 4.015d is called rounding error
+     *      5. This is why DecimalFormat with HALF_UP rounding mode
+     *         will also fail what we expect
+     */
     private FPHelper_wrong roundUp = new FPHelper_wrong();
     private DecimalFormat format = new DecimalFormat("0.0000000000000000000000000000000000000000000000000000000");
 
@@ -52,6 +64,7 @@ public class TestFloatingPoint {
         System.out.println(4.015d);
         System.out.println(4.015d*100.0);               //401.49999999999994
         System.out.println(Math.round(4.015d*100.0));  //401
+        System.out.println(Math.round(401.5d));  //402
         double actual = roundUp.round(4.015);    //4.01
         double expected = Double.valueOf("4.02");
         System.out.println(actual);
@@ -61,11 +74,28 @@ public class TestFloatingPoint {
 
     @Test
     public void testFormatter(){
-        String actual = roundUp.roundToStr(4.015);
-        String expected = "4.02";
+        float a = 0.525f;
+        //0.5249999761581421000000000000000000000000000000000000000
+        System.out.println(format.format(a));
+        String actual = roundUp.roundToStr(a);
+        String expected = "0.53";
+        //0.52
         System.out.println(actual);
+        //0.53
         System.out.println(expected);
         assertNotEquals(expected, actual);
+
+
+        double b = 0.525;
+        //0.5250000000000000000000000000000000000000000000000000000
+        System.out.println(format.format(b));
+        actual = roundUp.roundToStr(b);
+        expected = "0.53";
+        //0.53
+        System.out.println(actual);
+        //0.53
+        System.out.println(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
