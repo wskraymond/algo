@@ -8,44 +8,55 @@ import java.text.DecimalFormat;
 public class FPHelper {
     private static final int DEF_DIV_SCALE = 10;
     private static final RoundingMode BANKER_MODE = RoundingMode.HALF_EVEN;
-    private static final MathContext DEFAULT_SETTING = new MathContext(5, BANKER_MODE);
+    private static final MathContext MC = new MathContext(15, BANKER_MODE);
 
-    public static double add(double v1,double v2){
-        return BigDecimal.valueOf(v1).add(BigDecimal.valueOf(v2)).doubleValue();
+    public static BigDecimal valueOf(String v){
+        return new BigDecimal(v);
     }
 
-    public static double sub(double v1,double v2){
-        return BigDecimal.valueOf(v1).subtract(BigDecimal.valueOf(v2)).doubleValue();
+    public static BigDecimal add(BigDecimal v1, BigDecimal v2){
+        return v1.add(v2, MC);
     }
 
-    public static double mul(double v1,double v2){
-        return BigDecimal.valueOf(v1).multiply(BigDecimal.valueOf(v2)).doubleValue();
-    }
-
-    public static double div(double v1,double v2, int scale){
+    /**
+     *  In the case of divide, the exact quotient could have an infinitely long
+     *  decimal expansion;
+     *  for example, 1 divided by 3
+     *
+     * If the quotient has a nonterminating decimal expansion and the operation is specified to return an exact result,
+     * an ArithmeticException is thrown.
+     *
+     * Otherwise, the exact result of the division
+     * is returned, as done for other operations.
+     *
+     * @param v1
+     * @param v2
+     * @param scale
+     * @return
+     */
+    public static BigDecimal div(BigDecimal v1,BigDecimal v2, int scale){
         if(scale<0){
             throw new IllegalArgumentException();
         }
 
         //banker’s rounding
-        return BigDecimal.valueOf(v1).divide(BigDecimal.valueOf(v2), scale, BANKER_MODE).doubleValue();
+        return v1.divide(v2, scale, BANKER_MODE);
     }
 
-    public static double round(double v){
-//      Alternative: BigDecimal.valueOf(v).setScale(5, BANKER_MODE);
-        return BigDecimal.valueOf(v).round(DEFAULT_SETTING).doubleValue();
+    public static void round(BigDecimal v, int scale, RoundingMode mode){
+//      Alternatives:
+        v.setScale(scale, mode);
+//        return v.round(DEFAULT_SETTING);
     }
 
-    public static boolean equals(double v1, double v2){
-        /**
-         * BigDecimal::equal only if they are equal in value and scale
-         * (thus 2.0 is not equal to 2.00 when compared by this method)
-         */
-        return BigDecimal.valueOf(v1).compareTo(BigDecimal.valueOf(v2))==0;
+    public static int compare(double v1, double v2, double epsilon){
+        return nearlyEqual(v1, v2, epsilon) ? 0 :
+                v1 > v2 ? 1 : -1;
     }
 
-    public static int compare(double v1, double v2){
-        return BigDecimal.valueOf(v1).compareTo(BigDecimal.valueOf(v2));
+    public static int compare(float v1, float v2, float epsilon){
+        return nearlyEqual(v1, v2, epsilon) ? 0 :
+                v1 > v2 ? 1 : -1;
     }
 
     public static boolean nearlyEqual(float a, float b, float epsilon) {

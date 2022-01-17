@@ -3,6 +3,7 @@ package com.mine.floatingpoint;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 import static org.junit.Assert.*;
@@ -45,15 +46,20 @@ public class TestFloatingPoint {
          */
         //BigDecimal(double) is unpredictable
         //due to the inability of the double to represent 0.1 as exact 0.1
-        System.out.println(new BigDecimal(.1d));    //0.1000000000000000055511151231257827021181583404541015625
-        System.out.println(format.format(new BigDecimal(.1d).doubleValue())); //0.1000000000000000000000000000000000000000000000000000000
+        //0.1000000000000000055511151231257827021181583404541015625
+        System.out.println(new BigDecimal(.1d).toString());
+        //0.1000000000000000000000000000000000000000000000000000000
+        System.out.println(format.format(new BigDecimal(.1d).doubleValue()));
+        //0.3000000000000000400000000000000000000000000000000000000
+        System.out.println(format.format(new BigDecimal(.1d).add(new BigDecimal(.2d)).doubleValue()));
         assertFalse(new BigDecimal(.1d).add(new BigDecimal(.2d)).equals(new BigDecimal("0.3")));
         /**
          * If double must be used for initializing a BigDecimal,
          * use BigDecimal.valueOf(double),
          * which converts the Double value to String using Double.toString(double) method
          */
-        System.out.println(BigDecimal.valueOf(.1d));    //0.1
+        System.out.println(BigDecimal.valueOf(.1d).toString());    //0.1
+        System.out.println(BigDecimal.valueOf(.1d).doubleValue());    //0.1
         System.out.println(new BigDecimal("0.1"));  //0.1
         System.out.println(format.format(new BigDecimal("0.1").doubleValue())); //0.1000000000000000000000000000000000000000000000000000000
         assertTrue(BigDecimal.valueOf(.1d).add(BigDecimal.valueOf(.2d)).equals(new BigDecimal("0.3")));
@@ -70,6 +76,34 @@ public class TestFloatingPoint {
         System.out.println(actual);
         System.out.println(expected);
         assertFalse(Double.compare(expected, actual)==0);
+    }
+
+    @Test
+    public void testFPToDecimal(){
+        float a = 0.525f;
+        float b = 0.53f;
+
+        float c = (float) FPInputWithDecimalOperationHelper_still_imprecise.round(a, 2, RoundingMode.HALF_UP);
+        //0.5199999809265137000000000000000000000000000000000000000
+        System.out.println(format.format(c));
+        //0.5299999713897705000000000000000000000000000000000000000
+        System.out.println(format.format(b));
+        assertFalse(FPInputWithDecimalOperationHelper_still_imprecise.equals(c,b));
+    }
+
+    @Test
+    public void testFPToDecimal2(){
+        double a = 0.525;
+        double b = 0.53;
+
+        double c = FPInputWithDecimalOperationHelper_still_imprecise.round(a,2, RoundingMode.HALF_UP);
+        //0.5300000000000000000000000000000000000000000000000000000
+        System.out.println(format.format(c));
+        //0.5250000000000000000000000000000000000000000000000000000
+        System.out.println(format.format(a));
+        //0.5300000000000000000000000000000000000000000000000000000
+        System.out.println(format.format(b));
+        assertTrue(FPInputWithDecimalOperationHelper_still_imprecise.equals(c,b));
     }
 
     @Test
