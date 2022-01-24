@@ -36,6 +36,7 @@ public class PreorderTraversal_stack_generic {
         while(param!=null /*base case*/
                 || !stack.isEmpty() /* return(restore the previous state)*/){
             if(param!=null){
+                stack.push(param);
                 result.add(param.val);  //visit first
                 param = param.left;     //first recursive call
             } else {

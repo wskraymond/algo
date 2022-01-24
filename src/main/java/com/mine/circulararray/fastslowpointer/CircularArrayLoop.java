@@ -61,6 +61,12 @@ public class CircularArrayLoop {
      * @return
      */
     public boolean circularArrayLoop(int[] nums) {
+        /**
+         * Amortized Analysis:
+         *    How do we know if it is averagely O(n)
+         *
+         *
+         */
         for(int i=0;i<nums.length;i++){
             boolean isForward = nums[i]>=0;
             int s = i, f = i;
@@ -68,7 +74,7 @@ public class CircularArrayLoop {
                 s = nextIndex(isForward, s, nums);
                 f = nextIndex(isForward, f, nums);
                 f = nextIndex(isForward, f, nums);
-            }while(s!=-1&&f!=-1&&s!=f);
+            } while(s!=-1&&f!=-1&&s!=f);
 
             //check result
             //check if it is the case s==f instead of either of s==-1 or f==-1
