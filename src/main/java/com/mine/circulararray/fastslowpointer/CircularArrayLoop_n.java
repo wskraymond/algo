@@ -1,6 +1,6 @@
 package com.mine.circulararray.fastslowpointer;
 
-public class CircularArrayLoop {
+public class CircularArrayLoop_n {
     /**
      * You are playing a game involving a circular array of non-zero integers nums.
      * Each nums[i] denotes the number of indices forward/backward
@@ -64,8 +64,9 @@ public class CircularArrayLoop {
         /**
          * Amortized Analysis:
          *    How do we know if it is averagely O(n)
-         *
-         *
+         *    If not, how can we achieve it ?
+         *      - use set to store which start index has no cycle which fulfilled the requirement.
+         *      - then we won't repeat we have gone through....
          */
         for(int i=0;i<nums.length;i++){
             boolean isForward = nums[i]>=0;
