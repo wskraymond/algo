@@ -1,5 +1,8 @@
 package com.mine.circulararray.fastslowpointer;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class CircularArrayLoop_n {
     /**
      * You are playing a game involving a circular array of non-zero integers nums.
@@ -65,36 +68,47 @@ public class CircularArrayLoop_n {
          * Amortized Analysis:
          *    How do we know if it is averagely O(n)
          *    If not, how can we achieve it ?
-         *      - use set to store which start index has no cycle which fulfilled the requirement.
-         *      - then we won't repeat we have gone through....
+         *      - use set to store the path which has no cycle fulfilling the requirement.
+         *      - then we won't repeat what we have gone through....
          */
+        Set<Integer> noCycle = new HashSet<>();
         for(int i=0;i<nums.length;i++){
             boolean isForward = nums[i]>=0;
             int s = i, f = i;
+            Set<Integer> path = new HashSet<>();
             do{
-                s = nextIndex(isForward, s, nums);
-                f = nextIndex(isForward, f, nums);
-                f = nextIndex(isForward, f, nums);
+                /**
+                 * why must it end with either a cycle with all the same direction
+                 * or end with opposite direction ?
+                 * instead of infinitely increasing index ?
+                 */
+                s = nextIndex(isForward, s, nums, path, noCycle);
+                f = nextIndex(isForward, f, nums, path, noCycle);
+                f = nextIndex(isForward, f, nums, path, noCycle);
             } while(s!=-1&&f!=-1&&s!=f);
 
             //check result
-            //check if it is the case s==f instead of either of s==-1 or f==-1
-            //failed again
-            if(s==f && s!=-1 && f!=-1){ //it does not exclude s==-1 and f==-1
+            if(s==f && s!=-1 && f!=-1){
                 return true;
+            } else {
+                noCycle.addAll(path);
             }
         }
 
         return false;
     }
 
-    private int nextIndex(boolean isForward, int curr, int[] nums){
+    private int nextIndex(boolean isForward, int curr, int[] nums, Set<Integer> path, Set<Integer> noCycle){
         if(curr<0){
             return -1;
         }
 
         boolean direction = nums[curr] >=0;
         if(direction!=isForward){
+            return -1;
+        }
+
+        if(noCycle.contains(curr)){
             return -1;
         }
 
@@ -105,6 +119,8 @@ public class CircularArrayLoop_n {
         if(nextIndex<0){
             nextIndex += nums.length;
         }
+
+        path.add(curr);
 
         //edge case 2: what if nextIndex equals currentIndex
         //A cycle in the array consists of a sequence of indices seq of length k where: K > 1
