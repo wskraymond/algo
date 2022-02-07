@@ -1,4 +1,4 @@
-package com.mine.Subsets;
+package com.mine.subsets;
 
 import java.util.*;
 
