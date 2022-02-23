@@ -2,7 +2,7 @@ package com.mine.graph.dfs;
 
 import java.util.List;
 
-public class AllPathsFromSourceToTarget_DAG_ONLY {
+public class AllPathsFromSourceToTarget_DAG_ONLY_dfs {
     /**
      *
      *

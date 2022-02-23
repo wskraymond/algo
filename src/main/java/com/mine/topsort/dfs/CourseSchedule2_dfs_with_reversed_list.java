@@ -79,7 +79,7 @@ public class CourseSchedule2_dfs_with_reversed_list {
         Arrays.fill(color, 'W');
         List<Integer> result = new ArrayList<>(numCourses);
         boolean noCycle = true;
-        for(int i=0;i<numCourses;i++){
+        for(int i=0;i<numCourses;i++){ //Time Complexity: O(V)
             if(!noCycle){
                 break;
             }
@@ -93,14 +93,15 @@ public class CourseSchedule2_dfs_with_reversed_list {
             return new int[0];
         }
 
-        Collections.reverse(result);
-        return result.stream().mapToInt(Integer::intValue).toArray();
+        Collections.reverse(result); ////Time Complexity: O(V)
+        return result.stream().mapToInt(Integer::intValue).toArray(); //Total: Time Complexity: O(V+E)
     }
 
     public boolean dfs(int vertex, char[] color, List<Integer> result,Map<Integer, List<Integer>> adjList){
         color[vertex] = 'G';
         boolean noCycle = true;
-        for(int neighbour : adjList.getOrDefault(vertex, Collections.emptyList())){
+        //if the map does not contain the key , then return empty list
+        for(int neighbour : adjList.getOrDefault(vertex, Collections.emptyList())){ //Time Complexity: O(E)
             if(!noCycle){
                 break;
             }
