@@ -1,4 +1,4 @@
-package com.mine.amazon;
+package com.mine.graph.undirected.bfs;
 
 import java.util.*;
 

@@ -70,7 +70,7 @@ public class CourseSchedule2_kahn_bfs {
 
         int[] inDegree = new int[numCourses];
         Arrays.stream(prerequisites).collect(Collectors.groupingBy(pair->pair[0],
-                Collectors.mapping(pair->pair[1], Collectors.reducing(0, v->1, Integer::sum))))
+                Collectors.reducing(0, v->1, Integer::sum)))
                 .forEach((k,count)->inDegree[k]=count);
 
         Queue<Integer> zeroDegree = new LinkedList<Integer>();
@@ -78,11 +78,11 @@ public class CourseSchedule2_kahn_bfs {
 
         int i=0;
         int[] result = new int[numCourses];
-        while(!zeroDegree.isEmpty()){
+        while(!zeroDegree.isEmpty()){ //O(V)
             int vertex = zeroDegree.poll();
             result[i++] = vertex; //if this is last one, then i==numCourses
 
-            for(int neighbour : adjList.getOrDefault(vertex, Collections.emptyList())){
+            for(int neighbour : adjList.getOrDefault(vertex, Collections.emptyList())){ //O(E)
                 inDegree[neighbour]--;
 
                 if(inDegree[neighbour]==0){
@@ -95,6 +95,6 @@ public class CourseSchedule2_kahn_bfs {
             return new int[0];
         }
 
-        return result;
+        return result; //Total: O(V+E)
     }
 }

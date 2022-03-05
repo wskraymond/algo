@@ -1,6 +1,6 @@
-package com.mine.graph.dfs;
+package com.mine.graph.directed.dfs;
 
-import com.mine.greedy.BoatsToSavePpl;
+import com.mine.graph.directed.nondag.dfs.AllPaths_NON_DAG;
 import org.junit.Test;
 
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.mine.graph.dfs;
+package com.mine.graph.directed.nondag.dfs;
 
 import java.util.HashSet;
 import java.util.LinkedList;

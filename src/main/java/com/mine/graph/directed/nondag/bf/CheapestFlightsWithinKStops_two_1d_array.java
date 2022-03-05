@@ -1,8 +1,8 @@
-package com.mine.graph.bf;
+package com.mine.graph.directed.nondag.bf;
 
 import java.util.Arrays;
 
-public class CheapestFlightsWithinKStops_2d {
+public class CheapestFlightsWithinKStops_two_1d_array {
     /**
      * There are n cities connected by some number of flights.
      * You are given an array flights where flights[i] = [fromi, toi, pricei]
@@ -53,39 +53,34 @@ public class CheapestFlightsWithinKStops_2d {
                         = At most [k + 2 (src&dst) - 1] Edges
                         = At most k + 1 edges
                         = At most X edges
-                        = O(k)
+
          1. Recursion Relations:
-            f(v,x) = min{f(v, x-1), f(u, x-1) + w(u,v) | for all u to v}
+                f(v,x) = min{ f(v, x-1), f(u, x-1) + w(u,v) | for all u to v }
          2. Base case:
-            f(src, 0) = 0
+                f(src, 0) = 0
          3. Our Goal:
-            f(dst, X=k+1)
+                f(dst, X=k+1)
          */
 
-        int[][] dp = new int[n][k+2]; //including zero edges
-        for(int[] arr:dp) {
-            Arrays.fill(arr, Integer.MAX_VALUE);
-        }
-        dp[src][0] = 0;
-        for(int i=1;i<k+2;i++){     //O(k) or in worse case (V)
-            for(int j=0;j<n;j++){   //O(V)
-                dp[j][i] = dp[j][i-1];
-            }
+        int[] dp_k_1 = new int[n];
+        Arrays.fill(dp_k_1, Integer.MAX_VALUE);
+        dp_k_1[src] = 0;
+        int[] dp_k = dp_k_1.clone();
 
-            for(int[] flight:flights){  //O(E)
+        for(int i=1;i<k+2;i++){
+            for(int[] flight:flights){
                 final int prev = flight[0];
                 final int next = flight[1];
                 final int price = flight[2];
 
-                if(dp[prev][i-1]!=Integer.MAX_VALUE){
-                    dp[next][i] = Math.min(dp[next][i], dp[prev][i-1] + price);
+                if(dp_k_1[prev]!=Integer.MAX_VALUE){
+                    dp_k[next] = Math.min(dp_k[next], dp_k_1[prev] + price);
                 }
             }
+
+            dp_k_1 = dp_k.clone();
         }
 
-
-        //O(K)*[O(V) + O(E)]
-        //for max input k = O(V), O(V^2) + O(V*E)
-        return dp[dst][k+1]!=Integer.MAX_VALUE ? dp[dst][k+1] : -1;
+        return dp_k[dst]!=Integer.MAX_VALUE ? dp_k[dst] : -1;
     }
 }

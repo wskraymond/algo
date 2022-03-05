@@ -1,4 +1,4 @@
-package com.mine.graph.dfs;
+package com.mine.graph.directed.dag.dfs;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package com.mine.graph.bfs;
+package com.mine.graph.undirected.bfs;
 
-public class SocialNetwork {
-    public SocialNetwork(){
+public class SocialNetwork_undirected_graph {
+    public SocialNetwork_undirected_graph(){
         //construct network
     }
 

@@ -1,4 +1,4 @@
-package com.mine.graph.dijkstra;
+package com.mine.graph.directed.nondag.dijkstra;
 
 import java.util.*;
 
