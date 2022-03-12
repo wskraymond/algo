@@ -1,5 +1,6 @@
 package com.mine.graph.directed.dfs;
 
+import com.mine.graph.directed.nondag.bfs.AllPaths_NON_DAG_bfs;
 import com.mine.graph.directed.nondag.dfs.AllPaths_NON_DAG_dfs;
 import org.junit.Test;
 
@@ -12,6 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 public class TestAllPaths {
     private static AllPaths_NON_DAG_dfs sol = new AllPaths_NON_DAG_dfs();
+    private static AllPaths_NON_DAG_bfs sol2 = new AllPaths_NON_DAG_bfs();
     @Test
     public void testCase1(){
         /**
@@ -32,7 +34,15 @@ public class TestAllPaths {
                 {}
         });
 
+        List<List<Integer>> actual2 = sol2.allPaths(2, 3, new int[][]{
+                {1,2,3},
+                {3},
+                {0,1},
+                {}
+        });
+
         actual.forEach(System.out::println);
+        actual2.forEach(System.out::println);
 
         /**
          * 1. sort 2D array - Arrays.sort(int[][], comparator)
@@ -65,6 +75,16 @@ public class TestAllPaths {
                 .toArray(int[][]::new);
         Arrays.sort(aArr, comparator);
 
+
+        int[][] aArr2 = actual2.stream().map(i->i.stream()
+                        .mapToInt(Integer::intValue)
+                        .toArray())
+                .toArray(int[][]::new);
+        Arrays.sort(aArr2, comparator);
+
         assertTrue(Arrays.deepEquals(eArr,aArr));
+        assertTrue(Arrays.deepEquals(eArr,aArr2));
     }
+
+
 }

@@ -38,7 +38,7 @@ public class AllPathsFromSourceToTarget_DAG_ONLY_bfs {
         /*
         Thanks to the nature of DAG, then we can use BFS to solve it
             - Directed Graph here
-                - Thus, we don’t have to mark “visited” here
+                - Thus, we don’t have to mark "visited" here
 
          But if it is undirected, mark as visited is required to avoid re-visiting
             - a vertex marked as visited previously was revisited later by another vertex (it means longer path) will not be processed.
