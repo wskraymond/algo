@@ -1,8 +1,8 @@
 package com.mine.graph.directed.dag.dfs;
 
-import java.util.List;
+import java.util.*;
 
-public class AllPathsFromSourceToTarget_DAG_ONLY_dfs {
+public class AllPathsFromSourceToTarget_DAG_ONLY_dfs_stack {
     /**
      * https://leetcode.com/problems/all-paths-from-source-to-target/
      *
@@ -34,6 +34,27 @@ public class AllPathsFromSourceToTarget_DAG_ONLY_dfs {
      The input graph is guaranteed to be a DAG.
      */
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-        return null;
+        if(graph==null || graph.length==0){
+            return Collections.emptyList();
+        }
+
+        List<List<Integer>> result = new ArrayList<>();
+        Deque<List<Integer>> pathStack = new ArrayDeque<>();
+        pathStack.push(Arrays.asList(0));
+        while(!pathStack.isEmpty()){
+            List<Integer> path = pathStack.pop();
+            Integer last = path.get(path.size()-1);
+            if(last==graph.length-1){
+                result.add(path);
+            } else {
+                for(int vertex : graph[last]){
+                    List<Integer> newPath = new ArrayList<>(path);
+                    newPath.add(vertex);
+                    pathStack.push(newPath);
+                }
+            }
+        }
+
+        return result;
     }
 }

@@ -1,6 +1,6 @@
 package com.mine.graph.directed.dfs;
 
-import com.mine.graph.directed.nondag.dfs.AllPaths_NON_DAG;
+import com.mine.graph.directed.nondag.dfs.AllPaths_NON_DAG_dfs;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TestAllPaths {
-    private static AllPaths_NON_DAG sol = new AllPaths_NON_DAG();
+    private static AllPaths_NON_DAG_dfs sol = new AllPaths_NON_DAG_dfs();
     @Test
     public void testCase1(){
         /**

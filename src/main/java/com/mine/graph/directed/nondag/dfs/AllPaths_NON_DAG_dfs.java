@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class AllPaths_NON_DAG {
+public class AllPaths_NON_DAG_dfs {
     /**
      * https://www.geeksforgeeks.org/find-paths-given-source-destination/
      *
