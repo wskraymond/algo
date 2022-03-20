@@ -1,6 +1,10 @@
 package com.mine.graph.directed.dag.dfs;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AllPathsFromSourceToTarget_DAG_ONLY_dfs {
     /**
@@ -34,6 +38,26 @@ public class AllPathsFromSourceToTarget_DAG_ONLY_dfs {
      The input graph is guaranteed to be a DAG.
      */
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-        return null;
+        if(graph==null || graph.length==0){
+            return Collections.emptyList();
+        }
+
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+        path.add(0);
+        dfs(0, path, result, graph);
+        return result;
+    }
+
+    public void dfs(int currentVertex,List<Integer> path, List<List<Integer>> result, int[][] graph){
+        if(currentVertex==graph.length-1){
+            result.add(new ArrayList<>(path)); //clone
+        }
+
+        for(int vertex : graph[currentVertex]){
+            path.add(vertex);
+            dfs(vertex, path, result, graph);
+            path.remove(path.size()-1);
+        }
     }
 }

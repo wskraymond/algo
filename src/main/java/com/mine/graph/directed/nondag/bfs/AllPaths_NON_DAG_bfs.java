@@ -35,7 +35,7 @@ public class AllPaths_NON_DAG_bfs {
                 result.add(path);
             } else {
                 for(int vertex:graph[last]){
-                    if(!traversed.contains(vertex)){
+                    if(!traversed.contains(vertex)){ //not visited
                         Set<Integer> newTraversed = new LinkedHashSet<>(traversed);
                         newTraversed.add(vertex);
                         q.add(newTraversed);
