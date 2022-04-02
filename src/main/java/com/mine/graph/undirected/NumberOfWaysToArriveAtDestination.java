@@ -16,10 +16,10 @@ public class NumberOfWaysToArriveAtDestination {
      * Output: 4
      * Explanation: The shortest amount of time it takes to go from intersection 0 to intersection 6 is 7 minutes.
      * The four ways to get there in 7 minutes are:
-     * - 0 ➝ 6
-     * - 0 ➝ 4 ➝ 6
-     * - 0 ➝ 1 ➝ 2 ➝ 5 ➝ 6
-     * - 0 ➝ 1 ➝ 3 ➝ 5 ➝ 6
+     * - 0 -> 6
+     * - 0 -> 4 -> 6
+     * - 0 -> 1 -> 2 -> 5 -> 6
+     * - 0 -> 1 -> 3 -> 5 -> 6
      *
      * Example 2:
      *
