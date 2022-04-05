@@ -3,7 +3,7 @@ package com.mine.cyclicsort.finduplicates;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FindDuplicates_model_ans {
+public class FindDuplicates_mine_cyclic_sort {
     /**
      * https://leetcode.com/problems/find-all-duplicates-in-an-array/
      *
@@ -42,22 +42,28 @@ public class FindDuplicates_model_ans {
      */
     public List<Integer> findDuplicates(int[] nums) {
         List<Integer> result = new ArrayList<>();
-        int i=0, n = nums.length;
-        while(i<n){ //cuclic sort
-            //assume nums[i] ranges from 1 to n
-            int j = nums[i] - 1;
-            if(nums[j]!=j+1){
-                //swap
-                nums[i] = nums[j];
-                nums[j] = j + 1;
-            } else {
-                i++;
+
+        //O(n) -> each number will only be assigned( swap ) to its correct position once
+        for(int i=1;i<=nums.length;i++){
+            int toIndex = nums[i-1];
+
+            //while condition serves both cases
+            //case 1: toIndex-1 == i , then stop swap
+            //case 2: toIndex-1 != i && nums[toIndex-1]==toIndex, then stop swap
+            while(nums[toIndex-1]!=toIndex){
+                //1. swap
+                nums[i-1] = nums[toIndex-1];
+                nums[toIndex-1] = toIndex;
+
+                //2. get new value at current position after swap
+                toIndex = nums[i-1];
             }
         }
 
-        for(i=0;i<nums.length;i++){
-            if(nums[i]!=i+1){
-                result.add(nums[i]);
+        //O(n): filter out duplicate number
+        for(int i=1;i<=nums.length;i++){
+            if(nums[i-1]!=i){
+                result.add(nums[i-1]);
             }
         }
 
