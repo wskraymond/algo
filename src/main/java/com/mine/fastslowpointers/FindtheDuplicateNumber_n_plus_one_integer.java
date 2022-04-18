@@ -47,6 +47,25 @@ public class FindtheDuplicateNumber_n_plus_one_integer {
      * @return
      */
     public int findDuplicate(int[] nums) {
-        return 0;
+        int s=0, f=0;
+        int p1=0, p2=-1;
+        while(true){
+            s=nums[s];
+            f=nums[nums[f]];
+            if(s==f){
+                p2=s;
+                break;
+            }
+        }
+
+        if(p2>-1){
+            while(p1!=p2){
+                p1 = nums[p1];
+                p2 = nums[p2];
+            }
+        }
+
+
+        return p2;
     }
 }
