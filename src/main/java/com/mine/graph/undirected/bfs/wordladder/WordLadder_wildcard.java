@@ -1,8 +1,8 @@
-package com.mine.graph.undirected.bfs;
+package com.mine.graph.undirected.bfs.wordladder;
 
 import java.util.*;
 
-public class WordLadder {
+public class WordLadder_wildcard {
     /**
      * A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such that:
      *
@@ -59,21 +59,17 @@ public class WordLadder {
 
         Map<String, List<String>> adjList = new HashMap<>();
         for(String word : wordSet){//O(n)
-            List<String> neighbours =  new ArrayList<>();
+            //for each word, * for any char
             char[] c = word.toCharArray();
-            for(int i=0;i<word.length();i++){ //O(m)
+            for(int i=0;i<word.length();i++) {
                 char tmp = c[i];
-                for(char j='a';j<='z';j++){//O(26)
-                    c[i]=j;
-                    String neighbour = String.valueOf(c); //O(m)
-                    if(!neighbour.equals(word)
-                            && wordSet.contains(neighbour)){
-                        neighbours.add(neighbour);
-                    }
-                }
+                c[i] = '*';
+                String pattern = String.valueOf(c);
+                List<String> neighbours = adjList.getOrDefault(pattern, new ArrayList<>());
+                neighbours.add(word);
+                adjList.putIfAbsent(pattern, neighbours);
                 c[i] = tmp;
             }
-            adjList.put(word, neighbours);
         }
         //Total = O(m^2*n*26) = O(m^2*n)
 
@@ -92,11 +88,18 @@ public class WordLadder {
                     return level;
                 }
 
-                for(String neighbour:adjList.get(vertex)){ //O(n)
-                    if(!visit.contains(neighbour)){
-                        q.offer(neighbour);
-                        visit.add(neighbour);
+                //for each vertex: * for any char
+                char[] c = vertex.toCharArray();
+                for(int j=0;j<vertex.length();j++){
+                    char tmp = c[j];
+                    c[j] = '*';
+                    for(String neighbour:adjList.get(String.valueOf(c))){
+                        if(!visit.contains(neighbour)){
+                            q.offer(neighbour);
+                            visit.add(neighbour);
+                        }
                     }
+                    c[j] = tmp;
                 }
             }
         }
