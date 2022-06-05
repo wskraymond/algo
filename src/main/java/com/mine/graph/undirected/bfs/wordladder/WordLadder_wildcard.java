@@ -93,7 +93,7 @@ public class WordLadder_wildcard {
                 for(int j=0;j<vertex.length();j++){
                     char tmp = c[j];
                     c[j] = '*';
-                    for(String neighbour:adjList.get(String.valueOf(c))){
+                    for(String neighbour:adjList.getOrDefault(String.valueOf(c), Collections.emptyList())){
                         if(!visit.contains(neighbour)){
                             q.offer(neighbour);
                             visit.add(neighbour);

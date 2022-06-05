@@ -10,7 +10,13 @@ public class WordLadder_26letters {
      *     Every si for 1 <= i <= k is in wordList. Note that beginWord does not need to be in wordList.
      *     sk == endWord
      *
-     * Given two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, or 0 if no such sequence exists.
+     * Given two words,
+     * beginWord and endWord,
+     * and a dictionary wordList,
+     *
+     * return the number of words in the shortest
+     *  transformation sequence from beginWord to endWord,
+     *  or 0 if no such sequence exists.
      *
      *
      *
@@ -83,7 +89,7 @@ public class WordLadder_26letters {
         Set<String> visit = new HashSet<>();
         q.offer(beginWord);
         visit.add(beginWord);
-        while(!q.isEmpty()){//O(n)
+        while(!q.isEmpty()){//O(V)
             level++;
             int n = q.size();
             for(int i=0;i<n;i++) {
@@ -92,7 +98,7 @@ public class WordLadder_26letters {
                     return level;
                 }
 
-                for(String neighbour:adjList.get(vertex)){ //O(n)
+                for(String neighbour:adjList.getOrDefault(vertex, Collections.emptyList())){ //O(E)
                     if(!visit.contains(neighbour)){
                         q.offer(neighbour);
                         visit.add(neighbour);
@@ -100,9 +106,9 @@ public class WordLadder_26letters {
                 }
             }
         }
-        //total: O(n^2)
+        //total: O(V+E)
 
-        //total: O(m^2*n) + O(n^2) = O(m^2*n)
+        //total: O(m^2*n) + O(V+E) = O(m^2*n)
 
         return 0;
     }

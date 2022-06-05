@@ -99,9 +99,9 @@ public class LeadsToDestination {
             return false;   //non-destination leaf
         }
 
-        for (int neighbour : adjList.getOrDefault(vertex, Collections.emptyList())) {
+        for (int neighbour : adjList.getOrDefault(vertex, Collections.emptyList())) { //O(E)
             if (color[neighbour] == 'W') {
-                if(!dfs(neighbour, destination, adjList, color)){
+                if(!dfs(neighbour, destination, adjList, color)){ //O(V)
                     return false;
                 }
             } else if (color[neighbour] == 'G') {
@@ -110,6 +110,6 @@ public class LeadsToDestination {
         }
 
         color[vertex]='B';
-        return true;
+        return true;    //O(E + V)
     }
 }
