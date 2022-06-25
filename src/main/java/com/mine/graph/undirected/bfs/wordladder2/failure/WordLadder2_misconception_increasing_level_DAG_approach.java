@@ -1,11 +1,11 @@
-package com.mine.graph.undirected.bfs.wordladder2;
+package com.mine.graph.undirected.bfs.wordladder2.failure;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class WordLadder2_increasing_level_DAG_approach {
+public class WordLadder2_misconception_increasing_level_DAG_approach {
     /**
      * https://leetcode.com/problems/word-ladder-ii/solution/
      *
@@ -60,12 +60,7 @@ public class WordLadder2_increasing_level_DAG_approach {
      */
     public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
         /*
-            1. return "all" the shortest transformation sequences from beginWord to endWord
-            2. Constraint: beginWord != endWord
-            3. equals/compareTo , does not work for String vs StringBuilder vs char[]
-                    i) trick: filter same char at index i
-                    ii) or clone String every time for comparison
-            4  String is immutable, you can use toCharArray() or StringBuilder for modification
+        return "all" the shortest transformation sequences from beginWord to endWord
          */
 
         //O(1) searching
@@ -85,18 +80,18 @@ public class WordLadder2_increasing_level_DAG_approach {
 
         //undirected adjList
         Map<String, Set<String>> adjList = wordSet.stream()
-                .map(StringBuilder::new)
+                .map(String::toCharArray)
                 .collect(Collectors.toMap(
-                    StringBuilder::toString,
-                    w->IntStream.range(0, w.length())
+                    String::valueOf,
+                    w->IntStream.range(0, w.length)
                                 .mapToObj(i->IntStream.rangeClosed('a', 'z')
-                                        .filter(c->c!=w.charAt(i)) //filter out nextW equals current word
                                         .mapToObj(c->{
-                                            char tmp = w.charAt(i);
-                                            w.setCharAt(i, (char) c);
-                                            String nextW = w.toString();
-                                            w.setCharAt(i, tmp);
-                                            return nextW;})
+                                            char tmp = w[i];
+                                            w[i] = (char) c;
+                                            String newWord = String.valueOf(w);
+                                            w[i] = tmp;
+                                            return newWord;})
+                                        .filter(w::equals)
                                         .filter(wordSet::contains)
                                         .collect(Collectors.toSet()))
                                 .flatMap(l->l.stream())
@@ -115,23 +110,29 @@ public class WordLadder2_increasing_level_DAG_approach {
                 to make DSF traversing only valid edge for minimum
                     - Thus, we have to traverse all vertices in BFS (don't stop in endword)
          */
-        int level = 0;
-        Map<String, Integer> visit = new HashMap<>();
+        Set<String> visit = new HashSet<>();
         Queue<String> q = new LinkedList<>();
         q.add(beginWord);
-        visit.put(beginWord, level+1);
-        while(!q.isEmpty()){
+        visit.add(beginWord);
+        int level = 0;
+        boolean found = false;
+        while(!found
+            && !q.isEmpty()){
             level++;
             int n = q.size();
             for(int i=0;i<n;i++) {
                 String vertex = q.poll();
+                if(vertex.equals(endWord)){
+                    found = true;
+                    break;
+                }
 
                 List<String> toBeRemoved = new LinkedList<>();
                 for(String neighbour : adjList.getOrDefault(vertex,Collections.emptySet())){
-                    if(!visit.containsKey(neighbour)){ //never visited
-                        visit.put(neighbour, level + 1);
+                    if(!visit.contains(neighbour)){
+                        visit.add(neighbour);
                         q.add(neighbour);
-                    } else if(visit.get(neighbour) <= level){ //visited and equal or less than current level
+                    } else {
                         toBeRemoved.add(neighbour);
                     }
                 }
@@ -144,27 +145,7 @@ public class WordLadder2_increasing_level_DAG_approach {
             }
         }
 
-        //DFS - traverse DAG
-        List<List<String>> result = new ArrayList<>();
-        List<String> path = new ArrayList<>();
-        path.add(beginWord);
-        dfs(beginWord, endWord, adjList, path, result);
-
-        return result;
-    }
-
-    private void dfs(String vertex, String endWord,
-                     Map<String,Set<String>> adjList, List<String> path,
-                     List<List<String>> result){
-        if(vertex.equals(endWord)){
-            result.add(new ArrayList<>(path));
-            return;
-        }
-
-        for(String neighbour:adjList.getOrDefault(vertex, Collections.emptySet())){
-            path.add(neighbour);
-            dfs(neighbour, endWord, adjList, path, result);
-            path.remove(neighbour); //backtrack
-        }
+        //DFS - backtracking DAG
+        return Collections.emptyList();
     }
 }
