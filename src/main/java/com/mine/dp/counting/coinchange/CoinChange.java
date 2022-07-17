@@ -59,7 +59,7 @@ public class CoinChange {
          *
          * Base case:
          *      f(0) = 0; //valid combination
-         *      f(s<0) = -1; //valid combination
+         *      f(s<0) = -1; //invalid combination
          *
          */
 

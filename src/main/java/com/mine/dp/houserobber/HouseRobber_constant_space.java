@@ -1,6 +1,6 @@
-package com.mine.amazon;
+package com.mine.dp.houserobber;
 
-public class HouseRobber {
+public class HouseRobber_constant_space {
     /**
      *
      * https://leetcode.com/problems/house-robber/
@@ -36,6 +36,24 @@ public class HouseRobber {
      * @return
      */
     public int rob(int[] nums) {
-        return 0;
+        /**
+         *  Recurrence Relation:
+         *      f(i) = max{arr[i] + f(i+2) , f(i+1)}
+         *  Base:
+         *      f(>=n) = 0
+         *  Goal:
+         *      f(0)
+         */
+
+        int n = nums.length;
+        int i_1=0, i_2=0;
+        for(int i=n-1;i>=0;i--){
+            int tmp = i_1;
+            i_1 = Math.max(nums[i] + i_2,
+                    i_1);
+            i_2 = tmp;
+        }
+
+        return i_1;
     }
 }
