@@ -1,5 +1,7 @@
 package com.mine.dp.longestcommon.editdistance;
 
+import java.util.Arrays;
+
 public class EditDistance {
     /**
      * https://leetcode.com/problems/edit-distance/
@@ -37,6 +39,35 @@ public class EditDistance {
      * @return
      */
     public int minDistance(String word1, String word2) {
-        return 0;
+        //convert x -> y
+        int X= word1.length() , Y = word2.length();
+        int[][] dp = new int[X+1][Y+1];
+        for(int[] arr:dp){
+            Arrays.fill(arr, Integer.MAX_VALUE);
+        }
+
+        dp[X][Y]=0;
+        for(int i=X;i>=0;i--){
+            for(int j=Y;j>=0;j--){
+                //insert
+                if(j+1<=Y) {
+                    dp[i][j] = Math.min(dp[i][j], dp[i][j + 1] + 1);
+                }
+
+                //delete
+                if(i+1<=X){
+                    dp[i][j] = Math.min(dp[i][j], dp[i+1][j] + 1);
+                }
+
+                //replace or equal
+                if(i+1<=X && j+1<=Y){
+                    dp[i][j] = Math.min(dp[i][j], dp[i+1][j+1] + (word1.charAt(i)==word2.charAt(j) ? 0 : 1));
+                }
+
+                //for dp[X][Y], it won't edit by either of above 3 operation, and it is the base case
+            }
+        }
+
+        return dp[0][0];
     }
 }

@@ -1,6 +1,6 @@
-package com.mine.dp;
+package com.mine.dp.MaxAlternatingSum;
 
-public class MaxAlternatingSum {
+public class MaxAlternatingSum_1d {
     /**
      * The alternating sum of a 0-indexed array is defined as the sum of the elements at even indices minus the sum of the elements at odd indices.
      *
@@ -45,7 +45,17 @@ public class MaxAlternatingSum {
         Hints:
             1. Is only tracking a single sum enough to solve the problem?
             2. How does tracking an odd sum and an even sum reduce the number of states?
+            3. max possible sum = 10^5/2 x 10^5 > Integer.MAX
+            4. max possible number = 10^5 < Integer.MAX
          */
-        return 0;
+        int n = nums.length;
+        long[][] dp = new long[n+1][2];
+        dp[n][0]=0;
+        dp[n][1]=0;
+        for(int i=n-1;i>=0;i--){
+            dp[i][0] = Math.max(dp[i+1][1]+nums[i], dp[i+1][0]);
+            dp[i][1] = Math.max(dp[i+1][0]-nums[i], dp[i+1][1]);
+        }
+        return dp[0][0];
     }
 }
