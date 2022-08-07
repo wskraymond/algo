@@ -1,4 +1,4 @@
-package com.mine.backtracking;
+package com.mine.backtracking.combination;
 
 import java.util.*;
 
@@ -57,7 +57,7 @@ public class Combination {
         return result;
     }
 
-    public void backtrack(int n, int k, int r, int first, Deque<Integer> c, List<List<Integer>> result){
+    private void backtrack(int n, int k, int r, int first, Deque<Integer> c, List<List<Integer>> result){
         if(r==k){ // or c.size() == k  // then we don't need param - r
             result.add(new LinkedList<>(c)); //O(k)
         }

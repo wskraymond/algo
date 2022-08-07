@@ -1,13 +1,12 @@
 package com.mine;
 
-import com.mine.jpm.permutation.Permutation_01;
+import com.mine.backtracking.permutation.Permutation_01;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;

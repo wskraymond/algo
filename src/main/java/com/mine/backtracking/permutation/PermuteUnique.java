@@ -1,4 +1,4 @@
-package com.mine.jpm.permutation;
+package com.mine.backtracking.permutation;
 
 import java.util.List;
 

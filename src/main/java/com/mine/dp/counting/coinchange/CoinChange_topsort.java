@@ -10,9 +10,14 @@ public class CoinChange_topsort {
      */
 
     /**
-     * You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+     * You are given an integer array coins representing coins
+     * of different denominations and an integer amount
+     * representing a total amount of money.
      *
-     * Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+     * Return the fewest number of coins
+     * that you need to make up that amount.
+     * If that amount of money cannot be made up by any combination of the coins,
+     * return -1.
      *
      * You may assume that you have an infinite number of each kind of coin.
      *
@@ -58,6 +63,9 @@ public class CoinChange_topsort {
          *      f(0) = 0; //valid combination
          *      f(s<0) = -1; //invalid combination
          *
+         * max possible #no = amount
+         *
+         *             to find f(n)
          */
 
         int[] dp = new int[amount+1]; //includes zero
