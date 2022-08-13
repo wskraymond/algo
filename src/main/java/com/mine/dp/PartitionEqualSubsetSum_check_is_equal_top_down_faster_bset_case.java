@@ -2,7 +2,7 @@ package com.mine.dp;
 
 import java.util.Arrays;
 
-public class PartitionEqualSubsetSum {
+public class PartitionEqualSubsetSum_check_is_equal_top_down_faster_bset_case {
     /**
      * Given a non-empty array nums containing only positive integers,
      * find if the array can be partitioned into two subsets
@@ -31,7 +31,6 @@ public class PartitionEqualSubsetSum {
      * @return
      */
     public boolean canPartition(int[] nums) {
-        int n = nums.length;
         int sum = Arrays.stream(nums).sum();
         int remain = sum%2;
         if(remain!=0){
@@ -39,16 +38,28 @@ public class PartitionEqualSubsetSum {
         }
 
         int s = sum/2;
-        int[][] dp = new int[n+1][s+1];
-        for(int i=n-1;i>=0;i--){
-            for(int j=1;j<=s;j++){
-                dp[i][j] = dp[i+1][j];
-                if(nums[i]<=j){
-                    dp[i][j] = Math.max(dp[i][j], dp[i+1][j-nums[i]] + nums[i]);
-                }
-            }
+        /*
+            - f(i,j) = f(i+1,j-num[i]) || f(i+1,j)
+            - f(i,0) = true, f(i, j<0) = false , f(n, j>0) = false
+         */
+        Boolean[][] memo = new Boolean[nums.length][s+1];
+        return dfs(0, s , nums, memo);
+    }
+
+    private boolean dfs(int i, int j, int[] nums, Boolean[][] memo){
+        if(j==0){
+            return true;
         }
 
-        return dp[0][s]==s;
+        if(i==nums.length || j<0){
+            return false;
+        }
+
+        if(memo[i][j]!=null){
+            return memo[i][j];
+        }
+
+        memo[i][j]=dfs(i+1,j-nums[i], nums, memo) || dfs(i+1,j, nums, memo);
+        return memo[i][j];
     }
 }
