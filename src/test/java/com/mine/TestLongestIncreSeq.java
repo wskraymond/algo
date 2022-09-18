@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.mine.dp.longestincreseq.LongestIncreSeq3_bottom_up_And_parent_pointers;
+import com.mine.dp.longestcommon.longestincreseq.LongestIncreSeq3_bottom_up_And_parent_pointers;
 import org.junit.Test;
 
 import java.util.Arrays;

@@ -1,6 +1,5 @@
 package com.mine;
 
-import com.mine.dp.Knapsack01;
 import com.mine.greedy.FractionalKnapsack;
 import org.junit.Test;
 

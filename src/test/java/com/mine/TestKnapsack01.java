@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.mine.dp.Knapsack01;
+import com.mine.dp.knapsack.zereone.Knapsack01;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;

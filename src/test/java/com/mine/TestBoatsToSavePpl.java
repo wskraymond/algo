@@ -1,6 +1,5 @@
 package com.mine;
 
-import com.mine.dp.Knapsack01;
 import com.mine.greedy.BoatsToSavePpl;
 import org.junit.Test;
 

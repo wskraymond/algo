@@ -1,12 +1,12 @@
 package com.mine;
 
-import com.mine.dp.palindrome.longestsubstr.Palindrome3;
+import com.mine.dp.palindrome.substring.nonbruteforce.old.Palindrome_outward_from_center_old;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestPalindrome {
-    private static Palindrome3 sol1 = new Palindrome3();
+    private static Palindrome_outward_from_center_old sol1 = new Palindrome_outward_from_center_old();
 
     @Test
     public void testCase1(){

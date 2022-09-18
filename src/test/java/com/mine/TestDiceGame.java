@@ -1,8 +1,7 @@
 package com.mine;
 
-import com.mine.dp.counting.DPDiceGame_recursion;
-import com.mine.dp.counting.DPDiceGame_topsort;
-import com.mine.greedy.BoatsToSavePpl;
+import com.mine.dp.fibonacci.DPDiceGame_recursion;
+import com.mine.dp.fibonacci.DPDiceGame_topsort;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
