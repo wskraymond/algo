@@ -34,12 +34,13 @@ public class PreorderTraversal {
     }
 
     private void classicDfs(TreeNode parent, List<Integer> result){
-        if(parent==null){
+        if(parent==null){                   //if node(param) is null, then pop to previous state/function
             return;
         }
 
         result.add(parent.val);
-        classicDfs(parent.left, result);
-        classicDfs(parent.right, result);
+        classicDfs(parent.left, result);    //call first function
+        classicDfs(parent.right, result);   //have to pop to this line for calling another function and get the node(param) of previous function
+        //not necessarily pop to this line , becos nothing to do and return
     }
 }

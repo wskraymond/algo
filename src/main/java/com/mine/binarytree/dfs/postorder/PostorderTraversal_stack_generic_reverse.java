@@ -49,7 +49,7 @@ public class PostorderTraversal_stack_generic_reverse {
          *     2. two Solutions
          *          i) we have to mark(save) which side has been visited instead of only store the node
          *          ii) reverse of postorder
-         *              (Order: left, right, visit(addLast) => visit(addFirst, right, left))
+         *              (Order: left, right, visit(addLast) => visit(addFirst), right, left)
          */
         while(param!=null /*base case*/
                 || !stack.isEmpty() /* return(restore the previous state)*/){
