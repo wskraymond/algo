@@ -1,14 +1,11 @@
 package com.mine.binarytree.dfs.construct;
 
-import com.mine.binarytree.BTConstructor;
-import com.mine.binarytree.dfs.inorder.InorderTraversal;
-import com.mine.binarytree.dfs.inorder.InorderTraversal_stack;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
 
 public class TestBTFromPreorderAndInorder {
-    private BTfromPreorderAndInorder sol = new BTfromPreorderAndInorder();
+    private BTfromPreorderAndInorder_linear_start_end sol = new BTfromPreorderAndInorder_linear_start_end();
 
     @Test
     public void test(){

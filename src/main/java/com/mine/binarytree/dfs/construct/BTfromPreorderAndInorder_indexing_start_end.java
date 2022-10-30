@@ -3,6 +3,8 @@ package com.mine.binarytree.dfs.construct;
 import com.mine.binarytree.TreeNode;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 /**
@@ -29,20 +31,24 @@ import java.util.stream.IntStream;
  * preorder is guaranteed to be the preorder traversal of the tree.
  * inorder is guaranteed to be the inorder traversal of the tree.
  */
-public class BTfromPreorderAndInorder {
+public class BTfromPreorderAndInorder_indexing_start_end {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         if(preorder.length==0 || inorder.length==0){
             return null;
         }
 
+        Map<Integer, Integer> indexMap = new HashMap<>();
+        IntStream.range(0, inorder.length).forEach(i->indexMap.put(inorder[i],i));
+
         TreeNode root = new TreeNode();
-        linkLeftAndRight(root,
+        linkLeftAndRight(root,indexMap,
                 preorder, 0, preorder.length,
                 inorder, 0, inorder.length);
         return root;
     }
 
     private void linkLeftAndRight(TreeNode node,
+                                  Map<Integer, Integer> indexMap,
                                   int[] preorder,
                                   int pStart,
                                   int pEnd,
@@ -57,7 +63,8 @@ public class BTfromPreorderAndInorder {
 
         node.val = preorder[pStart];
 //        int index = Arrays.binarySearch(inorder, iStart, iEnd, node.val); //only for binary tree's inorder traversal
-        int index = IntStream.range(iStart,iEnd).filter(i->inorder[i]==node.val).findFirst().orElse(-1);
+//        int index = IntStream.range(iStart,iEnd).filter(i->inorder[i]==node.val).findFirst().orElse(-1);
+        int index = indexMap.getOrDefault(node.val, -1);
         if(index<0){
             throw new IllegalArgumentException();
         }
@@ -68,7 +75,7 @@ public class BTfromPreorderAndInorder {
             int pLeftS = pStart + 1;
             int pLeftE = pLeftS + leftSize;
             node.left = new TreeNode();
-            linkLeftAndRight(node.left,
+            linkLeftAndRight(node.left,indexMap,
                     preorder, pLeftS,pLeftE,
                     inorder, iLeftS, iLeftE);
         }
@@ -79,7 +86,7 @@ public class BTfromPreorderAndInorder {
             int pRightS = pStart + leftSize + 1;
             int pRightE = pRightS + rightSize;
             node.right = new TreeNode();
-            linkLeftAndRight(node.right,
+            linkLeftAndRight(node.right,indexMap,
                     preorder, pRightS,pRightE,
                     inorder, iRightS, iRightE);
         }
