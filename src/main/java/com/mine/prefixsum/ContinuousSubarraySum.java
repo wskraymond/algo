@@ -1,5 +1,8 @@
 package com.mine.prefixsum;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ContinuousSubarraySum {
     /**
      * Given an integer array nums and an integer k,
@@ -40,6 +43,21 @@ public class ContinuousSubarraySum {
      * @return
      */
     public boolean checkSubarraySum(int[] nums, int k) {
+        Map<Integer,Integer> m = new HashMap<>();
+        m.put(0, -1);
+        int sum = 0;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+            int remainder = sum%k;
+            if(m.containsKey(remainder)){
+                if(i-m.get(remainder)>1){
+                    return true;
+                }
+            } else {
+                m.put(remainder, i);
+            }
+        }
+
         return false;
     }
 }
