@@ -1,6 +1,6 @@
 package com.mine.binarytree.dfs.postorder;
 
-import com.mine.binarytree.BTConstructor;
+import com.mine.binarytree.SerializeAndDeserializeBT_BFS;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -8,7 +8,7 @@ import static org.junit.Assert.assertArrayEquals;
 public class TestPostorderTraversal {
     private PostorderTraversal sol = new PostorderTraversal();
     private PostorderTraversal_stack_missing_state sol2 = new PostorderTraversal_stack_missing_state();
-    private BTConstructor constructor = new BTConstructor();
+    private SerializeAndDeserializeBT_BFS constructor = new SerializeAndDeserializeBT_BFS();
 
     @Test
     public void testIncompleteAndNonFullBT(){

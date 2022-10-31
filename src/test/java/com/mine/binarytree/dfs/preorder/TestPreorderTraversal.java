@@ -1,6 +1,6 @@
 package com.mine.binarytree.dfs.preorder;
 
-import com.mine.binarytree.BTConstructor;
+import com.mine.binarytree.SerializeAndDeserializeBT_BFS;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -8,7 +8,7 @@ import static org.junit.Assert.assertArrayEquals;
 public class TestPreorderTraversal {
     private PreorderTraversal sol = new PreorderTraversal();
     private PreorderTraversal_stack sol2 = new PreorderTraversal_stack();
-    private BTConstructor constructor = new BTConstructor();
+    private SerializeAndDeserializeBT_BFS constructor = new SerializeAndDeserializeBT_BFS();
 
     @Test
     public void testIncompleteAndNonFullBT(){

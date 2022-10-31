@@ -1,4 +1,4 @@
-package com.mine.amazon;
+package com.mine.prefixsum;
 
 public class ContinuousSubarraySum {
     /**

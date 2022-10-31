@@ -1,8 +1,6 @@
 package com.mine.binarytree.dfs.inorder;
 
-import com.mine.binarytree.BTConstructor;
-import com.mine.binarytree.dfs.inorder.InorderTraversal;
-import com.mine.binarytree.dfs.inorder.InorderTraversal_stack;
+import com.mine.binarytree.SerializeAndDeserializeBT_BFS;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -11,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class TestInorderTraversal {
     private InorderTraversal sol = new InorderTraversal();
     private InorderTraversal_stack sol2 = new InorderTraversal_stack();
-    private BTConstructor constructor = new BTConstructor();
+    private SerializeAndDeserializeBT_BFS constructor = new SerializeAndDeserializeBT_BFS();
 
     @Test
     public void testIncompleteAndNonFullBT(){
