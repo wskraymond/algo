@@ -1,4 +1,4 @@
-package com.mine.slidingwindow.longestsubstr;
+package com.mine.slidingwindow.longestsubstr.atmostk;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;

@@ -1,4 +1,4 @@
-package com.mine.slidingwindow.longestsubstr;
+package com.mine.slidingwindow.longestsubstr.atmostone;
 
 public class LongestSubstrWithoutRepeatingChar_slidingwindow_chararr_jump {
     /**

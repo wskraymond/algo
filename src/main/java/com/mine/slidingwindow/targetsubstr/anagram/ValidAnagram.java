@@ -1,8 +1,8 @@
-package com.mine.slidingwindow.targetsubstr;
+package com.mine.slidingwindow.targetsubstr.anagram;
 
 import java.util.Arrays;
 
-public class ValidAnagram_counter {
+public class ValidAnagram {
     /**
      *
      * https://leetcode.com/problems/valid-anagram/
@@ -39,18 +39,12 @@ public class ValidAnagram_counter {
             return false;
         }
 
-        int[] chars = new int[26]; //lowercase letters
-        for(int i=0;i<s.length();i++){
-            chars[s.charAt(i) - 'a']++;
-            chars[t.charAt(i) - 'a']--;
-        }
+        char[] sc = s.toCharArray();
+        char[] tc = t.toCharArray();
 
-        for(int count: chars){
-            if(count>0){
-                return false;
-            }
-        }
+        Arrays.sort(tc);
+        Arrays.sort(tc);
 
-        return true;
+        return Arrays.equals(sc, tc);
     }
 }

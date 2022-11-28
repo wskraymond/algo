@@ -1,4 +1,4 @@
-package com.mine.slidingwindow.targetsubstr;
+package com.mine.slidingwindow.targetsubstr.anagram;
 
 import java.util.ArrayList;
 import java.util.Arrays;
