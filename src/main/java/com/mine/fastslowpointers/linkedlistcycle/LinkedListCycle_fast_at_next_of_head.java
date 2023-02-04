@@ -57,12 +57,11 @@ public class LinkedListCycle_fast_at_next_of_head {
 
         //odd case: 0 -> 1 -> 2 -> null
         //step 0: s->0, f-> 1  //f!=null And f.next!=null
-        //step 1: s->1, f-> 2  //f!=null but f.next==null , end of while loop
+        //step 1: s->1, f-> null  //f==null, end of while loop
 
         //even case: 0 -> 1 -> 2 -> 3 -> null
         //step 0: s->0, f-> 1  //f!=null And f.next!=null
-        //step 1: s->1, f-> 2  //f!=null And f.next!=null
-        //step 1: s->2, f-> 3  //f!=null but f.next==null , end of while loop
+        //step 1: s->1, f-> 3  //f!=null but f.next==null , end of while loop
 
         //to handle [1,2] with pos = 0 (head is the start/entrance of the cycle)
         //or [1] with pos = 0
