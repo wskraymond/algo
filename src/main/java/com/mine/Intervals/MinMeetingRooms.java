@@ -1,4 +1,4 @@
-package com.mine.jpm.Intervals;
+package com.mine.Intervals;
 
 import java.util.Arrays;
 import java.util.Comparator;

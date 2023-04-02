@@ -1,8 +1,7 @@
 package com.mine;
 
-import com.mine.greedy.BoatsToSavePpl;
-import com.mine.jpm.parenthesis.LongestValidParentheses;
-import com.mine.jpm.parenthesis.LongestValidParentheses02;
+import com.mine.stack.parenthesis.LongestValidParentheses;
+import com.mine.stack.parenthesis.LongestValidParentheses02;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

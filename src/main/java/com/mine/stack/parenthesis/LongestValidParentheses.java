@@ -1,4 +1,4 @@
-package com.mine.jpm.parenthesis;
+package com.mine.stack.parenthesis;
 
 //Hard
 

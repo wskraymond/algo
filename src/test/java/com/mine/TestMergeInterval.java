@@ -1,7 +1,6 @@
 package com.mine;
 
-import com.mine.greedy.BoatsToSavePpl;
-import com.mine.jpm.Intervals.MergeInterval;
+import com.mine.Intervals.MergeInterval;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;

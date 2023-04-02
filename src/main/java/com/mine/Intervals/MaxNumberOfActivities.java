@@ -1,4 +1,4 @@
-package com.mine.jpm.Intervals;
+package com.mine.Intervals;
 
 public class MaxNumberOfActivities {
     /**
