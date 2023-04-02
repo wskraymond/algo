@@ -43,6 +43,10 @@ public class SumSubarrayMins_TLE {
          *      sum{f(i,j)}
          */
 
+        /**
+         * Optimal solution: Monotonic Stack(Trapping Rain Water)
+         */
+
         //https://www.geeksforgeeks.org/modulo-1097-1000000007/
         //to avoid overflow
         final int M = (int)1e9 + 7;
