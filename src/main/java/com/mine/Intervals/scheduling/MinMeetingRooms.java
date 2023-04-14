@@ -1,4 +1,4 @@
-package com.mine.Intervals;
+package com.mine.Intervals.scheduling;
 
 import java.util.Arrays;
 import java.util.Comparator;

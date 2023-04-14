@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.mine.Intervals.MergeInterval;
+import com.mine.Intervals.merge.MergeInterval;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;

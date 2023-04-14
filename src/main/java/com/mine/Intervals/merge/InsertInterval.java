@@ -1,4 +1,4 @@
-package com.mine.Intervals;
+package com.mine.Intervals.merge;
 
 import java.util.ArrayList;
 import java.util.Arrays;
