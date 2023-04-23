@@ -43,6 +43,11 @@ public class RemoveNthNodeFromEndofList_usingDummy {
      */
     public ListNode removeNthFromEnd(ListNode head, int n) {
         /*
+        use dummy -> head to avoid null scenario
+        , which can significantly simplify the code below
+         */
+
+        /*
         edge case 1:  0 -> null , n=1  => return null
         edge case 2:  0 -> 1 -> null , n=2 => return 1
         edge case 3: 0 -> 1 -> 2 -> null, n=3 => return 1
