@@ -45,6 +45,12 @@ public class RemoveNthNodeFromEndofList_usingDummy {
         /*
         use dummy -> head to avoid null scenario
         , which can significantly simplify the code below
+            #initial
+            left = dummy
+
+            # delete
+            left.next = left.next.next
+            return dummy.next
          */
 
         /*
