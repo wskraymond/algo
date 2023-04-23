@@ -44,7 +44,7 @@ public class ReorderList {
     }
 
     private ListNode endOfFirstHalf(ListNode head) {
-        ListNode s=head, f=head;
+        ListNode s=head, f=head; //handle 0-> 1 , return s=0, no need to step forward
         while(f.next!=null&&f.next.next!=null){
             s = s.next;
             f = f.next.next;
