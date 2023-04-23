@@ -1,6 +1,6 @@
-package com.mine.linkedlist.removenthnode;
+package com.mine.twopointers.linkedlist.removenthnode;
 
-public class RemoveNthNodeFromEndofList {
+public class RemoveNthNodeFromEndofList_usingDummy {
     /**
      * Given the head of a linked list,
      * remove the nth node from the end of the list
@@ -43,36 +43,39 @@ public class RemoveNthNodeFromEndofList {
      */
     public ListNode removeNthFromEnd(ListNode head, int n) {
         /*
+        use dummy -> head to avoid null scenario
+        , which can significantly simplify the code below
+            #initial
+            left = dummy
+
+            # delete
+            left.next = left.next.next
+            return dummy.next
+         */
+
+        /*
         edge case 1:  0 -> null , n=1  => return null
         edge case 2:  0 -> 1 -> null , n=2 => return 1
         edge case 3: 0 -> 1 -> 2 -> null, n=3 => return 1
          */
-        ListNode forwardN = head, nodeBeforeN=null, toBeRemoval=head;
+        ListNode dummy = new ListNode(-1, head);
+        ListNode l = dummy, r = head;
         for(int i=0;i<n;i++){ //O(forward steps)
-            if(forwardN!=null){
-                forwardN = forwardN.next;
+            if(r!=null){
+                r = r.next;
             } else {
                 throw new IllegalArgumentException("n is larger than the length of list");
             }
         }
 
-        while(forwardN!=null){ //O(remaining Steps)
-            nodeBeforeN = toBeRemoval;
-            toBeRemoval = toBeRemoval.next;
-            forwardN = forwardN.next;
+        while(r!=null){ //O(remaining Steps)
+            l = l.next;
+            r = r.next;
         }
 
-        ListNode result = null;
-        if(nodeBeforeN!=null){
-            nodeBeforeN.next = toBeRemoval.next;
-            toBeRemoval.next = null;
-            result = head;
-        } else {
-            result = toBeRemoval.next;
-            toBeRemoval.next = null;
-        }
-
-        return result; //O(n)
+        //remove
+        l.next = l.next.next;
+        return dummy.next;      //O(n)
     }
 
     public class ListNode {
