@@ -1,4 +1,4 @@
-package com.mine.kwaymerge;
+package com.mine.kwaymerge.mergelist;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;

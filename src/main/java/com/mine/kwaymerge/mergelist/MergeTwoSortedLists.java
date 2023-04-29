@@ -1,4 +1,4 @@
-package com.mine.linkedlist;
+package com.mine.kwaymerge.mergelist;
 
 import java.util.List;
 

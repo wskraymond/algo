@@ -1,6 +1,6 @@
-package com.mine.linkedlist.removenthnode;
+package com.mine.twopointers.linkedlist.removenthnode;
 
-public class RemoveNthNodeFromEndofList_usingDummy {
+public class RemoveNthNodeFromEndofList {
     /**
      * Given the head of a linked list,
      * remove the nth node from the end of the list
@@ -42,17 +42,6 @@ public class RemoveNthNodeFromEndofList_usingDummy {
      * @return
      */
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        /*
-        use dummy -> head to avoid null scenario
-        , which can significantly simplify the code below
-            #initial
-            left = dummy
-
-            # delete
-            left.next = left.next.next
-            return dummy.next
-         */
-
         /*
         edge case 1:  0 -> null , n=1  => return null
         edge case 2:  0 -> 1 -> null , n=2 => return 1
