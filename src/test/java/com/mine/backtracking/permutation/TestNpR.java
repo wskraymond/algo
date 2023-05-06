@@ -1,6 +1,5 @@
 package com.mine.backtracking.permutation;
 
-import com.mine.backtracking.combination.NcR;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

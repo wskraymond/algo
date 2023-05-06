@@ -1,4 +1,4 @@
-package com.mine.backtracking.combination;
+package com.mine.backtracking.combination.bound;
 
 import java.util.*;
 

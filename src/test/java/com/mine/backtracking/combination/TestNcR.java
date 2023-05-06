@@ -1,6 +1,6 @@
 package com.mine.backtracking.combination;
 
-import com.mine.greedy.BoatsToSavePpl;
+import com.mine.backtracking.combination.bound.NcR;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
