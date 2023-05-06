@@ -1,4 +1,4 @@
-package com.mine.backtracking.mineffortpath;
+package com.mine.backtracking.directions.mineffortpath;
 
 import java.util.Arrays;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package com.mine.backtracking;
+package com.mine.backtracking.directions;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,6 @@
 package com.mine;
 
-import com.mine.backtracking.mineffortpath.MinEffortPath_backtrack_but_still_LTE;
-import com.mine.greedy.BoatsToSavePpl;
+import com.mine.backtracking.directions.mineffortpath.MinEffortPath_backtrack_but_still_LTE;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

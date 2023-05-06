@@ -1,4 +1,4 @@
-package com.mine.backtracking.mineffortpath;
+package com.mine.backtracking.directions.mineffortpath;
 
 import java.util.LinkedList;
 import java.util.List;
