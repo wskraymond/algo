@@ -1,7 +1,6 @@
 package com.mine.slidingwindow.minwinowSubstr;
 
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -52,12 +51,26 @@ public class MinimumWindowSubstring {
      * @return
      */
     public String minWindow(String s, String t) {
+        /*
+            1. use a map to store the key to remaining number of chars that is not yet satisfied (i.e it can be over-statisfied - negative)
+            2. shrink(shift j forward) to approch the miminum of window size till the condition is no longer met
+            3. use of a counter to keep track of how many chars in the string 't' we meet
+         */
+
+        /*
+            time: O(m)
+            space: O(m)
+         */
         Map<Character, Long> m = t.chars()
                                 .mapToObj(c->(char)c)
                                 .collect(Collectors.groupingBy(Function.identity(),
                                         Collectors.counting()));
         int start=0,end=0;
         int min = Integer.MAX_VALUE, counter = t.length();
+
+        /*
+            time: O(n)
+         */
         for(int i=0,j=0;i<s.length();i++){
             Long remaining = m.computeIfPresent(s.charAt(i), (k,v)-> --v);
             if(remaining!=null
@@ -81,6 +94,7 @@ public class MinimumWindowSubstring {
             }
         }
 
+        //total time; O(m+n)
         return s.substring(start,end);
     }
 }
