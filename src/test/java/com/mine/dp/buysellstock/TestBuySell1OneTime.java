@@ -1,6 +1,7 @@
 package com.mine.dp.buysellstock;
 
-import com.mine.dp.buysellstock.BuySellOneTime_intuitive;
+import com.mine.slidingwindow.buysellonetime.dp.BuySellOneTime_dp;
+import com.mine.slidingwindow.buysellonetime.dp.BuySellOneTime_intuitive;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

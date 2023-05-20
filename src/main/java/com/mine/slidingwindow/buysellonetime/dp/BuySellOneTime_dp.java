@@ -1,6 +1,6 @@
-package com.mine.dp.buysellstock;
+package com.mine.slidingwindow.buysellonetime.dp;
 
-public class BuySellOneTime_intuitive {
+public class BuySellOneTime_dp {
 
     /**
      * You are given an array prices
@@ -38,13 +38,25 @@ public class BuySellOneTime_intuitive {
      * @return
      */
     public int maxProfit(int[] prices) {
-        int max = 0;
-        int lowest = prices[0];
-        for(int i=1;i<prices.length;i++){
-            max = Math.max(max, prices[i] - lowest);
-            lowest = Math.min(lowest, prices[i]);
+        /**
+         * Recurrence Relations:
+         *      - f(i,1, 0) = Max{f(i-1, 1, 0) , f(i-1,1, 1) + prices[i]}
+         *      - f(i,1, 1) = Max{f(i-1, 1, 1) , f(i-1, 0, 0) - prices[i]}
+         *
+         * Base Case:
+         *      - f(-1, 1, 0) = 0
+         *      - f(-1, 1, 1) = -Inf
+         *      - f(i, 0, 0) = 0
+         */
+
+        //final int NEG_INF = (int) -1e9;
+        final int NEG_INF = Integer.MIN_VALUE;
+        int k_1_pos_0 = 0 , k_1_pos_1 = NEG_INF;
+        for(int i=0;i<prices.length;i++){
+            k_1_pos_0 = Math.max(k_1_pos_0, k_1_pos_1 + prices[i]);
+            k_1_pos_1 = Math.max(k_1_pos_1, -prices[i]);
         }
 
-        return max;
+        return k_1_pos_0;
     }
 }
