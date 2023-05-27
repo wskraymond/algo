@@ -1,8 +1,9 @@
 package com.mine.product;
 
+import com.mine.product.MaxFXPair.MaxFXPair_backtracking;
+import com.mine.product.MaxFXPair.MaxFXPair_bf;
 import org.junit.Test;
 
-import java.lang.annotation.Documented;
 import java.util.HashMap;
 import java.util.Map;
 

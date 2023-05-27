@@ -1,10 +1,10 @@
-package com.mine.product;
+package com.mine.product.MaxFXPair;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class MaxFXPair_backtracking_incorrect_candidate_format {
+public class MaxFXPair_backtracking {
     /**
      * Maximize the FX amount in conversion
      * from fromCcy to toCcy
@@ -48,44 +48,44 @@ public class MaxFXPair_backtracking_incorrect_candidate_format {
      * @return
      */
     public double maxProduct(Map<String, Double> fxPairs, String fromCcy, String toCcy){
-        return backtrack(fxPairs, new HashSet<>(), fromCcy, toCcy);
+        Set<String> ccyVisit = new HashSet<>();
+        ccyVisit.add(fromCcy);
+        return backtrack(fxPairs, ccyVisit, fromCcy, toCcy);
     }
 
-    private double backtrack(Map<String, Double> fxPairs, Set<String> visit, String fromCcy, String toCcy){
+    private double backtrack(Map<String, Double> fxPairs, Set<String> ccyVisit, String fromCcy, String toCcy){
         double max = -1;
         for(Map.Entry<String, Double> entry: fxPairs.entrySet()){
             String fxPair = entry.getKey();
-            if(visit.contains(fxPair)){
-                continue;
-            }
-
             String[] tmp = fxPair.split("=");
             String ccy1 = tmp[0]; //entry.getKey().substring(0, 3);
             String ccy2 = tmp[1]; //entry.getKey().substring(4, 7);
 
-            if(ccy1.equals(fromCcy)){
+            if(!ccyVisit.contains(ccy2)
+                && ccy1.equals(fromCcy)){
                 double rate = entry.getValue();
                 if(ccy2.equals(toCcy)){
                     max = Math.max(max, rate);
                 } else {
-                    visit.add(fxPair);
-                    double nextRate = backtrack(fxPairs, visit, ccy2, toCcy);
+                    ccyVisit.add(ccy2);
+                    double nextRate = backtrack(fxPairs, ccyVisit, ccy2, toCcy);
                     if(nextRate>0) {
                         max = Math.max(max, rate*nextRate);
                     }
-                    visit.remove(fxPair);
+                    ccyVisit.remove(ccy2);
                 }
-            } else if(ccy2.equals(fromCcy)){
+            } else if(!ccyVisit.contains(ccy1)
+                        && ccy2.equals(fromCcy)){
                 double rate = 1/entry.getValue();
                 if(ccy1.equals(toCcy)){
                     max = Math.max(max, rate);
                 } else {
-                    visit.add(fxPair);
-                    double nextRate = backtrack(fxPairs, visit, ccy1, toCcy);
+                    ccyVisit.add(ccy1);
+                    double nextRate = backtrack(fxPairs, ccyVisit, ccy1, toCcy);
                     if(nextRate>0) {
                         max = Math.max(max, rate*nextRate);
                     }
-                    visit.remove(fxPair);
+                    ccyVisit.remove(ccy1);
                 }
             }
         }

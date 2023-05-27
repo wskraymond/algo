@@ -1,9 +1,11 @@
-package com.mine.product;
+package com.mine.product.MaxFXPair;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-public class MaxFXPair_bf {
+public class MaxFXPair_bf_missing_k_param {
     /**
      * Maximize the FX amount in conversion
      * from fromCcy to toCcy
@@ -48,33 +50,32 @@ public class MaxFXPair_bf {
     public double maxProduct(Map<String, Double> fxPairs, String fromCcy, String toCcy){
         /**
          * Recurrence Relations:
-         *      f(v, k) = max{f(v, k-1), f(u, k-1) * cost(u,v)} | for any u to v , if k>=0
+         *      f(s, v, k) = max{f(s,u, k-1) * cost(u,v)} | for any u to v , if k>=1
          *
          * Base Case:
-         *      f(s, 0) = 1
-         *
+         *      f(s,s) = 1
          * Goal:
-         *     f(v, n-1)
+         *     f(s, d)
          */
-        Map<String, Double> dp_k_1 = new HashMap<>();
+        Map<String, Double> dp = new HashMap<>();
+
         //init to -Inf
-        for(String pair: fxPairs.keySet()){
+        fxPairs.keySet().forEach(pair->{
             String[] tmp = pair.split("=");
-            dp_k_1.put(tmp[0], Double.MIN_VALUE);
-            dp_k_1.put(tmp[1], Double.MIN_VALUE);
-        }
+            dp.put(tmp[0], Double.MIN_VALUE);
+            dp.put(tmp[1], Double.MIN_VALUE);
+        });
 
         //edge case
-        if(!dp_k_1.containsKey(fromCcy)
-            || !dp_k_1.containsKey(toCcy)){
+        if(!dp.containsKey(fromCcy)
+            || !dp.containsKey(toCcy)){
             return -1;
         }
 
         //base case
-        dp_k_1.put(fromCcy, 1d);
-        Map<String, Double> dp_k = new HashMap<>(dp_k_1);
+        dp.put(fromCcy, 1d);
 
-        int n  = dp_k.size();
+        int n  = dp.size();
         for(int k=1; k<=n-1;k++){
             for(Map.Entry<String, Double> fxPair: fxPairs.entrySet()){
                 String[] tmp = fxPair.getKey().split("=");
@@ -83,25 +84,23 @@ public class MaxFXPair_bf {
 
                 //forward edge
                 double forwardRate = fxPair.getValue();
-                double prevForward = dp_k_1.get(ccy1);
-                double nextForward = dp_k.get(ccy2);
+                double prevForward = dp.get(ccy1);
+                double nextForward = dp.get(ccy2);
                 if(prevForward>0) {
-                    dp_k.put(ccy2, Math.max(nextForward, prevForward * forwardRate));
+                    dp.put(ccy2, Math.max(nextForward, prevForward * forwardRate));
                 }
 
                 //backward edge
                 double backwardRate = 1/fxPair.getValue();
-                double prevBackward = dp_k_1.get(ccy2);
-                double nextBackward = dp_k.get(ccy1);
+                double prevBackward = dp.get(ccy2);
+                double nextBackward = dp.get(ccy1);
                 if(prevBackward>0) {
-                    dp_k.put(ccy1, Math.max(nextBackward, prevBackward * backwardRate));
+                    dp.put(ccy1, Math.max(nextBackward, prevBackward * backwardRate));
                 }
             }
-
-            dp_k_1 = new HashMap<>(dp_k);
         }
 
-        double result = dp_k.getOrDefault(toCcy, -1d);
+        double result = dp.getOrDefault(toCcy, -1d);
         return result!=Integer.MIN_VALUE ? result : -1;
     }
 }

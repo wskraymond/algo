@@ -1,11 +1,9 @@
-package com.mine.product;
+package com.mine.product.MaxFXPair;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-public class MaxFXPair_bf_missing_k_param {
+public class MaxFXPair_bf {
     /**
      * Maximize the FX amount in conversion
      * from fromCcy to toCcy
@@ -50,32 +48,46 @@ public class MaxFXPair_bf_missing_k_param {
     public double maxProduct(Map<String, Double> fxPairs, String fromCcy, String toCcy){
         /**
          * Recurrence Relations:
-         *      f(s, v, k) = max{f(s,u, k-1) * cost(u,v)} | for any u to v , if k>=1
+         *      f(v, k) = max{f(v, k-1), f(u, k-1) * cost(u,v)} | for any u to v , if k>=0
          *
          * Base Case:
-         *      f(s,s) = 1
+         *      f(s, 0) = 1
+         *
          * Goal:
-         *     f(s, d)
+         *     f(v, n-1)
          */
-        Map<String, Double> dp = new HashMap<>();
-
+        Map<String, Double> dp_k_1 = new HashMap<>();
         //init to -Inf
-        fxPairs.keySet().forEach(pair->{
+        for(String pair: fxPairs.keySet()){
             String[] tmp = pair.split("=");
-            dp.put(tmp[0], Double.MIN_VALUE);
-            dp.put(tmp[1], Double.MIN_VALUE);
-        });
+            dp_k_1.put(tmp[0], Double.MIN_VALUE);
+            dp_k_1.put(tmp[1], Double.MIN_VALUE);
+        }
 
         //edge case
-        if(!dp.containsKey(fromCcy)
-            || !dp.containsKey(toCcy)){
+        if(!dp_k_1.containsKey(fromCcy)
+            || !dp_k_1.containsKey(toCcy)){
             return -1;
         }
 
         //base case
-        dp.put(fromCcy, 1d);
+        dp_k_1.put(fromCcy, 1d);
+        Map<String, Double> dp_k = new HashMap<>(dp_k_1);
 
-        int n  = dp.size();
+        /*
+        in this bidirectional graph, why do we still use at most n - 1 edges ?
+        for X -> B -> A -> path Y -> A -> B -> C,
+             Assume A -> path Y -> A is positive cycle ( decreasing multiplication)
+                - rate = 1/r1
+             then B -> A and A-> B will offset each other
+                = rate = 1
+             Thus, x-> B -> C (given rate = 1/R)
+                must be superior than X -> B -> A -> path Y -> A -> B -> C
+                    - 1/R x 1/r1
+
+         Eventually, we should never use both direction of the same edge in a path which be inferior
+         */
+        int n  = dp_k.size();
         for(int k=1; k<=n-1;k++){
             for(Map.Entry<String, Double> fxPair: fxPairs.entrySet()){
                 String[] tmp = fxPair.getKey().split("=");
@@ -84,23 +96,25 @@ public class MaxFXPair_bf_missing_k_param {
 
                 //forward edge
                 double forwardRate = fxPair.getValue();
-                double prevForward = dp.get(ccy1);
-                double nextForward = dp.get(ccy2);
+                double prevForward = dp_k_1.get(ccy1);
+                double nextForward = dp_k.get(ccy2);
                 if(prevForward>0) {
-                    dp.put(ccy2, Math.max(nextForward, prevForward * forwardRate));
+                    dp_k.put(ccy2, Math.max(nextForward, prevForward * forwardRate));
                 }
 
                 //backward edge
                 double backwardRate = 1/fxPair.getValue();
-                double prevBackward = dp.get(ccy2);
-                double nextBackward = dp.get(ccy1);
+                double prevBackward = dp_k_1.get(ccy2);
+                double nextBackward = dp_k.get(ccy1);
                 if(prevBackward>0) {
-                    dp.put(ccy1, Math.max(nextBackward, prevBackward * backwardRate));
+                    dp_k.put(ccy1, Math.max(nextBackward, prevBackward * backwardRate));
                 }
             }
+
+            dp_k_1 = new HashMap<>(dp_k);
         }
 
-        double result = dp.getOrDefault(toCcy, -1d);
+        double result = dp_k.getOrDefault(toCcy, -1d);
         return result!=Integer.MIN_VALUE ? result : -1;
     }
 }
