@@ -1,4 +1,6 @@
-package com.mine.binarytree;
+package com.mine.binarytree.dfs;
+
+import com.mine.binarytree.TreeNode;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

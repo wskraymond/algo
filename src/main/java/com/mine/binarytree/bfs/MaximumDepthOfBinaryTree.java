@@ -1,4 +1,6 @@
-package com.mine.binarytree;
+package com.mine.binarytree.bfs;
+
+import com.mine.binarytree.TreeNode;
 
 import java.util.LinkedList;
 import java.util.Queue;
