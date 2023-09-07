@@ -1,5 +1,8 @@
 package com.mine.stack.monotonic;
 
+import java.util.*;
+import java.util.stream.IntStream;
+
 public class NextGreaterElement {
     /**
      * https://leetcode.com/problems/next-greater-element-i/description/
@@ -52,8 +55,30 @@ public class NextGreaterElement {
          *
          *
          * Follow up: Could you find an O(nums1.length + nums2.length) solution?
+         *
+         * Return an array ans of length nums1.length such that ans[i] is the next greater element
          */
+        if(nums1.length==0){
+            return new int[0];
+        }
 
-        return null;
+        int[] ans2 = new int[nums2.length];
+        Deque<Integer> dscStack = new ArrayDeque<>();
+        dscStack.push(-1);
+        Map<Integer,Integer> indexMap = new HashMap<>();
+        IntStream.range(0,nums2.length).forEach(i->indexMap.put(nums2[i], i)); //O(m)
+
+        for(int j=nums2.length-1;j>=0;j--){ //O(2m)
+            int top = dscStack.peek();
+            while(top>=0 && nums2[j]>=top){
+                dscStack.pop();
+                top = dscStack.peek();
+            }
+            ans2[j]=top;
+            dscStack.push(nums2[j]);
+        }
+
+        return IntStream.range(0,nums1.length).map(i->ans2[indexMap.get(nums1[i])]).toArray(); //O(n)
+        //total = O(m+n)
     }
 }
