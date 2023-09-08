@@ -1,4 +1,4 @@
-package com.mine.stack.monotonic.sumsubarraymins;
+package com.mine.amazon;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -45,24 +45,6 @@ public class SumSubseqWidths {
      * @return
      */
     public int sumSubseqWidths(int[] nums) {
-        if(nums.length==0){
-            return 0;
-        }
-
-        int n = nums.length;
-        int[] nextGTIndexArr = new int[n];
-        Deque<Integer> descStack = new ArrayDeque<>(n);
-        for(int i=n-1;i>=0;i--){
-            int currVal = nums[i];
-            while(!descStack.isEmpty()
-                && currVal<=nums[descStack.peek()]){
-                descStack.pop();
-            }
-
-            nextGTIndexArr[i] = descStack.isEmpty() ? -1 : descStack.peek();
-            descStack.push(i);
-        }
-
         return 0;
     }
 }
