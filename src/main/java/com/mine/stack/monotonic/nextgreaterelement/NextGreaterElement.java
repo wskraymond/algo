@@ -1,4 +1,4 @@
-package com.mine.stack.monotonic;
+package com.mine.stack.monotonic.nextgreaterelement;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -58,27 +58,35 @@ public class NextGreaterElement {
          *
          * Return an array ans of length nums1.length such that ans[i] is the next greater element
          */
+
+        /*
+            the next greater element on the right = push element from right to left on the array + increasing monotonic stack
+         */
         if(nums1.length==0){
             return new int[0];
         }
 
-        int[] ans2 = new int[nums2.length];
-        Deque<Integer> dscStack = new ArrayDeque<>();
-        dscStack.push(-1);
-        Map<Integer,Integer> indexMap = new HashMap<>();
-        IntStream.range(0,nums2.length).forEach(i->indexMap.put(nums2[i], i)); //O(m)
-
-        for(int j=nums2.length-1;j>=0;j--){ //O(2m)
-            int top = dscStack.peek();
-            while(top>=0 && nums2[j]>=top){
-                dscStack.pop();
-                top = dscStack.peek();
+        Deque<Integer> ascStack = new ArrayDeque<>();
+        Map<Integer,Integer> nextGtMap = new HashMap<>();
+        for(int j=nums2.length-1;j>=0;j--){ //O(m)
+            int currVal = nums2[j];
+            while(!ascStack.isEmpty()
+                    && currVal>=ascStack.peek()){
+                ascStack.pop();//elements being popped are in ascending order
             }
-            ans2[j]=top;
-            dscStack.push(nums2[j]);
+            int nextGtVal = ascStack.isEmpty() ? -1 : ascStack.peek();
+            nextGtMap.put(currVal, nextGtVal);
+            ascStack.push(currVal);
         }
 
-        return IntStream.range(0,nums1.length).map(i->ans2[indexMap.get(nums1[i])]).toArray(); //O(n)
+        /*
+            for no next greater element, either of belows can be used , but here it shows both.
+                1) stack.isEmpty then either store -1 in the map
+                    or store nothing and have 2)
+                2) getOrDefault() when converting to result
+         */
+
+        return Arrays.stream(nums1).map(currVal->nextGtMap.getOrDefault(currVal, -1)).toArray(); //O(n)
         //total = O(m+n)
     }
 }
