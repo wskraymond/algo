@@ -87,6 +87,7 @@ public class NextGreaterElement {
          */
 
         return Arrays.stream(nums1).map(currVal->nextGtMap.getOrDefault(currVal, -1)).toArray(); //O(n)
-        //total = O(m+n)
+        //Total time = O(m+n)
+        //Total space = O(2m)
     }
 }

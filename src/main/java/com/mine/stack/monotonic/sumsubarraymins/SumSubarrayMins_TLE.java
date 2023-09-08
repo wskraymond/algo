@@ -1,4 +1,4 @@
-package com.mine.amazon;
+package com.mine.stack.monotonic.sumsubarraymins;
 
 public class SumSubarrayMins_TLE {
     /**
