@@ -1,14 +1,16 @@
-package com.mine.stack.monotonic;
+package com.mine.stack.monotonic.dailytemperatures;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class DailyTemperatures {
+public class DailyTemperatures_pop_based {
     /**
      * https://leetcode.com/problems/daily-temperatures/
      *
      * Given an array of integers temperatures represents the daily temperatures,
-     * return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature.
+     * return an array answer
+     * such that answer[i] is the number of days
+     * you have to wait after the ith day to get a warmer temperature.
      * If there is no future day for which this is possible, keep answer[i] == 0 instead.
      *
      *
@@ -39,20 +41,16 @@ public class DailyTemperatures {
         /*
             return the distance in days inclusively
          */
-        if(temperatures.length==0){
-            return new int[0];
-        }
-        int[] ans = new int[temperatures.length];
-        Deque<Integer> ascStack = new ArrayDeque<>(temperatures.length);
-        for(int i=temperatures.length-1;i>=0;i--){
-            int currVal = temperatures[i];
+        int n = temperatures.length;
+        int[] ans = new int[n];
+        Deque<Integer> ascStack = new ArrayDeque<>(n);
+        for(int i=0;i<n;i++){
+            int nextVal = temperatures[i];
             while(!ascStack.isEmpty()
-                    && currVal>=temperatures[ascStack.peek()]){
-                ascStack.pop();
-            }
-
-            if(!ascStack.isEmpty()){//ans array defaults zero
-                ans[i]=ascStack.peek()-i;
+                    && nextVal>temperatures[ascStack.peek()]){
+                int indexOfCurrentDay = ascStack.pop();
+                int noOfDays = i - indexOfCurrentDay;
+                ans[indexOfCurrentDay] = noOfDays;
             }
             ascStack.push(i);
         }
