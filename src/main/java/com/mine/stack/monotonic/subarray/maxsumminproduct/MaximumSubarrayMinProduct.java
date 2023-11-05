@@ -54,8 +54,8 @@ public class MaximumSubarrayMinProduct {
             iterate every element as a min of a subarray
 
             # Approach
-            prefix sum + maximizing the widh of every element as a min as an subarray
-            by using knowing the next right and next left smaller
+            prefix sum + maximizing the widh of every element as a min of a subarray
+            by knowing the next right and next left smaller
             of every popped element in a monotonic increasing stack
 
             # Complexity
