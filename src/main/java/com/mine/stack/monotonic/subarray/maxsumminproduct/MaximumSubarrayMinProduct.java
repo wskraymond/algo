@@ -49,6 +49,22 @@ public class MaximumSubarrayMinProduct {
      *     1 <= nums[i] <= 107
      */
     public int maxSumMinProduct(int[] nums) {
+        /*
+            # Intuition
+            iterate every element as a min of a subarray
+
+            # Approach
+            prefix sum + maximizing the widh of every element as a min as an subarray
+            by using knowing the next right and next left smaller
+            of every popped element in a monotonic increasing stack
+
+            # Complexity
+            - Time complexity:
+            O(0)
+
+            - Space complexity:
+            O(0)
+         */
         if(nums.length==0){
             return 0;
         }
@@ -60,12 +76,12 @@ public class MaximumSubarrayMinProduct {
         for(int i=0;i<n;i++){
             long nextRightVal = nums[i];
             //for the edge case : 2,6,5,3,3,5,6,2
-            //if we pop
-            // 1st 3 -> (6+5+3)*3
-            // 2nd 3 -> (6+5+3+3+5+6)*3
-            //if we don't pop
-            // 2nd 3-> (3+3+5+6)*3
-            // 1st 3-> (6+5+3+3+5+6)*3
+            // if we pop
+            // when inserting 2nd 3, if we pop 1st 3 -> (6+5+3)*3
+            // when inserting 2, if we pop 2nd 3 -> (6+5+3+3+5+6)*3
+            // if we don't pop 2nd 3
+            // when inserting last 2, then pop 2nd 3 -> (3+3+5+6)*3
+            //                        then pop 1st 3 ->  (6+5+3+3+5+6)*3
             while(!descStack.isEmpty()
                 && nextRightVal < descStack.peek()[0]){
                 long min = descStack.pop()[0];
