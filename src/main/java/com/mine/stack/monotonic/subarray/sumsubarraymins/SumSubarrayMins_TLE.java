@@ -1,4 +1,4 @@
-package com.mine.stack.monotonic.sumsubarraymins;
+package com.mine.stack.monotonic.subarray.sumsubarraymins;
 
 public class SumSubarrayMins_TLE {
     /**

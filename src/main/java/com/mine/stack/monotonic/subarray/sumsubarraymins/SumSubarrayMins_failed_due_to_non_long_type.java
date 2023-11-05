@@ -1,4 +1,4 @@
-package com.mine.stack.monotonic.sumsubarraymins;
+package com.mine.stack.monotonic.subarray.sumsubarraymins;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

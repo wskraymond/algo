@@ -1,9 +1,9 @@
-package com.mine.stack.monotonic.sumsubarraymins;
+package com.mine.stack.monotonic.subarray.sumsubarraymins;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class SumSubarrayMins {
+public class SumSubarrayMins_failed_in_duplicate_number {
     /**
      * https://leetcode.com/problems/sum-of-subarray-minimums/
      *
@@ -64,7 +64,7 @@ public class SumSubarrayMins {
         for(int j=0;j<n;j++){
             int currVal = arr[j];
             while(!descStack.isEmpty()
-                    && currVal<arr[descStack.peek()]){
+                && currVal<=arr[descStack.peek()]){
                 descStack.pop();
             }
 
@@ -72,18 +72,17 @@ public class SumSubarrayMins {
             descStack.push(j);
         }
 
-        final int M = (int)1e9 + 7;
-        long sum = 0;
+        int sum = 0;
         for(int i=0;i<n;i++){
             int min = arr[i];
             //left index and right index of the array which contains all subarrays sharing the same min
             int left = nextLeftSmallerIndexArr[i];
             int right = nextRightSmallerIndexArr[i];
 
-            long numOfSameMin = (i -left)*(right-i);
-            sum=(sum+min*numOfSameMin)%M;
+            int numOfSameMin = (i -left)*(right-i);
+            sum+=min*numOfSameMin;
         }
 
-        return (int)sum;
+        return sum;
     }
 }
