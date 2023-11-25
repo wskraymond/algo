@@ -2,8 +2,9 @@ package com.mine.stack.monotonic.subarray.maxsumminproduct;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.stream.IntStream;
 
-public class MaximumSubarrayMinProduct {
+public class MaximumSubarrayMinProduct_prefixsum_array_n_plus_1 {
     /**
      * https://leetcode.com/problems/maximum-subarray-min-product/
      * The min-product of an array is equal to the minimum value in the array multiplied by the array's sum.
@@ -70,11 +71,15 @@ public class MaximumSubarrayMinProduct {
         }
         final int n = nums.length, M = (int) (1e9+7);
         long max =0;
-        long prefixSum=0;
-        //pair: {val, prefixSum}
-        Deque<long[]> descStack = new ArrayDeque<>(n);
+
+        //To make our life easier to handle the case that there is no left smaller number for the min
+        //array of size=n+1 will be used to include prefixSum[0]=0
+        final long[] prefixSum = new long[n+1];
+        IntStream.range(1,prefixSum.length).forEach(i->prefixSum[i]=prefixSum[i-1]+nums[i-1]);
+
+        Deque<Integer> descStack = new ArrayDeque<>(n);
         for(int i=0;i<n;i++){
-            long nextRightVal = nums[i];
+            int nextRightIndex = i;
             //for the edge case : 2,6,5,3,3,5,6,2
             // if we pop
             // when inserting 2nd 3, if we pop 1st 3 -> (6+5+3)*3
@@ -83,25 +88,35 @@ public class MaximumSubarrayMinProduct {
             // when inserting last 2, then pop 2nd 3 -> (3+3+5+6)*3
             //                        then pop 1st 3 ->  (6+5+3+3+5+6)*3
             while(!descStack.isEmpty()
-                && nextRightVal < descStack.peek()[0]){
-                long min = descStack.pop()[0];
-                long leftPrefix = descStack.isEmpty() ? 0 : descStack.peek()[1];
-                long rightPrefix = prefixSum;
+                && nums[nextRightIndex] < nums[descStack.peek()]){
+                long min = nums[descStack.pop()];
+                int nextLeftIndex = descStack.isEmpty() ? -1 : descStack.peek();
+
+                //beware: prefixSum[i] doesn't include nums[i].
+                //inclusive prefixSum
+                long rightPrefix = prefixSum[nextRightIndex];
+                //beware: when stack is empty, the left prefix should be zero
+                //exclsuive prefixSum
+                long leftPrefix = prefixSum[nextLeftIndex+1];
+
                 long product = min*(rightPrefix-leftPrefix);
                 max = Math.max(max,product);
             }
 
-            prefixSum+=nextRightVal;
-            descStack.push(new long[]{nextRightVal,prefixSum});
+            descStack.push(i);
         }
 
         /*
             don't forget to do the rest
          */
         while(!descStack.isEmpty()){
-            long min = descStack.pop()[0];
-            long leftPrefix = descStack.isEmpty() ? 0 : descStack.peek()[1];
-            long rightPrefix = prefixSum;
+            long min = nums[descStack.pop()];
+            int nextLeftIndex = descStack.isEmpty() ? -1 : descStack.peek();
+
+            //beware: rightPrefix here should include all numbers
+            long rightPrefix = prefixSum[n];
+            long leftPrefix = prefixSum[nextLeftIndex+1];
+
             long product = min*(rightPrefix-leftPrefix);
             max = Math.max(max,product);
         }
