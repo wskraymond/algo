@@ -84,8 +84,19 @@ public class MaxSlidingWindow {
                 descStack.pop();
             }
 
-            while(!descStack.isEmpty()
+            /*while(!descStack.isEmpty()
                     && i-descStack.getLast()>=k){ //if index range overflow
+                descStack.removeLast(); //shrink
+            }*/
+            /*
+                1. Do we need a while loop here to shrink ?
+                    No, we don't , becos whenever we slide once (i++), the number of overflown element <= 1
+                2. Do we need to keep track of the index range ?
+                    No, index j is the left pointer of the sliding window.
+                    we can make use of it to compare
+             */
+            if(!descStack.isEmpty()
+                    && j>descStack.getLast()){ //compare with left pointer j
                 descStack.removeLast(); //shrink
             }
 
