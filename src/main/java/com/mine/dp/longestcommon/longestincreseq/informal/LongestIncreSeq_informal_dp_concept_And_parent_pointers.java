@@ -1,8 +1,8 @@
-package com.mine.dp.longestcommon.longestincreseq;
+package com.mine.dp.longestcommon.longestincreseq.informal;
 
 import java.util.*;
 
-public class LongestIncreSeq3_bottom_up_And_parent_pointers {
+public class LongestIncreSeq_informal_dp_concept_And_parent_pointers {
     /**
      * https://leetcode.com/problems/longest-increasing-subsequence/
      * or

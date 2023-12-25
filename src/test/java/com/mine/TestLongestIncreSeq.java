@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.mine.dp.longestcommon.longestincreseq.LongestIncreSeq3_bottom_up_And_parent_pointers;
+import com.mine.dp.longestcommon.longestincreseq.informal.LongestIncreSeq_informal_dp_concept_And_parent_pointers;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class TestLongestIncreSeq {
-    private static LongestIncreSeq3_bottom_up_And_parent_pointers sol = new LongestIncreSeq3_bottom_up_And_parent_pointers();
+    private static LongestIncreSeq_informal_dp_concept_And_parent_pointers sol = new LongestIncreSeq_informal_dp_concept_And_parent_pointers();
     @Test
     public void testCase1(){
         assertEquals(4, sol.lengthOfLIS(new int[]{10,9,2,5,3,7,101,18}));
