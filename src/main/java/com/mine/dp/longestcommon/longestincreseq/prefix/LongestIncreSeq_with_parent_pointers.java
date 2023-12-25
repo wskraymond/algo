@@ -1,8 +1,8 @@
-package com.mine.dp.longestcommon.longestincreseq.informal;
+package com.mine.dp.longestcommon.longestincreseq.prefix;
 
 import java.util.*;
 
-public class LongestIncreSeq_informal_dp_concept_And_parent_pointers {
+public class LongestIncreSeq_with_parent_pointers {
     /**
      * https://leetcode.com/problems/longest-increasing-subsequence/
      * or
@@ -25,8 +25,6 @@ public class LongestIncreSeq_informal_dp_concept_And_parent_pointers {
      * @return
      */
     public int lengthOfLIS(int[] nums) {
-        //dp[i]: max size of increasing sequence ends at index i
-        //thus, we have N number of sequence which ends at index i
         int[] dp = new int[nums.length];
         Arrays.fill(dp, 1);
 
@@ -36,12 +34,9 @@ public class LongestIncreSeq_informal_dp_concept_And_parent_pointers {
     }
 
     public int[] optimalSol(int[] nums) {
-        //dp[i]: max size of increasing sequence ends at index i
-        //thus, we have N number of sequence which ends at index i
         int[] dp = new int[nums.length];
         Arrays.fill(dp, 1);
 
-        //store the best/optimal choice - parent pointer
         //parent[i]=x: the subproblem/vertex(here is number x) where the number at index i transited from....
         int[] parent = new int[nums.length];
         for(int i=0;i<parent.length;i++){
@@ -74,14 +69,36 @@ public class LongestIncreSeq_informal_dp_concept_And_parent_pointers {
         return solArr;
     }
 
+    /**
+            0. Time Complexity
+                #sub-problems x #guess + cost(combining subproblem)
+                = N choices for a subproblem(i): N numbers points to a number at i
+                    x N subproblem(i) for a sequence which ends at i
+                        + O(N)
+                = O(N^2) + O(N)
+                = O(N)
+            1. define a subproblem
+                f(i) = return the length of longest increasing subseq in which the tail is at index i for the prefix[:i]
+            2. relates subproblems by guessing
+                Optimal Structure (Recurrence Relations)
+                f(i) = Max{ f(j) + 1
+                                | if nums[j]< nums[i] for j=i-1...0
+                            , 1 }
+                Base case:  initialize f(i) = 0
+                        (alternatively if don't compare with 1) initialize f(i) = 1
+            3. recursion & memo
+                TopOrder: from 0 to n-1
+            4. combining subproblem
+               LIS = Max{f(i)}
+            5. parent pointers
+                which guess is used for each f(i)
+    **/
     private void dp(int[] nums, int[] dp, int[] parent) {
-        //N choices for a subproblem(i): N numbers points to a number at i
-        //N subproblem(i) for a sequence which ends at i
-        //O(N^2)
-
-        //version 1
-        //from vertex i
-        //to different vertex j(i+1.......n)
+        //Still Acceptable: Other topological order in prefix[:i]
+        /*
+            from vertex i
+            to different vertex f(j=i+1.......n)
+         */
         /*for(int i=0;i<nums.length;i++){
             for(int j=i+1;j<nums.length;j++){
                 if(nums[i]<nums[j]){ //increasing = isEdge
@@ -96,12 +113,14 @@ public class LongestIncreSeq_informal_dp_concept_And_parent_pointers {
             }
         }*/
 
-        //version 2
-        //from different vertex j (0.....i-1)
-        //to the vertex i
-        for(int i=1;i<nums.length;i++){
-            for(int j=0;j<i;j++){
-                if(nums[j]<nums[i]){ //increasing = isEdge
+        /*
+            from different vertex j (0...i-1) or j (i-1...0)
+            to the vertex f(i)
+         */
+        final int n = nums.length;
+        for(int i=0;i<n;i++){
+            for(int j=i-1;j>=0;j--){
+                if(nums[j]<nums[i]){
                     if(dp[j]+1 > dp[i]) { //put optimal choice
                         dp[i] = dp[j] + 1;
 
