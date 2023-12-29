@@ -1,9 +1,13 @@
 package com.mine.design;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * https://leetcode.com/problems/min-stack/
  *
- * Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+ * Design a stack that supports push, pop, top, and retrieving
+ * the minimum element in constant time.
  *
  * Implement the MinStack class:
  *
@@ -44,25 +48,35 @@ package com.mine.design;
  *
  */
 public class MinStack {
+    private final Deque<Integer> valStack;
+    private final Deque<Integer> minStack;
 
+    /**
+     * Methods pop, top and getMin operations
+     * will always be called on non-empty stacks.
+     */
     public MinStack() {
-
+        valStack = new ArrayDeque<>();
+        minStack = new ArrayDeque<>();
     }
 
-    public void push(int val) {
-
+    public void push(int val) { //O(1)
+        valStack.push(val);
+        int min = minStack.isEmpty() ? val : Math.min(minStack.peek(), val);
+        minStack.push(min);
     }
 
-    public void pop() {
-
+    public void pop() { //O(1)
+        valStack.pop();
+        minStack.pop();
     }
 
-    public int top() {
-        return 0;
+    public int top() { //O(1)
+        return valStack.peek();
     }
 
-    public int getMin() {
-        return 0;
+    public int getMin() { //O(1)
+        return minStack.peek();
     }
 }
 
