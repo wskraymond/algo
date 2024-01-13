@@ -29,6 +29,30 @@ public class JumpGame1_dp {
      * @return
      */
     public boolean canJump(int[] nums) {
+        /*
+            sub-problem:
+                suffix[i:]
+            Recurrence relation:
+                f(i) = { found ||=f(j)
+                            | for j = i+1...i+nums[i]
+                            | initialized found=false
+                        }
+            Base Case:
+                f(n-1) = true
+            Goal:
+                f(0)
+            Time Complexity:
+                #subproblem x #guesse =O(nxn)=O(n^2)
+         */
+        final int n = nums.length;
+        boolean[] dp = new boolean[n];
+        dp[n-1]=true;
+        for(int i=n-2;i>=0;i--){
+            for(int j=i+1;j<=i+nums[i] && j<n;j++){
+                dp[i]|=dp[j];
+            }
+        }
 
+        return dp[0];
     }
 }
