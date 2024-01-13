@@ -1,4 +1,4 @@
-package com.mine.greedy;
+package com.mine.greedy.subarr;
 
 public class GasStation {
     /**

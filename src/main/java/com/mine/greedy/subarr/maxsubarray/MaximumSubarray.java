@@ -1,4 +1,4 @@
-package com.mine.linear.maxsubarray;
+package com.mine.greedy.subarr.maxsubarray;
 
 
 /**
