@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class HandOfStraights_sorted_minheap {
+public class HandOfStraights_duplicate_sorted_for_consecutive_and_minheap_for_groups {
     /**
      * Alice has some number of cards and she wants to rearrange the cards into groups so that each group is of size groupSize,
      * and consists of groupSize consecutive cards.
