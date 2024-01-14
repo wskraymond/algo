@@ -62,7 +62,7 @@ public class HandOfStraights_sorted_minheap {
             if(minHeap.isEmpty() || minHeap.peek()[0]==sortedHand[i]){
                 g = new int[]{sortedHand[i], 1};
             } else if(minHeap.peek()[0]+1==sortedHand[i]){
-                g = minHeap.poll(); //time: O(logn)
+                g = minHeap.poll(); //time: O(logk)
                 g[0]++;
                 g[1]++;
             } else {
@@ -70,12 +70,12 @@ public class HandOfStraights_sorted_minheap {
             }
 
             if(g[1]<groupSize){
-                minHeap.offer(g); //time: O(logn)
+                minHeap.offer(g); //time: O(logk)
             }
         }
 
         //edge case with groupSize=2:  1 , 2, 1, 2, 1, 2 , 7
         //to deal with above edge case , we have to check if heap is empty.
-        return minHeap.isEmpty();   //Total time: nlogn + nlogn=O(nlogn) , Total Space: n + n + k = log(n)
+        return minHeap.isEmpty();   //Total time: nlogn + nlogk=O(nlogn) , Total Space: n + n + k = log(n)
     }
 }
