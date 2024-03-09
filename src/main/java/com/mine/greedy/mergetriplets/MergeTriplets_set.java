@@ -1,8 +1,10 @@
-package com.mine.greedy;
+package com.mine.greedy.mergetriplets;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.IntStream;
 
-public class MergeTriplets {
+public class MergeTriplets_set {
     /**
      * A triplet is an array of three integers. You are given a 2D integer array triplets, where triplets[i] = [ai, bi, ci] describes the ith triplet. You are also given an integer array target = [x, y, z] that describes the triplet you want to obtain.
      *
@@ -47,17 +49,18 @@ public class MergeTriplets {
             return false;
         }
         final int k = triplets[0].length;
-        boolean[] matches = new boolean[k];
+        Set<Integer> matches = new HashSet<>(k);
         for(int[] triplet : triplets){
             if(!IntStream.range(0,k).anyMatch(j->triplet[j]>target[j])){
                 IntStream.range(0,k).forEach(j->{
-                    if(!matches[j]&&triplet[j]==target[j]){
-                        matches[j]=true;
+                    if(/*!matches.contains(j) //No checking does not affect the result becos we use set
+                        &&*/ triplet[j]==target[j]){
+                        matches.add(j); //we're gonna record if value at position j matches. (values can be duplicate)
                     }
                 });
             }
         }
 
-        return IntStream.range(0,k).filter(j->matches[j]).count()==3;
+        return matches.size()==3;
     }
 }
