@@ -62,12 +62,12 @@ public class ValidSudoku {
         final int s = (int)(n/0.75)+1;
         Map<Integer,Set<Character>> row = new HashMap<>(s);
         Map<Integer,Set<Character>> col = new HashMap<>(s);
-        Map<Integer,Set<Character>> subSq = new HashMap<>((int)(22/0.75)+1);
+        Map<Integer,Set<Character>> subSq = new HashMap<>(s);
 
         for(int i=0;i<n;i++){
             row.putIfAbsent(i, new HashSet<>(s));
             for(int j=0;j<n;j++){
-                int k = i/3*10+j/3;
+                int k = i/3*3+j/3;
                 col.putIfAbsent(j, new HashSet<>(s));
                 subSq.putIfAbsent(k, new HashSet<>(s));
                 char val = board[i][j];
