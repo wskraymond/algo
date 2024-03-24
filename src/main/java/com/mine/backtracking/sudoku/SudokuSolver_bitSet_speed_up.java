@@ -1,8 +1,6 @@
 package com.mine.backtracking.sudoku;
 
-import java.util.stream.IntStream;
-
-public class SudokuSolver {
+public class SudokuSolver_bitSet_speed_up {
     /**
      * Write a program to solve a Sudoku puzzle by filling the empty cells.
      *
@@ -39,22 +37,24 @@ public class SudokuSolver {
             It is guaranteed that the input board has only one solution.
          */
         final int n = board.length;
-        boolean[][][] digits = new boolean[3][n][n];
-        IntStream.range(0,n).forEach(i->IntStream.range(0,n).forEach(j->{
-            if(board[i][j] !='.'){
-                int x = board[i][j] - '1';
-                int k = i/3*3+j/3;
-                digits[0][i][x]=true;
-                digits[1][j][x]=true;
-                digits[2][k][x]=true;
+        int[][] bitSet = new int[3][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(board[i][j] !='.'){
+                    int x = board[i][j] - '0';
+                    int k = i/3*3+j/3;
+                    bitSet[0][i]|=1<<x;
+                    bitSet[1][j]|=1<<x;
+                    bitSet[2][k]|=1<<x;
+                }
             }
-        }));
+        }
 
-        dfs(0,0,n,board,digits);
+        dfs(0,0,n,board,bitSet);
     }
 
     public boolean dfs(int i, int j,int n,
-                    char[][] board,boolean[][][] digits){
+                    char[][] board,int[][] bitSet){
         if(i==n || j==n){//base case
             return true;
         }
@@ -62,7 +62,7 @@ public class SudokuSolver {
         final int nextR = i+(j+1)/n, nextC=(j+1)%n;
 
         if(board[i][j]!='.'){
-            return dfs(nextR, nextC, n, board, digits);
+            return dfs(nextR, nextC, n, board, bitSet);
         }
 
         /*
@@ -74,28 +74,36 @@ public class SudokuSolver {
               And input: 001000000
                          001000000 => invalid
          */
-        for(int x=0;x<n;x++){
-            final int k = i/3*3+j/3;
-            if(digits[0][i][x]
-                || digits[1][j][x]
-                || digits[2][k][x]){
+        /**
+         * Every subset of a set {0,1,2,...,n¡1} can be represented as an n bit integer whose
+         * one bits indicate which elements belong to the subset. This is an efficient way to
+         * represent sets, because every element requires only one bit of memory, and set
+         * operations can be implemented as bit operations
+         */
+
+        final int k = i/3*3+j/3;
+        int set = bitSet[0][i]
+                    | bitSet[1][j]
+                    | bitSet[2][k];
+        for(int x=1;x<=n;x++){
+            if((set&(1<<x))!=0){
                 continue;
             }
 
-            digits[0][i][x]=true;
-            digits[1][j][x]=true;
-            digits[2][k][x]=true;
-            board[i][j]=(char) ('1'+x);
+            bitSet[0][i]|=1<<x;
+            bitSet[1][j]|=1<<x;
+            bitSet[2][k]|=1<<x;
+            board[i][j]=(char)('0'+x);
 
-            boolean valid = dfs(nextR, nextC, n, board, digits);
+            boolean valid = dfs(nextR, nextC, n, board, bitSet);
             if(valid){
                return true;
             }
 
             //backtrack
-            digits[0][i][x]=false;
-            digits[1][j][x]=false;
-            digits[2][k][x]=false;
+            bitSet[0][i]&=~(1<<x);
+            bitSet[1][j]&=~(1<<x);
+            bitSet[2][k]&=~(1<<x);
             board[i][j]='.';
         }
 
