@@ -1,8 +1,8 @@
-package com.mine.backtracking.subsets;
+package com.mine.backtracking.subsets.duplicatenum;
 
 import java.util.*;
 
-public class SubSet2_hashmap_iterative {
+public class SubSet2_sort {
     /**
      * Given an integer array nums that may contain duplicates, return all possible
      * subsets
@@ -44,41 +44,47 @@ public class SubSet2_hashmap_iterative {
             or removes if the result is nul
          */
         List<List<Integer>> result = new LinkedList<>();
-        Map<Integer,Integer> m = new HashMap<>();
-        final int n = nums.length;
-        for(int i=0;i<n;i++){ //O(n)
-            m.merge(nums[i], 1, Integer::sum);
-        }
+        Arrays.sort(nums);  //nlogn
 
         backtrack(0,
-                m.keySet().stream()
-                        .mapToInt(Integer::intValue)
-                        .toArray(),     //O(n)
-                m,
+                nums.length,
+                nums,
                 new LinkedList<>()
                 , result
-        );
+        );  //n*(2^n)
 
-        return result; //O(n*(2^n)) + O(2*n)
+        return result;  //O(nlogn) + O(n*(2^n)) = exponential
     }
 
-    private void backtrack(int i, int[] keys, Map<Integer, Integer> m, Deque<Integer> subSet, List<List<Integer>> result){
-        if(i==keys.length){
+    private void backtrack(int i, int n, int[] nums, Deque<Integer> subSet, List<List<Integer>> result){
+        if(i==n){
             result.add(new ArrayList<>(subSet));    //O(n)
             return;
         }
 
-        int num = keys[i];
-        int newCount = m.merge(num, -1, Integer::sum); //O(1)
-        subSet.addLast(num);
-        backtrack(newCount>0 ? i:i+1, keys, m, subSet, result);
-        subSet.removeLast();
-        m.merge(num, 1, Integer::sum);  //O(1)
+        int num = nums[i];
+        subSet.addLast(num);    //take
+        backtrack(i+1, n, nums, subSet, result);
+        subSet.removeLast();    //backtrack
 
-        backtrack(i+1, keys, m, subSet, result);
+        /*
+        while(i<n && num==nums[++i]); <= failed
+        #precedence:
+            1. ++i
+            2. access array => nums[++i] => cause index out of bound
 
-        //copy = O(n)
-        //number of subset = O(2^n)
-        //total = O(n*(2^n))
+        Alternative:
+            #step 1:
+                2. do{ i++; }while(i<n && num==nums[i]);
+            #step 2:
+                3. backtrack(i, n, nums, subSet, result); // i here will be the index of next new one
+        */
+        while(i+1<n && num==nums[i+1]){
+            i++;
+        }
+
+        //beware: i = the last index at which value = num (same value)
+        //the index of next new number = i + 1
+        backtrack(i+1, n, nums, subSet, result);
     }
 }

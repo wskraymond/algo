@@ -1,4 +1,4 @@
-package com.mine.backtracking.subsets;
+package com.mine.backtracking.subsets.uniquenum;
 
 import java.util.ArrayList;
 import java.util.Deque;
