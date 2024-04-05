@@ -69,15 +69,31 @@ public class SubSet2_sort {
 
         /*
         while(i<n && num==nums[++i]); <= failed
-        #precedence:
-            1. ++i
-            2. access array => nums[++i] => cause index out of bound
+        # it causes index out of bound
 
-        Alternative:
+        #what does ++/-- work in compiler
+        #https://en.cppreference.com/w/cpp/language/operator_incdec
+        int& prefix_++(int& i){
+            i = i+1;
+            return i;
+        }
+
+        int postfix_++(int& i){
+            int x = i;
+            i=i+1;
+            return x;
+        }
+
+        i=1
+        System.out.println(i++ + i + i); //output=1+2+2=5
+
+        Alternative :
             #step 1:
-                2. do{ i++; }while(i<n && num==nums[i]);
+                do{ i++; }while(i<n && num==nums[i]);
+                    or
+                while(++i<n && num==nums[i]);
             #step 2:
-                3. backtrack(i, n, nums, subSet, result); // i here will be the index of next new one
+                backtrack(i, n, nums, subSet, result); // i here will be the index of next new one
         */
         while(i+1<n && num==nums[i+1]){
             i++;
