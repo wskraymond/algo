@@ -1,11 +1,11 @@
-package com.mine.graph;
+package com.mine.graph.pacificatlantic.backtrack;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PacificAtlantic_dp_failed_becos_of_non_dag {
+public class PacificAtlantic_backtrack_memo {
     /**
      * There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.
      *
@@ -72,7 +72,7 @@ public class PacificAtlantic_dp_failed_becos_of_non_dag {
         for(int i=0;i<l;i++){
             for(int j=0;j<w;j++){
                 if(memo[i][j]==0){
-                    dfs(i,j, l, w , memo, heights, directions, result);
+                    memo[i][j]=dfs(i,j, l, w , memo, heights, directions, result);
                 }
             }
         }
@@ -96,6 +96,7 @@ public class PacificAtlantic_dp_failed_becos_of_non_dag {
             bitSet |= 1<<0;
         }
 
+        memo[i][j]=bitSet;
         for(int[] direction:directions){
             if(bitSet==7){
                 break;
@@ -109,9 +110,11 @@ public class PacificAtlantic_dp_failed_becos_of_non_dag {
             }
         }
 
-        memo[i][j]=bitSet;
         if(bitSet==7){
+            memo[i][j]=bitSet;
             result.add(Arrays.asList(i,j));
+        } else {
+            memo[i][j]=0;
         }
         return bitSet;
     }
