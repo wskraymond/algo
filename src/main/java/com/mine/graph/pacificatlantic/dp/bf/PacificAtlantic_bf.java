@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class PacificAtlantic_bf {
     /**
@@ -66,18 +67,59 @@ public class PacificAtlantic_bf {
         }
 
         /*
-            sub-problem:
-                f()
+            value = 2 bits = AP for A=Atlantic , P=Pacific
+            sub-problem: At Most W*L-1 iteration to find max value for all nodes in a positive weighted graph without a negative cycle
+                f(i,j,k) = f(i,j,k-1)
+                            | f(i-1,j,k-1)
+                            | f(i,j-1,k-1)
+                            | f(i+1,j,k-1)
+                            | f(i,j+1,k-1) if heights[i][j] >= neighbor's heights for (i+/-1, j+/-1)
+                                                And 0 <= i+/-1 <= W && 0 <= j+/-1 <= L
+            base case:
+                f(W-1,j,0) |=10
+                f(i,L-1,0) |=10
+                f(0,j,0)   |=01
+                f(i,0,0)   |=01
+                f(i,j,0)   |=00
+
+            Goal:
+                f(i,j,W*L-1) for all node(i,j)
          */
 
         int[][] directions = new int[][]{{0,1}, {0,-1}, {1,0},{-1,0}};
-        final int L = heights.length, W = heights[0].length;
+        final int W = heights.length, L = heights[0].length;
         final int M = L*W-1;
-        int[][][] dp = new int[L][W][M];
+        int[][][] dp = new int[W][L][M+1];
+        IntStream.range(0,W).forEach(i->{
+            dp[i][L-1][0] |= 1<<1;
+            dp[i][0][0] |= 1<<0;
+        });
+        IntStream.range(0,L).forEach(j->{
+            dp[W-1][j][0] |= 1<<1;
+            dp[0][j][0] |= 1<<0;
+        });
         List<List<Integer>> result = new LinkedList<>();
-        for(int i=0;i<L;i++){
-            for(int j=0;j<W;j++){
+        for(int k=1;k<=M;k++) { //O(K)
+            for (int i = 0; i < W; i++) {
+                for (int j = 0; j < L; j++) {
+                    dp[i][j][k] = dp[i][j][k-1];
+                    for(int[] direction:directions){ //O(E)
+                        int x = i+direction[0], y = j+direction[1];
+                        if(0<=x && x<W
+                            && 0<=y && y<L
+                            && heights[i][j]>=heights[x][y]) {
+                                dp[i][j][k] |= dp[x][y][k - 1];
+                        }
+                    }
+                }
+            }
+        }
 
+        for (int i = 0; i < W; i++) {
+            for (int j = 0; j < L; j++) {
+                if(dp[i][j][M]==3){
+                    result.add(Arrays.asList(i,j));
+                }
             }
         }
         return result;

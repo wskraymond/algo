@@ -56,8 +56,12 @@ public class CheapestFlightsWithinKStops_2d {
                         = O(k)
          1. Recursion Relations:
             f(v,x) = min{f(v, x-1), f(u, x-1) + w(u,v) | for all u to v}
+                Or
+            {   f(v,x) = f(v, x-1)
+                f(v,x) = f(u, x-1) + w(u,v) if f(v,x) > f(u, x-1) + w(u,v) }
          2. Base case:
             f(src, 0) = 0
+            f(v,0) = INF
          3. Our Goal:
             f(dst, X=k+1)
          */
@@ -68,11 +72,11 @@ public class CheapestFlightsWithinKStops_2d {
         }
         dp[src][0] = 0;
         for(int i=1;i<k+2;i++){     //O(k) or in worse case (V)
-            for(int j=0;j<n;j++){   //O(V)
+            for(int j=0;j<n;j++){   //O(V): init each node to f(v, x-1)
                 dp[j][i] = dp[j][i-1];
             }
 
-            for(int[] flight:flights){  //O(E)
+            for(int[] flight:flights){  //O(E): relax each edge if f(v,x) > f(u, x-1) + w(u,v) regardless of the ordering
                 final int prev = flight[0];
                 final int next = flight[1];
                 final int price = flight[2];

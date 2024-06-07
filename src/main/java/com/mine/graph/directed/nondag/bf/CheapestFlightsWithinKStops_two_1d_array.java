@@ -56,8 +56,12 @@ public class CheapestFlightsWithinKStops_two_1d_array {
 
          1. Recursion Relations:
                 f(v,x) = min{ f(v, x-1), f(u, x-1) + w(u,v) | for all u to v }
+                    Or
+                {   f(v,x) = f(v, x-1)
+                    f(v,x) = f(u, x-1) + w(u,v) if f(v,x) > f(u, x-1) + w(u,v) }
          2. Base case:
                 f(src, 0) = 0
+                f(v, 0) = INF
          3. Our Goal:
                 f(dst, X=k+1)
          */
@@ -68,7 +72,7 @@ public class CheapestFlightsWithinKStops_two_1d_array {
         int[] dp_k = dp_k_1.clone();
 
         for(int i=1;i<k+2;i++){
-            for(int[] flight:flights){
+            for(int[] flight:flights){ //O(E): relax each edge if f(v,x) > f(u, x-1) + w(u,v) regardless of the ordering
                 final int prev = flight[0];
                 final int next = flight[1];
                 final int price = flight[2];
