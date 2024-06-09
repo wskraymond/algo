@@ -69,7 +69,7 @@ public class CheapestFlightsWithinKStops_two_1d_array {
         int[] dp_k_1 = new int[n];
         Arrays.fill(dp_k_1, Integer.MAX_VALUE);
         dp_k_1[src] = 0;
-        int[] dp_k = dp_k_1.clone();
+        int[] dp_k = dp_k_1.clone(); //initialize to have value at k-1  for f(v, x-1)
 
         for(int i=1;i<k+2;i++){
             for(int[] flight:flights){ //O(E): relax each edge if f(v,x) > f(u, x-1) + w(u,v) regardless of the ordering
@@ -82,6 +82,7 @@ public class CheapestFlightsWithinKStops_two_1d_array {
                 }
             }
 
+            //after clone, both dp_k and dp_k_1 has value at 'new' k-1
             dp_k_1 = dp_k.clone();
         }
 

@@ -72,11 +72,11 @@ public class CheapestFlightsWithinKStops_2d {
         }
         dp[src][0] = 0;
         for(int i=1;i<k+2;i++){     //O(k) or in worse case (V)
-            for(int j=0;j<n;j++){   //O(V): init each node to f(v, x-1)
+            for(int j=0;j<n;j++){   //O(V): init each node to f(v, x-1) for comparison
                 dp[j][i] = dp[j][i-1];
             }
 
-            for(int[] flight:flights){  //O(E): relax each edge if f(v,x) > f(u, x-1) + w(u,v) regardless of the ordering
+            for(int[] flight:flights){  //O(E): relax each edge if f(v) > f(u) + w(u,v) regardless of the ordering
                 final int prev = flight[0];
                 final int next = flight[1];
                 final int price = flight[2];

@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class PacificAtlantic_dp_2d {
+public class PacificAtlantic_dp_2d_MLE {
     /**
      * There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.
      *
@@ -68,7 +68,9 @@ public class PacificAtlantic_dp_2d {
 
         /*
             value = 2 bits = AP for A=Atlantic , P=Pacific
-            sub-problem: At Most W*L-1 iteration to find max value for all nodes in a positive weighted graph without a negative cycle
+            Approach:
+                At Most W*L-1 iteration to find max value for all nodes in a positive weighted graph without a negative cycle
+            sub-problem:
                 f(i,j,k) = f(i,j,k-1)
                             | f(i-1,j,k-1)
                             | f(i,j-1,k-1)
@@ -89,20 +91,25 @@ public class PacificAtlantic_dp_2d {
         int[][] directions = new int[][]{{0,1}, {0,-1}, {1,0},{-1,0}};
         final int W = heights.length, L = heights[0].length;
         final int M = L*W-1;
+
+        final int A = 1<<1, P = 1<<0, BOTH = A | P;
         int[][][] dp = new int[W][L][M+1];
         IntStream.range(0,W).forEach(i->{
-            dp[i][L-1][0] |= 1<<1;
-            dp[i][0][0] |= 1<<0;
+            dp[i][L-1][0] |= A;
+            dp[i][0][0] |= P;
         });
         IntStream.range(0,L).forEach(j->{
-            dp[W-1][j][0] |= 1<<1;
-            dp[0][j][0] |= 1<<0;
+            dp[W-1][j][0] |= A;
+            dp[0][j][0] |= P;
         });
         List<List<Integer>> result = new LinkedList<>();
-        for(int k=1;k<=M;k++) { //O(K)
+        for(int k=1;k<=M;k++) { //O(M)
             for (int i = 0; i < W; i++) {
                 for (int j = 0; j < L; j++) {
-                    dp[i][j][k] = dp[i][j][k-1];
+                    /**
+                     * relaxing edges
+                     */
+                    dp[i][j][k] = dp[i][j][k-1]; // for comparing f(i,j,k-1)
                     for(int[] direction:directions){ //O(E)
                         int x = i+direction[0], y = j+direction[1];
                         if(0<=x && x<W
@@ -113,15 +120,16 @@ public class PacificAtlantic_dp_2d {
                     }
                 }
             }
-        }
+        }   //Total = O(M*E)
 
         for (int i = 0; i < W; i++) {
             for (int j = 0; j < L; j++) {
-                if(dp[i][j][M]==3){
+                if(dp[i][j][M]==BOTH){
                     result.add(Arrays.asList(i,j));
                 }
             }
-        }
-        return result;
+        }   //O(M)
+
+        return result; //Total: O(M*E) + O(M)  = O(M*M*4 + M) = O(M^2)
     }
 }
