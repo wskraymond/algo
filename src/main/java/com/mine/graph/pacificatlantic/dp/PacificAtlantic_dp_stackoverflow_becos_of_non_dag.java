@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PacificAtlantic_dp_failed_becos_of_non_dag {
+public class PacificAtlantic_dp_stackoverflow_becos_of_non_dag {
     /**
      * There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.
      *
@@ -105,7 +105,7 @@ public class PacificAtlantic_dp_failed_becos_of_non_dag {
             if(nextR>=0 && nextR<l
                 && nextC>=0 && nextC<w
                 && heights[i][j]>=heights[nextR][nextC]){
-                bitSet |=dfs(nextR, nextC, w, l , memo, heights, directions, result);
+                bitSet |=dfs(nextR, nextC, l, w , memo, heights, directions, result);
             }
         }
 
