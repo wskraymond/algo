@@ -110,7 +110,7 @@ public class PacificAtlantic_dp_2d_MLE {
                      * relaxing edges
                      */
                     dp[i][j][k] = dp[i][j][k-1]; // for comparing f(i,j,k-1)
-                    for(int[] direction:directions){ //O(E)
+                    for(int[] direction:directions){ //O(E per sub)
                         int x = i+direction[0], y = j+direction[1];
                         if(0<=x && x<W
                             && 0<=y && y<L
@@ -130,6 +130,6 @@ public class PacificAtlantic_dp_2d_MLE {
             }
         }   //O(M)
 
-        return result; //Total: O(M*E) + O(M)  = O(M*M*4 + M) = O(M^2)
+        return result; //Total: O(M*W*L*4 + W*L) = O(M*M*4 + M) = O(M^2)
     }
 }
