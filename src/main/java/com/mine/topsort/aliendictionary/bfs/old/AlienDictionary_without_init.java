@@ -1,10 +1,10 @@
-package com.mine.topsort.aliendictionary;
+package com.mine.topsort.aliendictionary.bfs.old;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class AlienDictionary {
+public class AlienDictionary_without_init {
     /**
      * There is a new alien language which uses the latin alphabet.
      * However, the order among letters are unknown to you.

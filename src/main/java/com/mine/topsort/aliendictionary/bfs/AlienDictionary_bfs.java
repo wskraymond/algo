@@ -1,10 +1,10 @@
-package com.mine.topsort.aliendictionary;
+package com.mine.topsort.aliendictionary.bfs;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class AlienDictionary_with_init {
+public class AlienDictionary_bfs {
     /**
      * There is a new alien language which uses the latin alphabet.
      * However, the order among letters are unknown to you.
@@ -58,11 +58,7 @@ public class AlienDictionary_with_init {
             return "";
         }
 
-        Map<Character,Set<Character>> adjList = new HashMap<>();
-        Arrays.stream(words).flatMap(w->w.chars().mapToObj(i->(char)i)).collect(Collectors.toSet()).forEach(c->adjList.computeIfAbsent(c, HashSet::new));
-
-        final int n = words.length;
-        dfs(0,0,n,words, adjList);
+        Map<Character,Set<Character>> adjList = edging(words);
         return bfs(adjList);
     }
 
@@ -88,27 +84,31 @@ public class AlienDictionary_with_init {
         return inDegree.isEmpty() ? result.toString() : "";
     }
 
-    private void dfs(int i, int start, int end,
-                     String[] words,
-                     Map<Character,Set<Character>> adjList){
-        Character c = null;
-        for(int j=start, k=start; k<end; k++){
-            if(i>=words[k].length()){
-                j++;
-                continue;
+    private Map<Character,Set<Character>> edging(String[] words){
+        Map<Character,Set<Character>> adjList = new HashMap<>();
+        Arrays.stream(words).flatMap(w->w.chars()
+                .mapToObj(i->(char)i))
+                .collect(Collectors.toSet())
+                .forEach(c->adjList.computeIfAbsent(c,
+                        HashSet::new));
+
+        for(int i=0;i<words.length-1;i++){
+            String w1 = words[i], w2 = words[i+1];
+            int minLen = Math.min(w1.length(), w2.length());
+            for(int j=0;j<minLen;j++){
+                char c1=w1.charAt(j), c2=w2.charAt(j);
+                if(c1!=c2){
+                    adjList.get(c1).add(c2);
+                    break;
+                }
+
+                if(j==minLen-1
+                    && w1.length()>w2.length()){
+                    return Collections.emptyMap();
+                }
             }
-
-
-            final Character next = words[k].charAt(i);
-            if (c!=null && !next.equals(c)){
-                adjList.get(c).add(next);
-                dfs(i+1, j,k, words,adjList); //excluding current row
-                j=k;
-            } else if(k==end-1){ //end
-                dfs(i+1, j,k+1, words,adjList); //including current row
-            }
-
-            c = next;
         }
+
+        return adjList;
     }
 }

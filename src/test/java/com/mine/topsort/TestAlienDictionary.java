@@ -1,15 +1,17 @@
 package com.mine.topsort;
 
-import com.mine.topsort.aliendictionary.AlienDictionary;
-import com.mine.topsort.aliendictionary.AlienDictionary_with_init;
+import com.mine.topsort.aliendictionary.bfs.AlienDictionary_bfs;
+import com.mine.topsort.aliendictionary.bfs.old.AlienDictionary_with_init_missing_len_check;
+import com.mine.topsort.aliendictionary.dfs.AlienDictionary_dfs;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestAlienDictionary {
-//    private static AlienDictionary sol = new AlienDictionary();
 
-    private static AlienDictionary_with_init sol = new AlienDictionary_with_init();
+    private static AlienDictionary_bfs sol = new AlienDictionary_bfs();
+    private static AlienDictionary_dfs sol2 = new AlienDictionary_dfs();
+
     @Test
     public void testCase1(){
         assertEquals("wertf", sol.alienOrder(new String[] {
@@ -30,6 +32,37 @@ public class TestAlienDictionary {
 
         assertEquals("", sol.alienOrder(new String[] {
                 "z","x", "z"
+        }));
+
+        assertEquals("", sol.alienOrder(new String[] {
+                "apple", "app"
+        }));
+    }
+
+    @Test
+    public void testCase2(){
+        assertEquals("wertf", sol2.alienOrder(new String[] {
+                "wrt",
+                "wrf",
+                "er",
+                "ett",
+                "rftt"
+        }));
+
+        assertEquals("hernf", sol2.alienOrder(new String[] {
+                "hrn","hrf","er","enn","rfnn"
+        }));
+
+        assertEquals("zx", sol2.alienOrder(new String[] {
+                "z","x"
+        }));
+
+        assertEquals("", sol2.alienOrder(new String[] {
+                "z","x", "z"
+        }));
+
+        assertEquals("", sol2.alienOrder(new String[] {
+                "apple", "app"
         }));
     }
 }
