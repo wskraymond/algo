@@ -1,4 +1,4 @@
-package com.mine.jpm;
+package com.interview;
 
 public class CountBinarySubstrings {
     /**

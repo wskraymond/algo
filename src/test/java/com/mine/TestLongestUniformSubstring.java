@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.practice.ms.LongestUniformSubstring;
+import com.mine.slidingwindow.longestsubstr.LongestUniformSubstring;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

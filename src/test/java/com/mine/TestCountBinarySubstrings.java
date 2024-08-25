@@ -1,7 +1,6 @@
 package com.mine;
 
-import com.mine.jpm.CountBinarySubstrings;
-import com.mine.jpm.DecodeWay;
+import com.interview.CountBinarySubstrings;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

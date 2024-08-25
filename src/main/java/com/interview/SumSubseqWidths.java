@@ -1,8 +1,4 @@
-package com.mine.amazon;
-
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
+package com.interview;
 
 public class SumSubseqWidths {
     /**

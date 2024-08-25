@@ -1,4 +1,4 @@
-package com.mine.floatingpoint;
+package com.floatingpoint;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;

@@ -1,4 +1,4 @@
-package com.mine.floatingpoint;
+package com.floatingpoint;
 
 import org.junit.Test;
 

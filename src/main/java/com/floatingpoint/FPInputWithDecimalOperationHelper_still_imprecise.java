@@ -1,4 +1,4 @@
-package com.mine.floatingpoint;
+package com.floatingpoint;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

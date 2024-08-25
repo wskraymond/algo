@@ -1,4 +1,4 @@
-package com.mine.jpm;
+package com.interview;
 
 import java.util.HashMap;
 import java.util.Map;

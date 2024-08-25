@@ -1,4 +1,4 @@
-package com.practice.ms;
+package com.mine.slidingwindow.longestsubstr;
 
 public class LongestUniformSubstring {
     /**

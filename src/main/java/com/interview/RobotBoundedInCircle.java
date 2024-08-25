@@ -1,4 +1,4 @@
-package com.mine.amazon;
+package com.interview;
 
 public class RobotBoundedInCircle {
     /**

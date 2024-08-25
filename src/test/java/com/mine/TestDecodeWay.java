@@ -1,7 +1,6 @@
 package com.mine;
 
-import com.mine.greedy.BoatsToSavePpl;
-import com.mine.jpm.DecodeWay;
+import com.interview.DecodeWay;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
