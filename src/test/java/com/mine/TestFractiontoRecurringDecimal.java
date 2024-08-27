@@ -1,12 +1,12 @@
 package com.mine;
 
-import com.practice.ms.DivisionToString;
+import com.mine.math.cyclic.FractiontoRecurringDecimal_edge_cases;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestFractiontoRecurringDecimal {
-    private static DivisionToString sol = new DivisionToString();
+    private static FractiontoRecurringDecimal_edge_cases sol = new FractiontoRecurringDecimal_edge_cases();
     /**
      * 1) dividend=5 , divisor = 2  => 2.5 => Str: 2.5
      * 2) dividend=1 , divisor = 3  => 0.3333333 => Str: 0.(3)   //cyclic decimal -> 3
@@ -19,12 +19,12 @@ public class TestFractiontoRecurringDecimal {
 
     @Test
     public void testCase1(){
-        assertEquals("2.5", sol.play(5,2));
-        assertEquals("0.(3)", sol.play(1,3));
-        assertEquals("0.1(6)", sol.play(1,6));
-        assertEquals("0.01", sol.play(1,100));
-        assertEquals("0.(142857)", sol.play(1,7));
-        assertEquals("0.0(142857)", sol.play(1,70));
-        assertEquals("10.(142857)", sol.play(71,7));
+        assertEquals("2.5", sol.fractionToDecimal(5,2));
+        assertEquals("0.(3)", sol.fractionToDecimal(1,3));
+        assertEquals("0.1(6)", sol.fractionToDecimal(1,6));
+        assertEquals("0.01", sol.fractionToDecimal(1,100));
+        assertEquals("0.(142857)", sol.fractionToDecimal(1,7));
+        assertEquals("0.0(142857)", sol.fractionToDecimal(1,70));
+        assertEquals("10.(142857)", sol.fractionToDecimal(71,7));
     }
 }

@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.interview.DecodeWay;
+import com.mine.dp.DecodeWay;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

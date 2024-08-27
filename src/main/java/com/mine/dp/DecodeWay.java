@@ -1,4 +1,4 @@
-package com.interview;
+package com.mine.dp;
 
 import java.util.HashMap;
 import java.util.Map;

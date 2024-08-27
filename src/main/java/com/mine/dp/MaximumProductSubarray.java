@@ -1,4 +1,4 @@
-package com.mine.product;
+package com.mine.dp;
 
 public class MaximumProductSubarray {
     /**
