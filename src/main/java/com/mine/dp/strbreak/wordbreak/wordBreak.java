@@ -1,8 +1,6 @@
-package com.mine.dp.wordbreak;
+package com.mine.dp.strbreak.wordbreak;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class wordBreak {
     /**
@@ -53,10 +51,10 @@ public class wordBreak {
 
          */
         /*
-            failed to handle case below
-                s = "catsandog"
-                wordDict = ["cats","dog","sand","and","cat"]
+            Bruteforce Time Complexity: O(m^n)
+            use dp to reduce to polynomial
          */
+
         final int n = s.length();
         boolean[] dp = new boolean[n+1];
         dp[n]=true;
@@ -65,10 +63,11 @@ public class wordBreak {
                 if(i+w.length()<=n){
                     /*
                         if we convert wordDict to set(search=O(1)) ,
-                        we still need to get the substring of s which also costs O(k)
+                        we still need to get the substring of s which also costs O(k) averagely
                         Thus, conversion to HashSet is redundant.
                      */
 
+                    //1 <= wordDict[i].length <= 20
                     //equal() check avg cost: O(k)
                     dp[i] = s.startsWith(w, i) && dp[i+w.length()];
                     if(dp[i]){

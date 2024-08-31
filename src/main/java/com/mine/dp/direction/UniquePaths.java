@@ -1,4 +1,6 @@
-package com.mine.dp;
+package com.mine.dp.direction;
+
+import java.util.Arrays;
 
 public class UniquePaths {
     /**
@@ -34,6 +36,25 @@ public class UniquePaths {
      * @return
      */
     public int uniquePaths(int m, int n) {
-        return 0;
+        /*
+            subproblem:
+                return the number of possible unique paths that the robot can take to reach
+            Recurrence Relations:
+                f(i,j) = f(i+1,j) + f(i,j+1)
+            Base case:
+                f(m,j) = 1
+                f(i,n) = 1
+            Goal:
+                f(0,0)
+         */
+        int[] dp = new int[n];
+        Arrays.fill(dp, 1);
+        for(int i=m-2;i>=0;i--){
+            for(int j=n-2;j>=0;j--){
+                dp[j]+=dp[j+1];
+            }
+        }
+
+        return dp[0];
     }
 }

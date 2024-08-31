@@ -1,7 +1,4 @@
-package com.mine.dp;
-
-import java.util.HashMap;
-import java.util.Map;
+package com.mine.dp.strbreak.decodeway;
 
 public class DecodeWay {
     /**
@@ -57,33 +54,47 @@ public class DecodeWay {
      * @param s
      * @return
      */
-
-    private Map<Integer, Integer> m = new HashMap<>();
-
     public int numDecodings(String s) {
-        if(m.containsKey(s.length())){
-            return m.get(s.length());
+        /*
+            subproblem: suffix[i:]
+                return the number of ways to decode
+            recurrence relations:
+                f(i) = (isValid(s[i:i+1]) ? 1:0)*f(i+1) + (isValid(s[i:i+2]) ? 1:0)*f(i+2)
+            Base case:
+                f(n) = 1
+            Goal:
+                f(0)
+         */
+
+        final int n = s.length();
+        int[] dp = new int[n+1];
+        dp[n]=1;
+        for(int i=n-1;i>=0;i--){ //O(n)
+            if(i+1<=n) {
+                dp[i] += (isValid(s.substring(i, i + 1)) ? 1 : 0) * dp[i + 1];
+            }
+
+            if(i+2<=n) {
+                dp[i] += (isValid(s.substring(i, i + 2)) ? 1 : 0) * dp[i + 2];
+            }
         }
 
-        if(s==null || s.isEmpty()){
-            return 0;
-        }
+        return dp[0]; //O(n)
+    }
 
-        if(s.charAt(0)=='0'){
-            return 0;
-        }
+    private boolean isValid(String c){ //O(1)
+        /*
+        contains only digits and may contain leading zero(s).
+         */
+        /*
+            Be careful: "26".compareTo(c) Compares two strings lexicographically
+            "0", ..., "1", "10", "11", ......"19","2","20","21", ....."26", "27"...,"29", "3"...."4"....."9"
+         */
+        //instead , compare char by char
+        return c!=null
+                && c.length()!=0
+                && c.charAt(0)!='0'
+                && (c.length()==1 || c.charAt(0)=='1' || c.charAt(0)=='2' && c.charAt(1)<'7');
 
-        if(s.length()==1){
-            return 1;
-        }
-
-        int result = numDecodings(s.substring(1));
-        String c = s.substring(0, 2);
-        if(c.compareTo("26") <= 0){
-            result += s.length() > 2 ? numDecodings(s.substring(2)): 1;
-        }
-
-        m.put(s.length(), result);
-        return result;
     }
 }

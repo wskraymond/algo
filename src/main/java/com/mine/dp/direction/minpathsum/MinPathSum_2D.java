@@ -1,6 +1,4 @@
-package com.mine.dp.minpathsum;
-
-import java.util.Arrays;
+package com.mine.dp.direction.minpathsum;
 
 public class MinPathSum_2D {
     /**

@@ -1,8 +1,8 @@
 package com.mine;
 
-import com.mine.dp.minpathsum.MinPathSum_1D_inline;
-import com.mine.dp.minpathsum.MinPathSum_2D;
-import com.mine.dp.minpathsum.MinPathSum_1D_clone;
+import com.mine.dp.direction.minpathsum.MinPathSum_1D_inline;
+import com.mine.dp.direction.minpathsum.MinPathSum_2D;
+import com.mine.dp.direction.minpathsum.MinPathSum_1D_clone;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

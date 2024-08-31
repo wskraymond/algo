@@ -1,4 +1,4 @@
-package com.mine.dp.minpathsum;
+package com.mine.dp.direction.minpathsum;
 
 import java.util.Arrays;
 
