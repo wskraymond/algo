@@ -1,4 +1,4 @@
-package com.mine.greedy.subarr.maxsubarray;
+package com.mine.maxsubarr_kadane.sum.maxsubarray;
 
 
 /**

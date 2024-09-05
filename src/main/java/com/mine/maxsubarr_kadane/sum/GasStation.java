@@ -1,4 +1,4 @@
-package com.mine.greedy.subarr;
+package com.mine.maxsubarr_kadane.sum;
 
 public class GasStation {
     /**

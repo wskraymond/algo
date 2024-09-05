@@ -1,6 +1,6 @@
 package com.mine;
 
-import com.mine.greedy.subarr.maxsubarray.MaximumSubarray;
+import com.mine.maxsubarr_kadane.sum.maxsubarray.MaximumSubarray;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
