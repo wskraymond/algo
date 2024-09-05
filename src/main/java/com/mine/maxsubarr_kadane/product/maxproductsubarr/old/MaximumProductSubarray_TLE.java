@@ -1,4 +1,4 @@
-package com.mine.maxsubarr_kadane.product.maxproductsubarr;
+package com.mine.maxsubarr_kadane.product.maxproductsubarr.old;
 
 import java.util.stream.IntStream;
 
