@@ -1,4 +1,4 @@
-## Curated List of Questions
+## A Curated List of 80+ Questions
 
 #### Backtracking
 1) combination
