@@ -1,4 +1,4 @@
-package com.mine.graph.pacificatlantic.dp.bf;
+package com.mine.graph.undirected.dfs.pacificatlantic.dp.bf;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class PacificAtlantic_dp_1d_while_loop {
+public class PacificAtlantic_dp_2d_MLE {
     /**
      * There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.
      *
@@ -90,54 +90,46 @@ public class PacificAtlantic_dp_1d_while_loop {
 
         int[][] directions = new int[][]{{0,1}, {0,-1}, {1,0},{-1,0}};
         final int W = heights.length, L = heights[0].length;
+        final int M = L*W-1;
 
         final int A = 1<<1, P = 1<<0, BOTH = A | P;
-        final int[][] dp = new int[W][L];
-        IntStream.range(0,W).forEach(i->{  //dp variable needs to be final or effectively final in lambda
-            dp[i][L-1] |= A;
-            dp[i][0] |= P;
+        int[][][] dp = new int[W][L][M+1];
+        IntStream.range(0,W).forEach(i->{
+            dp[i][L-1][0] |= A;
+            dp[i][0][0] |= P;
         });
         IntStream.range(0,L).forEach(j->{
-            dp[W-1][j] |= A;
-            dp[0][j] |= P;
+            dp[W-1][j][0] |= A;
+            dp[0][j][0] |= P;
         });
-
-        int[][] dp_k_1 = dp;
-        int[][] dp_k = dp.clone();  //initialize to have value at k-1 for f(i,j,k-1)
-
-        boolean changed = true;
         List<List<Integer>> result = new LinkedList<>();
-        while(changed) { //O(M)
-            changed = false;
+        for(int k=1;k<=M;k++) { //O(M)
             for (int i = 0; i < W; i++) {
                 for (int j = 0; j < L; j++) {
-                    for(int[] direction:directions){ //O(E)
+                    /**
+                     * relaxing edges
+                     */
+                    dp[i][j][k] = dp[i][j][k-1]; // for comparing f(i,j,k-1)
+                    for(int[] direction:directions){ //O(E per sub)
                         int x = i+direction[0], y = j+direction[1];
                         if(0<=x && x<W
                             && 0<=y && y<L
-                            && heights[i][j] >= heights[x][y]
-                            && (dp_k[i][j] | dp_k_1[x][y]) != dp_k[i][j]) {
-                                //(dp_k[i][j] & dp_k_1[x][y])==0 => wrong way to check if changed ( e.g 01 & 11 > 0 -> changed)
-                                //dp_k[i][j] != dp_k_1[x][y] => wrong way to check if changed (e.g 11 | 00 = 11 -> no change)
-                                dp_k[i][j] |= dp_k_1[x][y];
-                                changed = true;
+                            && heights[i][j]>=heights[x][y]) {
+                                dp[i][j][k] |= dp[x][y][k - 1];
                         }
                     }
                 }
             }
-
-            //after clone, both dp_k and dp_k_1 has value at 'new' k-1
-            dp_k_1 = dp_k.clone();
         }   //Total = O(M*E)
 
         for (int i = 0; i < W; i++) {
             for (int j = 0; j < L; j++) {
-                if(dp_k[i][j]==BOTH){ //Goal: f(i,j,W*L-1)
+                if(dp[i][j][M]==BOTH){
                     result.add(Arrays.asList(i,j));
                 }
             }
         }   //O(M)
 
-        return result; //Total: O(M*E) + O(M)  = O(M*M*4 + M) = O(M^2)
+        return result; //Total: O(M*W*L*4 + W*L) = O(M*M*4 + M) = O(M^2)
     }
 }

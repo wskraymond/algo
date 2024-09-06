@@ -1,9 +1,11 @@
-package com.mine.graph.pacificatlantic.dp.bf;
+package com.mine.graph.undirected.dfs.pacificatlantic.dp;
 
-import java.util.*;
-import java.util.stream.IntStream;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
-public class PacificAtlantic_dp_1d_queue {
+public class PacificAtlantic_dp_stackoverflow_becos_of_non_dag {
     /**
      * There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.
      *
@@ -63,89 +65,54 @@ public class PacificAtlantic_dp_1d_queue {
             return Collections.emptyList();
         }
 
-        /*
-            value = 2 bits = AP for A=Atlantic , P=Pacific
-            Approach:
-                At Most W*L-1 iteration to find max value for all nodes in a positive weighted graph without a negative cycle
-            sub-problem:
-                f(i,j,k) = f(i,j,k-1)
-                            | f(i-1,j,k-1)
-                            | f(i,j-1,k-1)
-                            | f(i+1,j,k-1)
-                            | f(i,j+1,k-1) if heights[i][j] >= neighbor's heights for (i+/-1, j+/-1)
-                                                And 0 <= i+/-1 <= W && 0 <= j+/-1 <= L
-            base case:
-                f(W-1,j,0) |=10
-                f(i,L-1,0) |=10
-                f(0,j,0)   |=01
-                f(i,0,0)   |=01
-                f(i,j,0)   |=00
-
-            Goal:
-                f(i,j,W*L-1) for all node(i,j)
-         */
-
         int[][] directions = new int[][]{{0,1}, {0,-1}, {1,0},{-1,0}};
-        final int W = heights.length, L = heights[0].length;
-
-        final int A = 1<<1, P = 1<<0, BOTH = A | P;
-        final int[][] dp = new int[W][L];
-
-        boolean[][] inQ = new boolean[W][L];
-        Queue<int[]> q = new LinkedList<>();
-        IntStream.range(0,W).forEach(i->{  //dp variable needs to be final or effectively final in lambda
-            dp[i][L-1] |= A;
-            dp[i][0] |= P;
-
-            q.add(new int[]{i,L-1});
-            q.add(new int[]{i,0});
-
-            inQ[i][L-1] = true;
-            inQ[i][0] = true;
-        });
-        IntStream.range(0,L).forEach(j->{
-            dp[W-1][j] |= A;
-            dp[0][j] |= P;
-
-            q.add(new int[]{W-1,j});
-            q.add(new int[]{0,j});
-
-            inQ[W-1][j] = true;
-            inQ[0][j] = true;
-        });
-
-
+        final int l = heights.length, w = heights[0].length;
+        int[][] memo = new int[l][w];
         List<List<Integer>> result = new LinkedList<>();
-        while(!q.isEmpty()) { //O(M)
-            int[] to = q.poll();
-            final int i = to[0];
-            final int j = to[1];
-            for(int[] dir_from:directions){
-                int x = i + dir_from[0];
-                int y = j + dir_from[1];
-
-                if(x<0 || x>=W || y<0 || y>=L || heights[i][j] > heights[x][y] || (dp[x][y] | dp[i][j]) == dp[x][y]){
-                    continue;
-                }
-
-                if(!inQ[x][y]){
-                    q.add(new int[]{x,y});
-                    inQ[x][y] = true;
-                }
-                dp[x][y] |= dp[i][j];
-            }
-
-            inQ[i][j]=false;
-        }   //Total = O(M*E)
-
-        for (int i = 0; i < W; i++) {
-            for (int j = 0; j < L; j++) {
-                if(dp[i][j]==BOTH){ //Goal: f(i,j,W*L-1)
-                    result.add(Arrays.asList(i,j));
+        for(int i=0;i<l;i++){
+            for(int j=0;j<w;j++){
+                if(memo[i][j]==0){
+                    dfs(i,j, l, w , memo, heights, directions, result);
                 }
             }
-        }   //O(M)
+        }
+        return result;
+    }
 
-        return result; //Total: O(M*E) + O(M)  = O(M*M*4 + M) = O(M^2)
+    public int dfs(int i, int j , int l, int w,
+                   int[][] memo, int[][] heights,
+                   int[][] directions, List<List<Integer>> result){
+        if(memo[i][j]!=0){
+            return memo[i][j];
+        }
+
+        //bit = VPA , V for visit , P for pacific , A for atlantic
+        int bitSet = 1<<2;
+        if(i==0 || j==0){
+            bitSet |= 1<<1;
+        }
+
+        if(i==l-1 || j==w-1){
+            bitSet |= 1<<0;
+        }
+
+        for(int[] direction:directions){
+            if(bitSet==7){
+                break;
+            }
+            int nextR = i + direction[0];
+            int nextC = j + direction[1];
+            if(nextR>=0 && nextR<l
+                && nextC>=0 && nextC<w
+                && heights[i][j]>=heights[nextR][nextC]){
+                bitSet |=dfs(nextR, nextC, l, w , memo, heights, directions, result);
+            }
+        }
+
+        memo[i][j]=bitSet;
+        if(bitSet==7){
+            result.add(Arrays.asList(i,j));
+        }
+        return bitSet;
     }
 }

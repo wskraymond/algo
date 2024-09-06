@@ -1,9 +1,8 @@
-package com.mine.graph.pacificatlantic.backtrack;
+package com.mine.graph.undirected.dfs.pacificatlantic.traverse;
 
 import java.util.*;
-import java.util.function.BiFunction;
 
-public class PacificAtlantic_backtrack {
+public class PacificAtlantic_two_dfs_incorrect_hashkey {
     /**
      * There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.
      *
@@ -63,62 +62,47 @@ public class PacificAtlantic_backtrack {
             return Collections.emptyList();
         }
 
-        int[][] directions = new int[][]{{0,1}, {0,-1}, {1,0},{-1,0}};
+        final int[][] directions = new int[][]{{0,1}, {0,-1}, {1,0},{-1,0}};
         final int l = heights.length, w = heights[0].length;
-        Set<Integer> visit = new HashSet<>();
-        BiFunction<Integer,Integer,Integer> hf = (i,j)-> i * w + j;
+        Set<Integer> p = new HashSet<>(), a = new HashSet<>();
         List<List<Integer>> result = new LinkedList<>();
         for(int i=0;i<l;i++){
+            dfs(i,0, l,w,p,heights,directions);
+            dfs(i,w-1, l,w,a,heights,directions);
+        }
+
+        for(int j=0;j<w;j++){
+            dfs(0,j,l,w,p,heights,directions);
+            dfs(l-1,j,l,w,a,heights,directions);
+        }
+
+        for(int i=0;i<l;i++){
             for(int j=0;j<w;j++){
-                visit.add(hf.apply(i,j));
-                int bitSet = backtrack(i,j, l, w , visit, heights, directions, hf);
-                visit.remove(hf.apply(i,j));
-                if(bitSet==3){
+                if(p.contains(i+j) && a.contains(i+j)){
                     result.add(Arrays.asList(i,j));
                 }
             }
         }
+
         return result;
     }
 
-    public int backtrack(int i, int j , int l, int w,
-                         Set<Integer> visit, int[][] heights,
-                         int[][] directions, BiFunction<Integer,Integer,Integer> hf){
-        //bit = PA, P for pacific , A for atlantic
-        int bitSet = 0;
-        if(i==0 || j==0){
-            bitSet |= 1<<1;
+    public void dfs(int i, int j , int l, int w,
+                   Set<Integer> visit, int[][] heights,
+                   int[][] directions){
+        if(visit.contains(i+j)){
+            return;
         }
 
-        if(i==l-1 || j==w-1){
-            bitSet |= 1<<0;
-        }
-
+        visit.add(i+j);
         for(int[] direction:directions){
-            if(bitSet==3){  //already done
-                break;
+            int next_i = i + direction[0];
+            int next_j = j + direction[1];
+            if(next_i >= 0 && next_i<l
+                && next_j >= 0 && next_j<w
+                && heights[i][j]<=heights[next_i][next_j]){
+                dfs(next_i,next_j, l, w, visit, heights, directions);
             }
-            int nextR = i + direction[0];
-            int nextC = j + direction[1];
-
-            if(nextR<0 || nextR>=l
-                    || nextC<0 || nextC>=w
-                    || heights[i][j]<heights[nextR][nextC]){
-                continue;
-            }
-
-            if(visit.contains(hf.apply(nextR,nextC))){ //is visited
-                continue;
-            }
-
-            visit.add(hf.apply(nextR,nextC)); //save state
-            bitSet |= backtrack(nextR, nextC,
-                    l, w ,
-                    visit, heights,
-                    directions, hf);
-            visit.remove(hf.apply(nextR,nextC)); //backtrack
         }
-
-        return bitSet;
     }
 }

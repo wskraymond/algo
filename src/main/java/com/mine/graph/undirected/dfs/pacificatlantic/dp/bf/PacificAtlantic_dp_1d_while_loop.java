@@ -1,13 +1,12 @@
-package com.mine.graph.pacificatlantic.dp.bf;
+package com.mine.graph.undirected.dfs.pacificatlantic.dp.bf;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.BiConsumer;
 import java.util.stream.IntStream;
 
-public class PacificAtlantic_dp_1d_TLE {
+public class PacificAtlantic_dp_1d_while_loop {
     /**
      * There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.
      *
@@ -91,7 +90,6 @@ public class PacificAtlantic_dp_1d_TLE {
 
         int[][] directions = new int[][]{{0,1}, {0,-1}, {1,0},{-1,0}};
         final int W = heights.length, L = heights[0].length;
-        final int M = L*W-1;
 
         final int A = 1<<1, P = 1<<0, BOTH = A | P;
         final int[][] dp = new int[W][L];
@@ -107,16 +105,22 @@ public class PacificAtlantic_dp_1d_TLE {
         int[][] dp_k_1 = dp;
         int[][] dp_k = dp.clone();  //initialize to have value at k-1 for f(i,j,k-1)
 
+        boolean changed = true;
         List<List<Integer>> result = new LinkedList<>();
-        for(int k=1;k<=M;k++) { //O(M)
+        while(changed) { //O(M)
+            changed = false;
             for (int i = 0; i < W; i++) {
                 for (int j = 0; j < L; j++) {
                     for(int[] direction:directions){ //O(E)
                         int x = i+direction[0], y = j+direction[1];
                         if(0<=x && x<W
                             && 0<=y && y<L
-                            && heights[i][j]>=heights[x][y]) {
+                            && heights[i][j] >= heights[x][y]
+                            && (dp_k[i][j] | dp_k_1[x][y]) != dp_k[i][j]) {
+                                //(dp_k[i][j] & dp_k_1[x][y])==0 => wrong way to check if changed ( e.g 01 & 11 > 0 -> changed)
+                                //dp_k[i][j] != dp_k_1[x][y] => wrong way to check if changed (e.g 11 | 00 = 11 -> no change)
                                 dp_k[i][j] |= dp_k_1[x][y];
+                                changed = true;
                         }
                     }
                 }
