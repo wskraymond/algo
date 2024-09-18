@@ -43,7 +43,7 @@ public class FindDuplicates_model_ans_cyclic_sort {
     public List<Integer> findDuplicates(int[] nums) {
         List<Integer> result = new ArrayList<>();
         int i=0, n = nums.length;
-        while(i<n){ //cuclic sort
+        while(i<n){ //cyclic sort
             //assume nums[i] ranges from 1 to n
             int j = nums[i] - 1;
             if(nums[j]!=j+1){

@@ -41,6 +41,11 @@ public class RotateArray_cyclic {
     public void rotate(int[] nums, int k) {
         k%=nums.length;
         for(int count=0, start=0;count<nums.length;start++){
+            /*
+            Do we need a for loop to check if all are in correct position ?
+             e.g nums=[-1,-100,3,99], k=2
+                 one while loop is not enough for start=0 -> [3,-100,-1,99] //not yet completed
+             */
             int curr = start;
             int prev = nums[curr];
             do{
