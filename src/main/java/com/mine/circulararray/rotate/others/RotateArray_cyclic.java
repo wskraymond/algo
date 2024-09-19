@@ -1,4 +1,4 @@
-package com.mine.circulararray.rotate;
+package com.mine.circulararray.rotate.others;
 
 public class RotateArray_cyclic {
     /**
@@ -42,10 +42,14 @@ public class RotateArray_cyclic {
         k%=nums.length;
         for(int count=0, start=0;count<nums.length;start++){
             /*
-            Do we need a for loop to check if all are in correct position ?
-             e.g nums=[-1,-100,3,99], k=2
-                 one while loop is not enough for start=0 -> [3,-100,-1,99] //not yet completed
+                Do we need a for loop to check if all are in correct position ?
+                    e.g nums=[-1,-100,3,99], k=2
+                    one while loop is not enough for start=0 -> [3,-100,-1,99] //not yet completed
+
+                Please ignore this solution becos it needs strong math proof to understand why it works
+                    e.g how do we know it will form a cycle (reach start again) and why next(start++) is not yet moved
              */
+
             int curr = start;
             int prev = nums[curr];
             do{

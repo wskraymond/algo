@@ -1,4 +1,4 @@
-package com.mine.circulararray.fastslowpointer;
+package com.mine.circulararray.fastslowpointer.old;
 
 public class CircularArrayLoop_missing_critical_edge_cases {
     /**

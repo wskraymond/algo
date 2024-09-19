@@ -2,10 +2,10 @@
 
 >***Array/List***
 #### Circular Array
-- 189\. Rotate Array
+- 1752\. Check if Array Is Sorted and Rotated
 
 #### Cyclic Sort
-- 442\. Find All Duplicates in an Array
+- Cyclic Swap: 442\. Find All Duplicates in an Array
 
 #### Fast-slow Pointers
 - 142\. Linked List Cycle II
@@ -15,6 +15,8 @@
    - 26\. Remove Duplicates from Sorted Array
 2) Reverse Linked List
    - 234\. Palindrome Linked List
+3) Reverse Array
+   - 189\. Rotate Array
 
 >***Binary***
 #### Binary Search

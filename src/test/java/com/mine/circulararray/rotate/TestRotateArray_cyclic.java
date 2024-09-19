@@ -1,6 +1,6 @@
 package com.mine.circulararray.rotate;
 
-import com.mine.circulararray.rotate.RotateArray_cyclic;
+import com.mine.circulararray.rotate.others.RotateArray_cyclic;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;

@@ -1,4 +1,4 @@
-package com.mine.circulararray.rotate;
+package com.mine.circulararray.rotate.others;
 
 public class RotateArray_bruteforce {
     /**

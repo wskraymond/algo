@@ -1,4 +1,4 @@
-package com.mine.circulararray.fastslowpointer;
+package com.mine.circulararray.fastslowpointer.old;
 
 public class CircularArrayLoop_failed_result_checking {
     /**

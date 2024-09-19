@@ -1,4 +1,4 @@
-package com.mine.circulararray.rotate;
+package com.mine.circulararray.rotate.others;
 
 import java.util.Arrays;
 import java.util.Collections;

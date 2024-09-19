@@ -1,4 +1,4 @@
-package com.mine.cyclicsort.finduplicates;
+package com.mine.cyclicsort.finduplicates.others;
 
 import java.util.ArrayList;
 import java.util.List;
