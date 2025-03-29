@@ -48,6 +48,9 @@ public class MaxAlternatingSum {
             3. max possible sum = 10^5/2 x 10^5 > Integer.MAX
             4. max possible number = 10^5 < Integer.MAX
          */
+        /*
+
+         */
         return 0;
     }
 }

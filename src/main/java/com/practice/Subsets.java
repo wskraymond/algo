@@ -36,6 +36,17 @@ public class Subsets {
      * @return
      */
     public List<List<Integer>> subsets(int[] nums) {
-        return null;
+        List<List<Integer>> result = new LinkedList<>();
+        dfs(0,nums, new ArrayList<>(nums.length), result)
+        return result;
+    }
+
+    public void dfs(int r, int[] nums, List<Integer> subset, List<List<Integer>> result){
+        result.add(new ArrayList(subset));
+        for(int i=r;i<nums.length;i++){
+            subset.add(nums[i]);
+            dfs(i+1, nums, subset,result);
+            subset.remove(subset.size()-1);
+        }
     }
 }

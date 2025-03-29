@@ -1,6 +1,9 @@
 package com.practice;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.LongFunction;
+import java.util.stream.Collectors;
 
 public class SubSet2 {
     /**
@@ -43,15 +46,26 @@ public class SubSet2 {
             Otherwise, replaces the associated value with the results of the given remapping function,
             or removes if the result is nul
          */
+        Map<Integer,Long> countMap = Arrays.stream(nums)
+                .mapToObj(Integer::valueOf)
+                .collect(Collectors.groupingBy(Function.identity(),
+                        Collectors.counting()));
 
-
-        return null; //O(n*(2^n)) + O(2*n)
+        List<List<Integer>> result = new LinkedList<>();
+        backtrack(0, countMap.keySet().stream().mapToInt(Integer::intValue).toArray(), countMap, new LinkedList<>(), result);
+        return result; //O(n*(2^n)) + O(2*n)
     }
 
-    private void backtrack(int i, int[] keys, Map<Integer, Integer> m, Deque<Integer> subSet, List<List<Integer>> result){
-
-        //copy = O(n)
-        //number of subset = O(2^n)
-        //total = O(n*(2^n))
+    public void backtrack(int r , int[] keys,Map<Integer,Long> countMap, Deque<Integer> subset, List<List<Integer>> result){
+        result.add(new ArrayList<>(subset));
+        for(int i=r; i<keys.length;i++){
+            int num = keys[i];
+            subset.add(num);
+            countMap.merge(num, -1L, Long::sum);
+            backtrack(i+1, keys, countMap, subset, result);
+            countMap.merge(num, +1L, Long::sum);
+            subset.removeLast();
+        }
     }
+
 }
