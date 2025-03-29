@@ -49,8 +49,31 @@ public class MaxAlternatingSum {
             4. max possible number = 10^5 < Integer.MAX
          */
         /*
+            sub-problem: suffix[i:]
+                f(i,0) => first index is odd
+                f(i,1) => first index is even
 
+            recurrence relation:
+                f(i,0) = max{f(i+1,1) + nums[i], f(i+1,0) }
+                f(i,1) = max{f(i+1,0) - nums[i], f(i+1,1) }
+            Base:
+                f(n,0) = f(n,1) = 0
+            Goal
+                f(0,0)
+            Top Order:
+                for i=n-1....0
+                    for j=odd(0)/even(1)
+            Time Complexity = O(2n)
+            Space Complexity: O(2n) or O(2)
          */
-        return 0;
+
+        final int n = nums.length;
+        int odd = 0, even=0;
+        for(int i=n-1;i>=0;i--){
+            int tmp_odd = odd;
+            odd = Math.max(even+nums[i], odd);
+            even = Math.max(tmp_odd-nums[i], even);
+        }
+        return odd;
     }
 }
