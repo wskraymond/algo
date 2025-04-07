@@ -68,9 +68,9 @@ public class MaxAlternatingSum {
          */
 
         final int n = nums.length;
-        int odd = 0, even=0;
+        long odd = 0, even=0;
         for(int i=n-1;i>=0;i--){
-            int tmp_odd = odd;
+            long tmp_odd = odd;
             odd = Math.max(even+nums[i], odd);
             even = Math.max(tmp_odd-nums[i], even);
         }

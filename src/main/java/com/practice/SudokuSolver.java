@@ -1,5 +1,8 @@
 package com.practice;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class SudokuSolver {
@@ -39,11 +42,57 @@ public class SudokuSolver {
             It is guaranteed that the input board has only one solution.
          */
         final int n = board.length;
+        Deque<Integer> emptyCells = new ArrayDeque<>(n*n);
+        boolean[][][] digits = new boolean[3][n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(board[i][j]=='.'){
+                    emptyCells.push(i*n + j);
+                } else {
+                    int k = i / 3 * 3 + j / 3;
+                    int x = board[i][j] - '1';
+                    digits[0][i][x]=true;
+                    digits[1][j][x]=true;
+                    digits[2][k][x]=true;
+                }
+            }
+        }
 
+        dfs(emptyCells, n, board, digits);
     }
 
-    public boolean dfs(int i, int j,int n,
-                    char[][] board,boolean[][][] digits){
+    public boolean dfs(Deque<Integer> emptyCells,final int n,
+                       char[][] board, boolean[][][] digits){
+        if(emptyCells.isEmpty()){
+            return true;
+        }
+
+        int e = emptyCells.poll();
+        int i = e/n, j = e%n;
+        int k = i/3*3+j/3;
+        for(int x=0;x<n;x++){
+            if(digits[0][i][x]
+                || digits[1][j][x]
+                || digits[2][k][x]){
+                continue;
+            }
+
+            digits[0][i][x]=true;
+            digits[1][j][x]=true;
+            digits[2][k][x]=true;
+            board[i][j] = (char)('1'+x);
+
+            if(dfs(emptyCells, n, board, digits)){
+                return true;
+            }
+
+            digits[0][i][x]=false;
+            digits[1][j][x]=false;
+            digits[2][k][x]=false;
+            board[i][j] = '.';
+        }
+
+        emptyCells.offerFirst(e);
         return false;
     }
 }

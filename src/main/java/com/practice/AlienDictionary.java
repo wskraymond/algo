@@ -107,7 +107,7 @@ public class AlienDictionary {
         colors.put(v, 'G');
         for(Character n : adjList.get(v)){
             if(colors.get(n)=='W'){
-                if(dfs(v, adjList,colors,s)){
+                if(dfs(n, adjList,colors,s)){
                     return true;
                 }
             } else if(colors.get(n)=='G') {

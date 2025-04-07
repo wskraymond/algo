@@ -51,7 +51,7 @@ public class NonOverlapIntervals {
         Arrays.sort(intervals, Comparator.comparingInt(interval->interval[0]));
         int end_t = intervals[0][1];
         for(int i=1;i<intervals.length;i++){
-            if(end_t<intervals[i][0]){
+            if(end_t>intervals[i][0]){
                 end_t=Math.min(intervals[i][1], end_t);
                 count++;
             }else{

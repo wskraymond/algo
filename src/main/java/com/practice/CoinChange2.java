@@ -76,7 +76,7 @@ public class CoinChange2 {
         int[] dp = new int[s+1];
         Arrays.fill(dp, 0);
         dp[0]=1;
-        for(int i=n-1;i>=0;i++){
+        for(int i=n-1;i>=0;i--){
             for(int k=1;k<=s;k++){
                 dp[k] += k>=coins[i] ? dp[k-coins[i]] : 0;
             }

@@ -53,9 +53,11 @@ public class MergekSortedLists {
             1. moving with the current pointer
             2. return head pointer
          */
-        final int k = lists.length;
+        if(lists.length==0){
+            return null;
+        }
         ListNode head = null, curr = null;
-        Queue<ListNode> minHeap = new PriorityQueue<>(k, Comparator.comparingInt(node->node.val));
+        Queue<ListNode> minHeap = new PriorityQueue<>(lists.length, Comparator.comparingInt(node->node.val));
         minHeap.addAll(Arrays.stream(lists).filter(node->node!=null).collect(Collectors.toList())); //k*logk
         while(!minHeap.isEmpty()){
             ListNode node = minHeap.poll();

@@ -3,6 +3,7 @@ package com.mine.topsort;
 import com.mine.topsort.aliendictionary.bfs.AlienDictionary_bfs;
 import com.mine.topsort.aliendictionary.bfs.old.AlienDictionary_with_init_missing_len_check;
 import com.mine.topsort.aliendictionary.dfs.AlienDictionary_dfs;
+import com.practice.AlienDictionary;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -11,6 +12,7 @@ public class TestAlienDictionary {
 
     private static AlienDictionary_bfs sol = new AlienDictionary_bfs();
     private static AlienDictionary_dfs sol2 = new AlienDictionary_dfs();
+    private static AlienDictionary sol3 = new AlienDictionary();
 
     @Test
     public void testCase1(){
@@ -63,6 +65,29 @@ public class TestAlienDictionary {
 
         assertEquals("", sol2.alienOrder(new String[] {
                 "apple", "app"
+        }));
+    }
+
+    @Test
+    public void testCase3(){
+        assertEquals("wertf", sol3.alienOrder(new String[] {
+                "wrt",
+                "wrf",
+                "er",
+                "ett",
+                "rftt"
+        }));
+
+        assertEquals("hernf", sol3.alienOrder(new String[] {
+                "hrn","hrf","er","enn","rfnn"
+        }));
+
+        assertEquals("zx", sol3.alienOrder(new String[] {
+                "z","x"
+        }));
+
+        assertEquals("", sol3.alienOrder(new String[] {
+                "z","x", "z"
         }));
     }
 }
