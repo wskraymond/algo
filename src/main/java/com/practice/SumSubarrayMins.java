@@ -2,6 +2,7 @@ package com.practice;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.function.BiFunction;
 
 public class SumSubarrayMins {
     /**
@@ -35,6 +36,42 @@ public class SumSubarrayMins {
      * @return
      */
     public int sumSubarrayMins(int[] arr) {
-        return 0;
+        final int M = (int)1e9+7;
+        /*
+            1. count of same min shared by all ranged subarray = (minIndex - next left smaller)*(next right smaller - minIndex)
+                a) use of monotonic increasing stack of index, and iterate from left to right
+                b) minIndex = pop() rs = i , ls=top() after pop()
+            2. avoid double counting for duplicate value in the same subarr
+                a) only includes duplicate value into subarray on either left or right side of minIndex
+                b) arr[i]<=arr[i+k]
+            3. sum+=min*count
+         */
+        final int n = arr.length;
+        Deque<Integer> stack = new ArrayDeque<>();
+        long sum =0;
+        for(int i=0;i<n;i++){
+            int num = arr[i];
+            while(!stack.isEmpty() &&
+                    num < arr[stack.peek()]){
+                int minIndex = stack.pop();
+                int rs = i;
+                int ls = stack.isEmpty() ? -1 : stack.peek();
+                int min = arr[minIndex];
+                sum+=min*(minIndex-ls)*(rs-minIndex);
+            }
+
+            stack.push(i);
+        }
+
+        //remaining element when there is no next right smaller for its min
+        while(!stack.isEmpty()){
+            int minIndex = stack.pop();
+            int rs = n;
+            int ls = stack.isEmpty() ? -1 : stack.peek();
+            int min = arr[minIndex];
+            sum+=min*(minIndex-ls)*(rs-minIndex);
+        }
+
+        return (int)(sum%M);
     }
 }

@@ -1,8 +1,7 @@
 package com.practice;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MergekSortedLists {
     /**
@@ -49,6 +48,32 @@ public class MergekSortedLists {
      * @return
      */
     public ListNode mergeKLists(ListNode[] lists) {
-        return null;
+        /*
+            Faster flatMapping of list of sorted linked lists
+            1. moving with the current pointer
+            2. return head pointer
+         */
+        final int k = lists.length;
+        ListNode head = null, curr = null;
+        Queue<ListNode> minHeap = new PriorityQueue<>(k, Comparator.comparingInt(node->node.val));
+        minHeap.addAll(Arrays.stream(lists).filter(node->node!=null).collect(Collectors.toList())); //k*logk
+        while(!minHeap.isEmpty()){
+            ListNode node = minHeap.poll();
+            ListNode clone = new ListNode(node.val);
+            if(head==null){
+                head = clone;
+                curr = head;
+            } else {
+                curr.next = clone;
+                curr = curr.next;
+            }
+
+            if(node.next!=null) {
+                minHeap.offer(node.next);
+            }
+        }
+
+        //n=total number of value in the merged list
+        return head;//O(n*logk)
     }
 }

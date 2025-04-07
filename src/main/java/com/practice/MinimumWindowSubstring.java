@@ -1,8 +1,10 @@
 package com.practice;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MinimumWindowSubstring {
     /**
@@ -61,8 +63,39 @@ public class MinimumWindowSubstring {
             time: O(m)
             space: O(m)
          */
+        int min=Integer.MAX_VALUE, start=0,end=0;
+        Map<Character,Long> countMap = t.chars().mapToObj(i->(char)i).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        int count = t.length();
+        for(int i=0,j=0;i<s.length();i++){
+            char c = s.charAt(i);
+            if(countMap.containsKey(c)){
+                long x = countMap.merge(c, -1L, Long::sum);
+                if(x>=0){
+                    count--;
+                }
+            }
+
+            //shrink
+            while(count==0){
+                //check min
+                if(i-j+1<min){
+                    start=j;
+                    end=i+1;
+                    min=end-start;
+                }
+
+                char b = s.charAt(j);
+                if(countMap.containsKey(b)){
+                    long y = countMap.merge(b, +1L, Long::sum);
+                    if(y>0){
+                        count++;
+                    }
+                }
+                j++;
+            }
+        }
 
         //total time; O(m+n)
-        return null;
+        return s.substring(start,end);
     }
 }

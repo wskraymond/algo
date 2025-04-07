@@ -43,6 +43,37 @@ public class LongestPalindromeSubseq {
                             - subsequence(0/1 in order) vs substring(contiguous)
 
          */
-        return 0;
+        /*
+            sub-problem: substring[i:j]
+            recurrence relation:
+            f(i,j) = Max{
+                    f(i+1,j-1) + 2 if s[i]==s[j],
+                    f(i+1, j),
+                    f(i,j-1)
+                }
+            base:
+                f(i,j=i)=1
+            goal:
+                f(0,n-1)
+            Top Order:
+                for s=2....size
+                    for i=0...n-size
+                        j=i+size-1
+         */
+        final int n = s.length();
+        int[][] dp = new int[n][n];
+        IntStream.range(0,n).forEach(i->dp[i][i]=1);
+        for(int size=2;size<=n;size++){
+            for(int i=0;i<=n-size;i++){
+                int j=i+size-1;
+                dp[i][j] = IntStream.of(
+                        (i+1<=j-1 ? dp[i+1][j-1] : 0 ) + (s.charAt(i)==s.charAt(j) ? 2 : 0),
+                        dp[i+1][j],
+                        dp[i][j-1]
+                        ).max().getAsInt();
+            }
+        }
+
+        return dp[0][n-1];
     }
 }

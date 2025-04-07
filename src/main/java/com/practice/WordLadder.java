@@ -1,6 +1,8 @@
 package com.practice;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class WordLadder {
     /**
@@ -49,6 +51,56 @@ public class WordLadder {
             2. 1 <= beginWord.length <= 10
             3. wordList[i].length == beginWord.length
          */
+        final int n = beginWord.length();
+        Set<String> wordSet = new HashSet<>(wordList);
+        wordSet.add(beginWord);
+        if(!wordSet.contains(endWord)){
+            return 0;
+        }
+
+        Map<String, Set<String>> adjList = new HashMap<>();
+        for(String word:wordSet){
+            char[] tmp = word.toCharArray();
+            for(int i=0;i<n;i++){
+                char c = tmp[i];
+                tmp[i] = '*';
+                String pattern = String.valueOf(tmp);
+                Set<String> l = adjList.getOrDefault(pattern, new HashSet<>());
+                l.add(word);
+                adjList.putIfAbsent(pattern, l);
+                tmp[i] = c;
+            }
+        }
+
+        //bfs
+        int level=0;
+        Queue<String> q = new LinkedList<>();
+        Set<String> visit = new HashSet<>();
+        visit.add(beginWord);
+        q.offer(beginWord);
+        while(!q.isEmpty()){
+            level++;
+            final int s = q.size();
+            for(int i=0;i<s;i++){
+                String word = q.poll();
+                if(word.equals(endWord)){
+                    return level;
+                }
+                char[] w = word.toCharArray();
+                for(int j=0;j<n;j++){
+                    char c = w[j];
+                    w[j]='*';
+                    String pattern = String.valueOf(w);
+                    for(String neighbour:adjList.get(pattern)){
+                        if(!visit.contains(neighbour)){
+                            q.offer(neighbour);
+                            visit.add(neighbour);
+                        }
+                    }
+                    w[j]=c;
+                }
+            }
+        }
 
         return 0;
     }

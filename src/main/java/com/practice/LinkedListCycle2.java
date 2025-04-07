@@ -56,7 +56,31 @@ public class LinkedListCycle2 {
          *  3. -2 -> -1 -> 0 -> 1 -> 0 //pos = 0, cycle length = 2, F = 2, h = 2%2 = 0 , a = 2 - h = move 2 step from 0 (finally at node 0)
          *  4. -2 -> -1 -> 0 -> 0 //pos = 0, cycle length = 1, F=2 , h=2%1 = 0, a = 1 - 0 = move 1 step from node 0 (finally at node 0)
          */
+        if(head==null){
+            return null;
+        }
 
+        ListNode s=head, f=head;
+        ListNode p1=head, p2=null;
+        //p2: gonna find at where both s and f catches
+        while(f.next!=null
+                && f.next.next!=null){
+            s = s.next;
+            f = f.next.next;
+            if(s==f){
+                p2=s;
+                break;
+            }
+        }
+
+        if(p2!=null){
+            while(p1!=p2){
+                p1 = p1.next;
+                p2 = p2.next;
+            }
+        }
+
+        return p2;
     }
 }
 

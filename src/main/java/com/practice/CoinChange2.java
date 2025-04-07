@@ -63,16 +63,24 @@ public class CoinChange2 {
                 f(i, k) = f(i, k-nums[i]) + f(i+1, k)
             base:
                 f(i,0) = 1
-                f(n,k>0) = 0
+                f(n,k) = 0
             goal:
                 f(0,S)
             top order:
-                for k=1.....S
-                    for i=n-1....0
+                for i=n-1....0
+                    for k=1.....S
             Time: O(k*n)
-            space: O(k*n) or (n)
+            space: O(k*n) or (k)
          */
-
-        return 0;
+        final int n = coins.length, s=amount;
+        int[] dp = new int[s+1];
+        Arrays.fill(dp, 0);
+        dp[0]=1;
+        for(int i=n-1;i>=0;i++){
+            for(int k=1;k<=s;k++){
+                dp[k] += k>=coins[i] ? dp[k-coins[i]] : 0;
+            }
+        }
+        return dp[s];
     }
 }

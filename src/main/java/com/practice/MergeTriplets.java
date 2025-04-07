@@ -45,6 +45,18 @@ public class MergeTriplets {
      * 1 <= ai, bi, ci, x, y, z <= 1000
      */
     public boolean mergeTriplets(int[][] triplets, int[] target) {
-        return false;
+        //candidate set: triplets[]
+        if(triplets==null || triplets.length==0){
+            return false;
+        }
+
+        final int n = triplets.length;
+        Set<Integer> matches = new HashSet<>();
+        for(int[] triplet:triplets){ //selection func.
+            if(!IntStream.range(0,3).anyMatch(j->triplet[j] > target[j])){  //feasibility func
+                IntStream.range(0,3).filter(j->triplet[j]==target[j]).forEach(matches::add);    //objective func
+            }
+        }
+        return matches.size()==3;   //solution func.
     }
 }

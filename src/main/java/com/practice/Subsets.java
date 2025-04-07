@@ -1,6 +1,7 @@
 package com.practice;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,16 +38,16 @@ public class Subsets {
      */
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new LinkedList<>();
-        dfs(0,nums, new ArrayList<>(nums.length), result)
+        backtrack(0,nums, new LinkedList<>(), result);
         return result;
     }
 
-    public void dfs(int r, int[] nums, List<Integer> subset, List<List<Integer>> result){
+    public void backtrack(int r, int[] nums, Deque<Integer> subset, List<List<Integer>> result){
         result.add(new ArrayList(subset));
         for(int i=r;i<nums.length;i++){
             subset.add(nums[i]);
-            dfs(i+1, nums, subset,result);
-            subset.remove(subset.size()-1);
+            backtrack(i+1, nums, subset,result);
+            subset.removeLast();
         }
     }
 }

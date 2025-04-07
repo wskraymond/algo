@@ -38,6 +38,26 @@ public class NonOverlapIntervals {
      * @return
      */
     public int eraseOverlapIntervals(int[][] intervals) {
-        return 0;
+        /*
+            0.sort by start_t
+            1. greedy to remove overlapping interval selected by min end_t
+                (this is like using minHeap ordered by end_t in min. meeting room )
+         */
+        if(intervals.length<=1){
+            return 0;
+        }
+
+        int count=0;
+        Arrays.sort(intervals, Comparator.comparingInt(interval->interval[0]));
+        int end_t = intervals[0][1];
+        for(int i=1;i<intervals.length;i++){
+            if(end_t<intervals[i][0]){
+                end_t=Math.min(intervals[i][1], end_t);
+                count++;
+            }else{
+                end_t=intervals[i][1];
+            }
+        }
+        return count;
     }
 }

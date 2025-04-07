@@ -1,6 +1,7 @@
 package com.practice;
 
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class MaximumProductSubarray {
     /**
@@ -36,6 +37,15 @@ public class MaximumProductSubarray {
      * @return
      */
     public int maxProduct(int[] nums) {
+        /*
+            0. value ranges from -10 to 10, can be zero too
+            1. 0 x a = 0, 0 x -a = 0
+            2. -a x b = more negative
+            3. -a x -b = greater positive
+            4. a x -b = negated value
+            5. a x b = greater positve
+            6. a x 1 = a
+         */
         /*  Intuitive
             1) odd number of neg val = negative product
             2) even number of neg val = positive product
@@ -54,7 +64,17 @@ public class MaximumProductSubarray {
             However, we take Max and Min func to those 3 products, then update Min, Max and result.
          */
 
-
-        return 0;
+        int result = nums[0];
+        int max=1, min=1;
+        final int n = nums.length;
+        for(int i=0;i<n;i++){
+            int val = nums[i];
+            int t1 = IntStream.of(max*val, min*val, val).max().getAsInt();
+            int t2 = IntStream.of(max*val, min*val, val).min().getAsInt();
+            max = t1;
+            min = t2;
+            result = Math.max(result, max);
+        }
+        return result;
     }
 }

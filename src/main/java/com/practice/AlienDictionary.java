@@ -1,9 +1,7 @@
 package com.practice;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.sql.PreparedStatement;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -58,25 +56,66 @@ public class AlienDictionary {
      *
      */
     public String alienOrder(String[] words) {
-        return null;
+        Map<Character,Set<Character>> adjList = edging(words);
+        return topSort(adjList);
     }
 
     private Map<Character,Set<Character>> edging(String[] words){
-        return null;
+        //init
+        Map<Character, Set<Character>> adjList = Arrays.stream(words)
+                .flatMap(w-> w.chars().mapToObj(i->(char)i))
+                .distinct()
+                .collect(Collectors.toMap(Function.identity(), HashSet::new));
+
+        for(int i=0;i<words.length-1;i++){
+            String w=words[i], w2=words[i+1];
+            int minL = Math.min(w.length(), w2.length());
+            for(int j=0;j<minL;j++){
+                if(w.charAt(j)!=w2.charAt(j)){
+                    adjList.get(w.charAt(j)).add(w2.charAt(j));
+                    break;
+                }
+            }
+        }
+        return adjList;
     }
 
     private String topSort(Map<Character,Set<Character>> adjList){
+        if(adjList.isEmpty()){
+            return "";
+        }
         /*
             1. reversed post-order traversal
             2. cycle detection: while(not yet discovered), grey, black(finished)
          */
-        return null;
+        Map<Character, Character> colors = adjList.keySet().stream().collect(Collectors.toMap(Function.identity(), c->'W'));
+        StringBuilder result = new StringBuilder("");
+        for(Character vertex : adjList.keySet()){
+            if(colors.get(vertex)=='W'){
+                if(dfs(vertex, adjList,colors, result)){
+                    return "";
+                }
+            }
+        }
+        return result.reverse().toString();
     }
 
     private boolean dfs(Character v,
                         Map<Character,Set<Character>> adjList,
-                        Map<Character,Character> color,
+                        Map<Character,Character> colors,
                         StringBuilder s){
+        colors.put(v, 'G');
+        for(Character n : adjList.get(v)){
+            if(colors.get(n)=='W'){
+                if(dfs(v, adjList,colors,s)){
+                    return true;
+                }
+            } else if(colors.get(n)=='G') {
+                return true;
+            }
+        }
+        colors.put(v,'B');
+        s.append(v);
         return false;
     }
 

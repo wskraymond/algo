@@ -32,6 +32,24 @@ public class SubarraySumEqualsK {
      * @return
      */
     public int subarraySum(int[] nums, int k) {
-        return 0;
+        /*
+            0. value ranges from negative to positive
+            1. a - b = k
+            2. iterate from left to go thru the calculation
+            3. map{b, count} , m = {0:1}
+            4. count+=count
+         */
+        int prefixSum=0, count=0;
+        final int n = nums.length;
+        Map<Integer, Integer> m = new HashMap<>();
+        m.put(0, 1);
+        for(int i=0;i<n;i++){
+            prefixSum+=nums[i];
+            int b = prefixSum - k;
+            count+=m.getOrDefault(b,0);
+
+            m.merge(prefixSum, +1, Integer::sum);
+        }
+        return count;
     }
 }
