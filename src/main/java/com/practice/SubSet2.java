@@ -58,6 +58,7 @@ public class SubSet2 {
     public void dfs(int i , int[] keys, Map<Integer,Long> countMap, Deque<Integer> subset, List<List<Integer>> result){
         if(i==keys.length){
             result.add(new ArrayList<>(subset));
+            return;
         }
 
         int num = keys[i];

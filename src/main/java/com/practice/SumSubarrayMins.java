@@ -57,7 +57,7 @@ public class SumSubarrayMins {
                 int rs = i;
                 int ls = stack.isEmpty() ? -1 : stack.peek();
                 int min = arr[minIndex];
-                sum+=min*(minIndex-ls)*(rs-minIndex);
+                sum+=(long)min*(minIndex-ls)*(rs-minIndex);
             }
 
             stack.push(i);
@@ -69,7 +69,7 @@ public class SumSubarrayMins {
             int rs = n;
             int ls = stack.isEmpty() ? -1 : stack.peek();
             int min = arr[minIndex];
-            sum+=min*(minIndex-ls)*(rs-minIndex);
+            sum+=(long)min*(minIndex-ls)*(rs-minIndex);
         }
 
         return (int)(sum%M);

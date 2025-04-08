@@ -69,11 +69,22 @@ public class KthSmallest {
          *  Space Complexity: logN + 1 = O(log N)
          */
 
-
-        return 0;
+        int[] result = new int[1];
+        inOrder(root, 1,k, result);
+        return result[0];
     }
 
     public int inOrder(TreeNode node, int i, int k, int[] result){
-        return 0;
+        if(node==null || i>k){
+            return i;
+        }
+        i = inOrder(node.left, i, k, result);
+        if(i==k){
+            result[0]=node.val;
+            i++;
+            return i;
+        }
+        i = inOrder(node.right, i, k, result);
+        return i;
     }
 }
