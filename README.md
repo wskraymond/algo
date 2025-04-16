@@ -123,10 +123,11 @@
 - 560\. Subarray Sum Equals K
 
 #### Two pointers
-1) Valid Palindrome
+1) i=0, j=n-1; condition: i < j
    - 125\. Valid Palindrome
-2) Sum 
-   - 259\. 3 Sum Smaller
+   - Sorted: 259\. 3 Sum Smaller
+2) i=0, j=0; condition: i<n , j<m
+   - 925\. Long Pressed Name
 
 #### Max Subarray (Kadane)
 1) Sum
