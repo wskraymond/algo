@@ -1,9 +1,8 @@
 package com.mine.topsort;
 
 import com.mine.topsort.aliendictionary.bfs.AlienDictionary_bfs;
-import com.mine.topsort.aliendictionary.bfs.old.AlienDictionary_with_init_missing_len_check;
 import com.mine.topsort.aliendictionary.dfs.AlienDictionary_dfs;
-import com.practice.AlienDictionary;
+import com.practice.lc.AlienDictionary;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
