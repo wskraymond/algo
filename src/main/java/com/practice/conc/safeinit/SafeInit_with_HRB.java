@@ -1,6 +1,7 @@
 package com.practice.conc.safeinit;
 
-import com.mine.anno.ThreadSafe;
+
+import com.practice.anno.ThreadSafe;
 
 public class SafeInit_with_HRB {
     /*

@@ -51,5 +51,7 @@ public class MinOpToMakeAllElEqual {
         /*
             https://python.readthedocs.io/fr/latest/library/bisect.html
          */
+
+        return null;
     }
 }

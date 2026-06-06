@@ -1,6 +1,7 @@
 package com.practice.conc.safeinit;
 
-import com.mine.anno.NotThreadSafe;
+
+import com.practice.anno.NotThreadSafe;
 
 public class UnSafeInit_without_HBR {
     /**

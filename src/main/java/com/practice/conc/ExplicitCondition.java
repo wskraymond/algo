@@ -1,7 +1,8 @@
 package com.practice.conc;
 
-import com.mine.anno.GuardedBy;
-import com.mine.anno.ThreadSafe;
+
+import com.practice.anno.GuardedBy;
+import com.practice.anno.ThreadSafe;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
