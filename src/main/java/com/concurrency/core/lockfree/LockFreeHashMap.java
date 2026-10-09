@@ -1,4 +1,4 @@
-package com.practice.conc.lockfree;
+package com.concurrency.core.lockfree;
 
 /**
  * Design Simplicity

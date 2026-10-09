@@ -1,4 +1,4 @@
-package com.practice.conc.safeinit;
+package com.concurrency.core.safeinit;
 
 
 import com.practice.anno.NotThreadSafe;

@@ -3,6 +3,7 @@ package com.practice.lc;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SubSet2 {
     /**
@@ -32,45 +33,33 @@ public class SubSet2 {
      *     1 <= nums.length <= 10
      *     -10 <= nums[i] <= 10
      */
-
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        /*
-            1. The solution set must not contain duplicate subsets
-            2. Return the solution in any order
-         */
-        /*
-            map.merge()
-            If the specified key is not already associated with a value
-            or is associated with null, associates it with the given non-null value.
-            Otherwise, replaces the associated value with the results of the given remapping function,
-            or removes if the result is nul
-         */
-        Map<Integer,Long> countMap = Arrays.stream(nums)
-                .mapToObj(Integer::valueOf)
-                .collect(Collectors.groupingBy(Function.identity(),
-                        Collectors.counting()));
-
-        List<List<Integer>> result = new LinkedList<>();
-        dfs(0, countMap.keySet().stream().mapToInt(Integer::intValue).toArray(), countMap, new LinkedList<>(), result);
-        return result; //O(n*(2^n)) + O(2*n)
+        Map<Integer, Long> countMap = Arrays.stream(nums).mapToObj(Integer::valueOf)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        int[] keys = countMap.keySet().stream().mapToInt(Integer::intValue).toArray();
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(0,keys, countMap, new ArrayDeque<>(), result);
+        return result;
     }
 
     public void dfs(int i , int[] keys, Map<Integer,Long> countMap, Deque<Integer> subset, List<List<Integer>> result){
-        if(i==keys.length){
+        //base case
+        if(i==keys.length) {
             result.add(new ArrayList<>(subset));
             return;
         }
 
+        //take number at i
         int num = keys[i];
-
-        //take
-        long newCount = countMap.merge(num, -1L,Long::sum);
         subset.add(num);
-        dfs(newCount>0 ? i : i+1, keys, countMap, subset, result);
-        countMap.merge(num, +1L, Long::sum);
-        subset.removeLast();
+        long remaining = countMap.merge(num, -1L , Long::sum);
+        dfs(remaining>0 ? i : i+1, keys, countMap, subset, result);
 
-        //skip
+        //backtrack
+        subset.removeLast();
+        countMap.merge(num, +1L, Long::sum);
+
+        //skip at i
         dfs(i+1, keys, countMap, subset, result);
     }
 

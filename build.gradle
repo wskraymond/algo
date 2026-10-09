@@ -1,11 +1,16 @@
 plugins {
     id 'java'
+    id 'me.champeau.jmh' version '0.7.3'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group = 'org.example'
+version = '1.0-SNAPSHOT'
 
-sourceCompatibility = 21
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 repositories {
     mavenCentral()
@@ -13,4 +18,31 @@ repositories {
 
 dependencies {
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.openjdk.jol:jol-core:0.17'
+    jmhImplementation 'org.jctools:jctools-core:4.0.6'
+    jmhImplementation 'com.lmax:disruptor:4.0.0'
+    jmhImplementation 'org.agrona:agrona:2.6.1'
+}
+
+
+
+def exportArgs = ['--add-exports=java.base/jdk.internal.vm.annotation=ALL-UNNAMED']
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs.addAll(exportArgs)
+}
+
+jmh {
+    jmhVersion = '1.37'
+    fork = 3
+    warmupIterations = 5
+    iterations = 10
+    jvmArgsAppend = exportArgs + ['-XX:-RestrictContended']
+}
+
+
+tasks.register('layout', JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.concurrency.dsa.LayoutCheck'
+    jvmArgs = exportArgs + ['-XX:-RestrictContended']
 }

@@ -49,53 +49,57 @@ public class WordLadder {
             2. 1 <= beginWord.length <= 10
             3. wordList[i].length == beginWord.length
          */
-        final int n = beginWord.length();
         Set<String> wordSet = new HashSet<>(wordList);
-        wordSet.add(beginWord);
-        if(!wordSet.contains(endWord)){
+        if(!wordSet.contains(endWord) || beginWord.equals(endWord)){
             return 0;
         }
 
-        Map<String, Set<String>> adjList = new HashMap<>();
+        //adjList Key: * at any single letter -> value: a list of words which belongs to the key with only one single letter difference
+        //bi-directed and cyclic graph
+        //Non-DAG
+        Map<String, List<String>> adjList = new HashMap<>();
         for(String word:wordSet){
-            char[] tmp = word.toCharArray();
-            for(int i=0;i<n;i++){
-                char c = tmp[i];
-                tmp[i] = '*';
-                String pattern = String.valueOf(tmp);
-                Set<String> l = adjList.getOrDefault(pattern, new HashSet<>());
-                l.add(word);
-                adjList.putIfAbsent(pattern, l);
-                tmp[i] = c;
+            char[] chars = word.toCharArray();
+            for(int i=0;i<chars.length;i++){
+                char tmp = chars[i];
+                chars[i]='*';
+                String key = String.valueOf(chars);
+                adjList.computeIfAbsent(key, k->new ArrayList<>());
+                adjList.get(key).add(word);
+                chars[i]=tmp;
             }
         }
 
-        //bfs
-        int level=0;
+        //bfs for each * at any letter of a word as a key to find its neighbour
+        //index counting
         Queue<String> q = new LinkedList<>();
         Set<String> visit = new HashSet<>();
-        visit.add(beginWord);
+        int level=0;
         q.offer(beginWord);
+        visit.add(beginWord);
         while(!q.isEmpty()){
             level++;
-            final int s = q.size();
-            for(int i=0;i<s;i++){
-                String word = q.poll();
-                if(word.equals(endWord)){
+            int n = q.size();
+            for(int i=0;i<n;i++){
+                String vertex = q.poll();
+                if(vertex.equals(endWord)){
                     return level;
                 }
-                char[] w = word.toCharArray();
-                for(int j=0;j<n;j++){
-                    char c = w[j];
-                    w[j]='*';
-                    String pattern = String.valueOf(w);
-                    for(String neighbour:adjList.get(pattern)){
-                        if(!visit.contains(neighbour)){
-                            q.offer(neighbour);
-                            visit.add(neighbour);
+
+                char[] chars = vertex.toCharArray();
+                for(int j=0;j<chars.length;j++){
+                    char tmp = chars[j];
+                    chars[j]='*';
+                    String key = String.valueOf(chars);
+                    for(String neighbour : adjList.getOrDefault(key, Collections.emptyList())){
+                        if(visit.contains(neighbour)){
+                           continue;
                         }
+
+                        visit.add(neighbour);
+                        q.offer(neighbour);
                     }
-                    w[j]=c;
+                    chars[j]=tmp;
                 }
             }
         }

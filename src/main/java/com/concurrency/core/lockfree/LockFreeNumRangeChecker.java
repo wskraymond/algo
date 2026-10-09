@@ -1,4 +1,4 @@
-package com.practice.conc.lockfree;
+package com.concurrency.core.lockfree;
 
 import java.util.concurrent.atomic.AtomicReference;
 

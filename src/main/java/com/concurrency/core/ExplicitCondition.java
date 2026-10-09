@@ -1,4 +1,4 @@
-package com.practice.conc;
+package com.concurrency.core;
 
 
 import com.practice.anno.GuardedBy;

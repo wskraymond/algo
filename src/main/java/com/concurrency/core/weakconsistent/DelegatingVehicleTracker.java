@@ -1,4 +1,4 @@
-package com.practice.conc.weakconsistent;
+package com.concurrency.core.weakconsistent;
 
 import java.util.Collections;
 import java.util.HashMap;

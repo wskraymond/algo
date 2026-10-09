@@ -1,4 +1,4 @@
-package com.practice.conc.weaksoftref;
+package com.concurrency.core.weaksoftref;
 
 import java.lang.ref.SoftReference;
 import java.util.Map;
