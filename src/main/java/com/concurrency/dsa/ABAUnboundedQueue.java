@@ -36,7 +36,7 @@ public class ABAUnboundedQueue<T> {
     }
 
     private void free(Node node){
-        node.value = null;
+        node.value = null; //we can use lock-free stack with exchanger
     }
 
     public T deq() throws EmptyException {
