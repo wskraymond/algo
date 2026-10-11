@@ -2,6 +2,10 @@ package com.concurrency.dsa;
 
 import org.junit.Test;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import static org.junit.Assert.*;
@@ -21,7 +25,7 @@ public class SPSCRingBufferCorrectnessTest {
     }
 
     private static Q abq(int cap) {
-        ArrayBlockingQueue<Integer> q = new ArrayBlockingQueue<>(cap);
+        Queue<Integer> q = new LinkedList<>();
         return new Q() {
             public boolean offer(Integer e) { return q.offer(e); }
             public Integer poll() { return q.poll(); }

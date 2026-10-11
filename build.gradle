@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'me.champeau.jmh' version '0.7.3'
+    id 'io.github.reyerizo.gradle.jcstress' version '1.0.0'
 }
 
 group = 'org.example'
@@ -38,6 +39,12 @@ jmh {
     warmupIterations = 5
     iterations = 10
     jvmArgsAppend = exportArgs + ['-XX:-RestrictContended']
+}
+
+jcstress {
+    jcstressDependency 'org.openjdk.jcstress:jcstress-core:0.16'
+    mode = "quick"
+    jvmArgsPrepend = (exportArgs + ['-XX:-RestrictContended']).join(' ')
 }
 
 
